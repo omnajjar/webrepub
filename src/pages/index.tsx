@@ -46,6 +46,9 @@ export default function HomePage() {
             <ButtonLink className='mt-6' href='/components' variant='light'>
               See all components
             </ButtonLink>
+            <ButtonLink className='mt-6' href='/test' variant='light'>
+              Test
+            </ButtonLink>
 
             <UnstyledLink
               href='https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Ftheodorusclarence%2Fts-nextjs-tailwind-starter'
