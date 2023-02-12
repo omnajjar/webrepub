@@ -13,7 +13,7 @@ import {
 import Button from '@/components/buttons/Button';
 import IconButton from '@/components/buttons/IconButton';
 import TextButton from '@/components/buttons/TextButton';
-import Layout from '@/components/layout/Layout';
+import { MainLayout } from '@/components/layout/MainLayout';
 import ArrowLink from '@/components/links/ArrowLink';
 import ButtonLink from '@/components/links/ButtonLink';
 import PrimaryLink from '@/components/links/PrimaryLink';
@@ -35,7 +35,7 @@ export default function ComponentsPage() {
   const textColor = mode === 'dark' ? 'text-gray-300' : 'text-gray-600';
 
   return (
-    <Layout>
+    <MainLayout>
       <Seo
         templateTitle='Components'
         description='Pre-built components with awesome default'
@@ -458,7 +458,7 @@ export default function ComponentsPage() {
           </div>
         </section>
       </main>
-    </Layout>
+    </MainLayout>
   );
 }
 
