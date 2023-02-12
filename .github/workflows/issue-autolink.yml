@@ -11,6 +11,6 @@ jobs:
     steps:
       - uses: tkt-actions/add-issue-links@v1.8.1
         with:
-          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          repo-token: '${{ secrets.APPREPUB_REPO_TOKEN }}'
           branch-prefix: 'i'
           resolve: 'true'
