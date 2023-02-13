@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { PropsWithChildren } from 'react';
 
 import { classNames, isActiveRoute, joinRoutes } from '@/utils';
 
@@ -13,11 +14,7 @@ const tabs = [
   { name: 'Billing', href: inDashboardRoute('/biling') },
 ];
 
-export function DashboardPageLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function DashboardPageLayout({ children }: PropsWithChildren) {
   const router = useRouter();
 
   return (
