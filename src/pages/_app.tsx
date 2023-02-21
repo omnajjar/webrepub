@@ -4,6 +4,7 @@ import { ReactElement, ReactNode } from 'react';
 
 import '@/styles/globals.css';
 import '@/styles/colors.css';
+import '@/styles/builder.css';
 
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
