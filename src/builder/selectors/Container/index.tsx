@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { CSSProperties, PropsWithChildren } from 'react';
 
 import { ContainerSettings } from './ContainerSettings';
 import { Resizer } from '../Resizer';
 
-export type ContainerProps = {
+export interface ContainerProps extends PropsWithChildren {
   background: Record<'r' | 'g' | 'b' | 'a', number>;
   color: Record<'r' | 'g' | 'b' | 'a', number>;
   flexDirection: string;
@@ -19,9 +19,9 @@ export type ContainerProps = {
   marginBottom: number;
   marginRight: number;
   shadow: number;
-  children: React.ReactNode;
   radius: number;
-};
+  extraStyles?: CSSProperties;
+}
 
 const defaultProps = {
   flexDirection: 'column',
@@ -55,6 +55,7 @@ export const Container = (props: Partial<ContainerProps>) => {
     shadow,
     radius,
     children,
+    extraStyles,
   } = props;
   return (
     <Resizer
@@ -73,9 +74,11 @@ export const Container = (props: Partial<ContainerProps>) => {
             : `0px 3px 100px ${shadow}px rgba(0, 0, 0, 0.13)`,
         borderRadius: `${radius}px`,
         flex: fillSpace === 'yes' ? 1 : 'unset',
+        ...extraStyles,
       }}
     >
       {children}
+      <div style={{}}></div>
     </Resizer>
   );
 };

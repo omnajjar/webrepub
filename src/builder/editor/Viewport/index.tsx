@@ -45,7 +45,7 @@ export const Viewport: React.FC<{ children?: React.ReactNode }> = ({
         className={cx(['fixed flex h-full w-full flex-row overflow-hidden'])}
       >
         <Toolbox />
-        <div className='page-container flex h-full flex-1 flex-col'>
+        <div className='page-container bg-white-smoke flex h-full flex-1 flex-col'>
           <Header />
           <div
             className={cx([

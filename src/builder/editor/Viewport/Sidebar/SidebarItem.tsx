@@ -50,11 +50,11 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
     <SidebarItemDiv visible={visible} height={height} className='flex flex-col'>
       <HeaderDiv
         onClick={() => {
-          if (onChange) onChange(!visible);
+          if (onChange) {
+            onChange(!visible);
+          }
         }}
-        className={`flex cursor-pointer items-center border-b bg-white px-2 last:border-b-0 ${
-          visible ? 'shadow-sm' : ''
-        }`}
+        className='flex cursor-pointer items-center border-b-2 bg-white px-2 last:border-b-0'
       >
         <div className='flex flex-1 items-center'>
           {React.createElement(icon, { className: 'w-4 h-4 mr-2' })}

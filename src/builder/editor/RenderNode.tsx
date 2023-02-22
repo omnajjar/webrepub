@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEditor, useNode } from '@craftjs/core';
 import { ROOT_NODE } from '@craftjs/utils';
 import React, { useCallback, useEffect, useRef } from 'react';
@@ -33,7 +34,7 @@ const Btn = styled.a`
   }
 `;
 
-export const RenderNode = ({ render }) => {
+export const RenderNode = ({ render }: any) => {
   const { id } = useNode();
   const { actions, query, isActive } = useEditor((_, query) => ({
     isActive: query.getEvent('selected').contains(id),
@@ -88,12 +89,12 @@ export const RenderNode = ({ render }) => {
   useEffect(() => {
     document
       .querySelector('.craftjs-renderer')
-      .addEventListener('scroll', scroll);
+      ?.addEventListener('scroll', scroll);
 
     return () => {
       document
         .querySelector('.craftjs-renderer')
-        .removeEventListener('scroll', scroll);
+        ?.removeEventListener('scroll', scroll);
     };
   }, [scroll]);
 

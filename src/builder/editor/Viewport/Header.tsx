@@ -1,6 +1,8 @@
 import { useEditor } from '@craftjs/core';
 import { Tooltip } from '@material-ui/core';
 import cx from 'classnames';
+import lz from 'lzutf8';
+import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -15,7 +17,6 @@ const HeaderDiv = styled.div`
   z-index: 99999;
   position: relative;
   padding: 0px 10px;
-  background: #d4d4d4;
   display: flex;
 `;
 
@@ -52,14 +53,18 @@ const Item = styled.a<{ disabled?: boolean }>`
 `;
 
 export const Header = () => {
-  const { enabled, canUndo, canRedo, actions } = useEditor((state, query) => ({
-    enabled: state.options.enabled,
-    canUndo: query.history.canUndo(),
-    canRedo: query.history.canRedo(),
-  }));
+  const { enabled, canUndo, canRedo, actions, query } = useEditor(
+    (state, query) => ({
+      enabled: state.options.enabled,
+      canUndo: query.history.canUndo(),
+      canRedo: query.history.canRedo(),
+    })
+  );
+
+  const router = useRouter();
 
   return (
-    <HeaderDiv className='header w-full text-white transition'>
+    <HeaderDiv className='header w-full bg-white text-white transition'>
       <div className='flex w-full items-center justify-end px-4'>
         {enabled && (
           <div className='flex flex-1'>
@@ -77,11 +82,50 @@ export const Header = () => {
         )}
         <div className='flex'>
           <Btn
+            className='mr-2 cursor-pointer bg-primary-500 transition'
+            onClick={() => {
+              router.push('/');
+            }}
+          >
+            Home
+          </Btn>
+          <Btn
+            className='mr-2 cursor-pointer bg-primary-500 transition'
+            onClick={() => {
+              const compressedJson = lz.encodeBase64(
+                lz.compress(query.serialize())
+              );
+              window.localStorage.setItem('design', compressedJson);
+            }}
+          >
+            Save
+          </Btn>
+          <Btn
+            className='mr-2 cursor-pointer bg-primary-500 transition'
+            onClick={() => {
+              const savedDesign = window.localStorage.getItem('design');
+              if (savedDesign) {
+                const json = lz.decompress(lz.decodeBase64(savedDesign));
+                actions.deserialize(json);
+              }
+            }}
+          >
+            Load
+          </Btn>
+          <Btn
+            className='mr-2 cursor-pointer bg-primary-500 transition'
+            onClick={() => {
+              window.localStorage.removeItem('desing');
+            }}
+          >
+            Clear
+          </Btn>
+          <Btn
             className={cx([
               'cursor-pointer transition',
               {
                 'bg-green-400': enabled,
-                'bg-primary': !enabled,
+                'bg-primary-500': !enabled,
               },
             ])}
             onClick={() => {
