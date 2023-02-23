@@ -8,6 +8,7 @@ import {
   HomeIcon,
   InboxIcon,
   MenuAlt2Icon,
+  PrinterIcon,
   UsersIcon,
   XIcon,
 } from '@heroicons/react/outline';
@@ -27,6 +28,7 @@ const navigation = [
   { name: 'Projects', href: '/projects', Icon: FolderIcon },
   { name: 'Calendar', href: '/calendar', Icon: CalendarIcon },
   { name: 'Documents', href: '/documents', Icon: InboxIcon },
+  { name: 'Print', href: '/print', Icon: PrinterIcon },
   { name: 'Reports', href: '/reports', Icon: ChartBarIcon },
 ];
 const userNavigation = [

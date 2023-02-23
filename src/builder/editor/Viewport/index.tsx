@@ -56,7 +56,10 @@ export const Viewport: React.FC<{ children?: React.ReactNode }> = ({
             ])}
             ref={(ref) => connectors.select(connectors.hover(ref, null), null)}
           >
-            <div className='relative flex flex-col items-center pt-8'>
+            <div
+              className='relative flex flex-col items-center pt-8'
+              style={{ overflow: 'hidden' }}
+            >
               {children}
             </div>
           </div>

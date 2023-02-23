@@ -59,6 +59,9 @@ export function BuilderPage() {
                 background={{ r: 255, g: 255, b: 255, a: 1 }}
                 padding={['40', '40', '40', '40']}
                 custom={{ displayName: 'Document' }}
+                extraStyles={{
+                  overflow: 'hidden', // TODO: a better apparoch is to to parse the content, and apply this style for the root node.
+                }}
               ></Element>
             </Frame>
           </Viewport>

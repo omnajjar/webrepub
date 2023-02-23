@@ -23,7 +23,7 @@ export interface ContainerProps extends PropsWithChildren {
   extraStyles?: CSSProperties;
 }
 
-const defaultProps = {
+const defaultProps: Partial<ContainerProps> = {
   flexDirection: 'column',
   alignItems: 'flex-start',
   justifyContent: 'flex-start',
@@ -78,7 +78,6 @@ export const Container = (props: Partial<ContainerProps>) => {
       }}
     >
       {children}
-      <div style={{}}></div>
     </Resizer>
   );
 };
