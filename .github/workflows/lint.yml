@@ -21,7 +21,7 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version-file: '.nvmrc'
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
@@ -32,7 +32,7 @@ jobs:
       - name: 🔬 Lint
         run: npm run lint:strict
 
-# TODO: uncommnet the typecheck job once POC for builder is revisited and well improved.
+  # TODO: uncommnet the typecheck job once POC for builder is revisited and well improved.
   # typecheck:
   #   name: ʦ TypeScript
   #   runs-on: ubuntu-latest
@@ -43,7 +43,7 @@ jobs:
   #     - name: ⎔ Setup node
   #       uses: actions/setup-node@v3
   #       with:
-  #         node-version: 18
+  #         node-version-file: '.nvmrc'
 
   #     - name: 📥 Download deps
   #       uses: bahmutov/npm-install@v1
@@ -63,7 +63,7 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version-file: '.nvmrc'
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
@@ -83,7 +83,7 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version-file: '.nvmrc'
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
