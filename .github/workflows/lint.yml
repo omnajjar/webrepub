@@ -21,10 +21,13 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
+        # TODO: remove the line below once peer deps issue solved (applies on other jobs)
+        with:
+          install-command: npm i --legacy-peer-deps
 
       - name: 🔬 Lint
         run: npm run lint:strict
@@ -39,10 +42,12 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm i --legacy-peer-deps
 
       - name: 🔎 Type check
         run: npm run typecheck
@@ -57,10 +62,12 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm i --legacy-peer-deps
 
       - name: 💅 Prettier check
         run: npm run format:check
@@ -75,10 +82,12 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm i --legacy-peer-deps
 
       - name: 🃏 Run jest
         run: npm run test
