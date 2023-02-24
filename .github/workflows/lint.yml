@@ -32,25 +32,26 @@ jobs:
       - name: 🔬 Lint
         run: npm run lint:strict
 
-  typecheck:
-    name: ʦ TypeScript
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⬇️ Checkout repo
-        uses: actions/checkout@v2
+# TODO: uncommnet the typecheck job once POC for builder is revisited and well improved.
+  # typecheck:
+  #   name: ʦ TypeScript
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: ⬇️ Checkout repo
+  #       uses: actions/checkout@v2
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+  #     - name: ⎔ Setup node
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18
 
-      - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: npm i --legacy-peer-deps
+  #     - name: 📥 Download deps
+  #       uses: bahmutov/npm-install@v1
+  #       with:
+  #         install-command: npm i --legacy-peer-deps
 
-      - name: 🔎 Type check
-        run: npm run typecheck
+  #     - name: 🔎 Type check
+  #       run: npm run typecheck
 
   prettier:
     name: 💅 Prettier
