@@ -1,17 +1,11 @@
 import { Editor, Frame } from '@craftjs/core';
-import { useEffect, useState } from 'react';
 
 import { PrintViewPort } from '@/builder/editor/Viewport/PrintViewPort';
 import { Container, Text } from '@/builder/selectors';
 
 function Print() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
-
-  return isLoaded ? (
-    <div className='h-full h-screen'>
+  return (
+    <div className='flex justify-center'>
       <Editor
         resolver={{
           Container,
@@ -24,8 +18,6 @@ function Print() {
         </PrintViewPort>
       </Editor>
     </div>
-  ) : (
-    <div>Loading...</div>
   );
 }
 
