@@ -1,16 +1,22 @@
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useSessionContext } from '@supabase/auth-helpers-react';
 import { Auth as SupabaseAuthUI, ThemeSupa } from '@supabase/auth-ui-react';
 
 import { AuthPageLayout } from '@/components/layout/AuthPageLayout';
 import { MainLayout } from '@/components/layout/MainLayout';
+import { Spinner } from '@/components/Spinner';
 
 function HomePage() {
-  const session = useSession();
-  const supabase = useSupabaseClient();
+  const { isLoading, session, supabaseClient } = useSessionContext();
 
-  const isAuthenticated = session != null;
+  if (isLoading) {
+    return (
+      <main className='flex h-screen items-center justify-center'>
+        <Spinner />
+      </main>
+    );
+  }
 
-  return isAuthenticated ? (
+  return session ? (
     <MainLayout>
       <main>Hello there main!</main>
     </MainLayout>
@@ -19,7 +25,7 @@ function HomePage() {
       <SupabaseAuthUI
         providers={['github', 'gitlab', 'google']}
         socialLayout='vertical'
-        supabaseClient={supabase}
+        supabaseClient={supabaseClient}
         magicLink={true}
         appearance={{ theme: ThemeSupa }}
       />
