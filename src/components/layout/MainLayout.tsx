@@ -2,17 +2,14 @@
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
   BellIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
   HomeIcon,
   InboxIcon,
   MenuAlt2Icon,
   PrinterIcon,
-  UsersIcon,
   XIcon,
 } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
@@ -24,22 +21,16 @@ import { classNames, isActiveRoute } from '@/utils';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', Icon: HomeIcon },
-  { name: 'MVPs', href: '/mvps', Icon: UsersIcon },
-  { name: 'Projects', href: '/projects', Icon: FolderIcon },
-  { name: 'Calendar', href: '/calendar', Icon: CalendarIcon },
-  { name: 'Documents', href: '/documents', Icon: InboxIcon },
+  { name: 'Document builder', href: '/document-builder', Icon: InboxIcon },
   { name: 'Print', href: '/print', Icon: PrinterIcon },
-  { name: 'Reports', href: '/reports', Icon: ChartBarIcon },
-];
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
 ];
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
+  const supabase = useSupabaseClient();
+
+  const signOut = () => supabase.auth.signOut();
 
   return (
     <div>
@@ -242,21 +233,19 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     leaveTo='transform opacity-0 scale-95'
                   >
                     <Menu.Items className='absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-                      {userNavigation.map((item) => (
-                        <Menu.Item key={item.name}>
-                          {({ active }) => (
-                            <a
-                              href={item.href}
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block py-2 px-4 text-sm text-gray-700'
-                              )}
-                            >
-                              {item.name}
-                            </a>
-                          )}
-                        </Menu.Item>
-                      ))}
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            className={classNames(
+                              active ? 'bg-gray-100' : '',
+                              'block py-2 px-4 text-sm text-gray-700'
+                            )}
+                            onClick={signOut}
+                          >
+                            Sign out
+                          </a>
+                        )}
+                      </Menu.Item>
                     </Menu.Items>
                   </Transition>
                 </Menu>
