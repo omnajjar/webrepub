@@ -23,7 +23,7 @@ function HomePage() {
   ) : (
     <AuthPageLayout>
       <SupabaseAuthUI
-        providers={['github', 'gitlab', 'google']}
+        providers={['github', 'gitlab', 'google']} // TODO: these providers needs to be configured.
         socialLayout='vertical'
         supabaseClient={supabaseClient}
         magicLink={true}
