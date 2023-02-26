@@ -10,10 +10,12 @@ import { Auth as SupabaseAuthUI, ThemeSupa } from '@supabase/auth-ui-react';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import { ReactElement, ReactNode, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 import '@/styles/globals.css';
 import '@/styles/colors.css';
 import '@/styles/builder.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { AuthPageLayout } from '@/components/layout/AuthPageLayout';
 import { GlobalSpinner } from '@/components/Spinner';
@@ -40,6 +42,7 @@ function MyApp({ Component, pageProps, initialSession }: DocrepubAppProps) {
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/* @ts-ignore */}
       <Render Component={Component} pageProps={pageProps} />
+      <ToastContainer />
     </SessionContextProvider>
   );
 }

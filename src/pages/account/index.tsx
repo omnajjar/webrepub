@@ -1,10 +1,14 @@
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useSessionContext, useUser } from '@supabase/auth-helpers-react';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { toast } from 'react-toastify';
 
+import Button from '@/components/buttons/Button';
 import { MainLayout } from '@/components/layout/MainLayout';
 
 import { AccountPageLayout } from '@/pages/account/_layout';
+import { ensure } from '@/utils';
 
 type AccountProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -39,17 +43,40 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 }
 
 function Account(props: AccountProps) {
+  const { supabaseClient: supabase } = useSessionContext();
+  const user = ensure(useUser());
+
   const [firstName, setFirstName] = useState(props.firstName);
   const [lastName, setLastName] = useState(props.lastName);
+  const [loading, setLoading] = useState(false);
 
   const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) =>
     setFirstName(e.target.value);
   const handleLastNameChange = (e: ChangeEvent<HTMLInputElement>) =>
     setLastName(e.target.value);
 
+  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const { error } = await supabase
+      .from('accounts')
+      .update({ first_name: firstName.trim(), last_name: lastName.trim() })
+      .eq('id', user.id);
+    setLoading(false);
+
+    if (error) {
+      toast.error(
+        `Oops! Failed to save your personal information (code: ${error?.code})`
+      );
+    } else {
+      toast.success('Account saved successfully!');
+    }
+  };
+
   return (
     <section>
-      <form action='#' method='POST'>
+      <form onSubmit={handleFormSubmit}>
         <div className='sm:overflow-hidden sm:rounded-md'>
           <div className='space-y-6 bg-white'>
             <div>
@@ -116,12 +143,14 @@ function Account(props: AccountProps) {
             </div>
           </div>
           <div className='py-3'>
-            <button
+            <Button
+              variant='primary'
               type='submit'
-              className='inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+              loadingCaption='Saving...'
+              isLoading={loading}
             >
               Save
-            </button>
+            </Button>
           </div>
         </div>
       </form>

@@ -5,13 +5,12 @@ import { ImSpinner2 } from 'react-icons/im';
 import clsxm from '@/utils/clsxm';
 
 const ButtonVariant = ['primary', 'outline', 'ghost', 'light', 'dark'] as const;
-const ButtonSize = ['sm', 'base'] as const;
 
 type ButtonProps = {
   isLoading?: boolean;
+  loadingCaption?: string;
   isDarkBg?: boolean;
   variant?: (typeof ButtonVariant)[number];
-  size?: (typeof ButtonSize)[number];
   leftIcon?: IconType;
   rightIcon?: IconType;
   leftIconClassName?: string;
@@ -25,8 +24,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       disabled: buttonDisabled,
       isLoading,
+      loadingCaption,
       variant = 'primary',
-      size = 'base',
       isDarkBg = false,
       leftIcon: LeftIcon,
       rightIcon: RightIcon,
@@ -44,24 +43,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type='button'
         disabled={disabled}
         className={clsxm(
-          'inline-flex items-center rounded font-medium',
-          'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
-          'shadow-sm',
-          'transition-colors duration-75',
-          //#region  //*=========== Size ===========
-          [
-            size === 'base' && ['px-3 py-1.5', 'text-sm md:text-base'],
-            size === 'sm' && ['px-2 py-1', 'text-xs md:text-sm'],
-          ],
-          //#endregion  //*======== Size ===========
           //#region  //*=========== Variants ===========
           [
             variant === 'primary' && [
-              'bg-primary-500 text-white',
-              'border border-primary-600',
-              'hover:bg-primary-600 hover:text-white',
-              'active:bg-primary-700',
-              'disabled:bg-primary-700',
+              'inline-flex justify-center',
+              'rounded-md border',
+              'border-transparent bg-indigo-600',
+              'py-2 px-4',
+              'text-sm font-medium',
+              'text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
             ],
             variant === 'outline' && [
               'text-primary-500',
@@ -100,7 +90,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {isLoading && (
           <div
             className={clsxm(
-              'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
+              // 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
+              'flex items-center',
               {
                 'text-white': ['primary', 'dark'].includes(variant),
                 'text-black': ['light'].includes(variant),
@@ -109,43 +100,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             )}
           >
             <ImSpinner2 className='animate-spin' />
+            <span className='ml-1'>{loadingCaption}</span>
           </div>
         )}
         {LeftIcon && (
-          <div
-            className={clsxm([
-              size === 'base' && 'mr-1',
-              size === 'sm' && 'mr-1.5',
-            ])}
-          >
-            <LeftIcon
-              className={clsxm(
-                [
-                  size === 'base' && 'md:text-md text-md',
-                  size === 'sm' && 'md:text-md text-sm',
-                ],
-                leftIconClassName
-              )}
-            />
+          <div>
+            <LeftIcon className={leftIconClassName} />
           </div>
         )}
-        {children}
+        {isLoading ? null : children}
         {RightIcon && (
-          <div
-            className={clsxm([
-              size === 'base' && 'ml-1',
-              size === 'sm' && 'ml-1.5',
-            ])}
-          >
-            <RightIcon
-              className={clsxm(
-                [
-                  size === 'base' && 'text-md md:text-md',
-                  size === 'sm' && 'md:text-md text-sm',
-                ],
-                rightIconClassName
-              )}
-            />
+          <div>
+            <RightIcon className={rightIconClassName} />
           </div>
         )}
       </button>
