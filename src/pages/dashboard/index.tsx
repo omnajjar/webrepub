@@ -17,4 +17,6 @@ DashboardPage.getLayout = function getLayout(page: JSX.Element) {
   );
 };
 
+DashboardPage.protected = true;
+
 export default DashboardPage;

@@ -16,9 +16,8 @@ import { Fragment, PropsWithChildren, useState } from 'react';
 import { IDAvatar } from '@/components/IDAvatar';
 import { MenuDropDown, MenuItem } from '@/components/MenuDropDown';
 import NextImage from '@/components/NextImage';
-import { GlobalSpinner } from '@/components/Spinner';
 
-import { classNames, isActiveRoute } from '@/utils';
+import { classNames, ensure, isActiveRoute } from '@/utils';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', Icon: HomeIcon },
@@ -34,7 +33,7 @@ export function MainLayout({ children, title }: MainLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
   const supabase = useSupabaseClient();
-  const user = useUser();
+  const user = ensure(useUser());
 
   const signOut = () => supabase.auth.signOut();
   const goToAccountPage = () => router.push('/account');
@@ -43,10 +42,6 @@ export function MainLayout({ children, title }: MainLayoutProps) {
     { caption: 'My account', action: goToAccountPage },
     { caption: 'Sign out', action: signOut },
   ];
-
-  if (!user) {
-    return <GlobalSpinner />;
-  }
 
   return (
     <div>

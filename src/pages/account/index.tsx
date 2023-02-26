@@ -137,4 +137,6 @@ Account.getLayout = function getLayout(page: JSX.Element) {
   );
 };
 
+Account.protected = true;
+
 export default Account;
