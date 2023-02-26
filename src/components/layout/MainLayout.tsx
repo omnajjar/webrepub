@@ -190,7 +190,7 @@ export function MainLayout({ children, title }: MainLayoutProps) {
               <span className='sr-only'>Open sidebar</span>
               <MenuAlt2Icon className='h-6 w-6' aria-hidden='true' />
             </button>
-            <div className='flex flex-1 justify-between px-4 md:px-0'>
+            <div className='flex flex-1 justify-between border-b px-4 md:px-0'>
               <div className='flex flex-1 items-center'>
                 <h2 className='text-2xl leading-7 text-gray-900 sm:truncate sm:text-3xl'>
                   {title}
