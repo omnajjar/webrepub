@@ -11,14 +11,14 @@ import {
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import * as React from 'react';
-import { Fragment, useState } from 'react';
+import { Fragment, PropsWithChildren, useState } from 'react';
 
 import { IDAvatar } from '@/components/IDAvatar';
 import { MenuDropDown, MenuItem } from '@/components/MenuDropDown';
 import NextImage from '@/components/NextImage';
+import { GlobalSpinner } from '@/components/Spinner';
 
-import { classNames, ensure, isActiveRoute } from '@/utils';
+import { classNames, isActiveRoute } from '@/utils';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', Icon: HomeIcon },
@@ -26,11 +26,15 @@ const navigation = [
   { name: 'Print', href: '/print', Icon: PrinterIcon },
 ];
 
-export function MainLayout({ children }: { children: React.ReactNode }) {
+interface MainLayoutProps extends PropsWithChildren {
+  title?: string;
+}
+
+export function MainLayout({ children, title }: MainLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
   const supabase = useSupabaseClient();
-  const user = ensure(useUser());
+  const user = useUser();
 
   const signOut = () => supabase.auth.signOut();
   const goToAccountPage = () => router.push('/account');
@@ -39,6 +43,10 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
     { caption: 'My account', action: goToAccountPage },
     { caption: 'Sign out', action: signOut },
   ];
+
+  if (!user) {
+    return <GlobalSpinner />;
+  }
 
   return (
     <div>
@@ -178,7 +186,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
       <div className='md:pl-64'>
         <div className='mx-auto flex flex-col p-4 md:px-8'>
-          <div className='sticky top-0 z-10 mb-4 flex h-16 flex-shrink-0 border-b border-gray-200 bg-white'>
+          <div className='sticky top-0 z-10 mb-4 flex h-16 flex-shrink-0  bg-white'>
             <button
               type='button'
               className='border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden'
@@ -188,7 +196,11 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               <MenuAlt2Icon className='h-6 w-6' aria-hidden='true' />
             </button>
             <div className='flex flex-1 justify-between px-4 md:px-0'>
-              <div className='flex flex-1'></div>
+              <div className='flex flex-1 items-center'>
+                <h2 className='text-2xl leading-7 text-gray-900 sm:truncate sm:text-3xl'>
+                  {title}
+                </h2>
+              </div>
               <div className='ml-4 flex items-center md:ml-6'>
                 <button
                   type='button'

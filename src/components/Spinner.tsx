@@ -21,3 +21,11 @@ export function Spinner() {
     </div>
   );
 }
+
+export function GlobalSpinner() {
+  return (
+    <main className='flex h-screen items-center justify-center'>
+      <Spinner />
+    </main>
+  );
+}
