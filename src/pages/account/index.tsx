@@ -5,9 +5,9 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Button from '@/components/buttons/Button';
+import { AccountPageLayout } from '@/components/layout/AccountPageLayout';
 import { MainLayout } from '@/components/layout/MainLayout';
 
-import { AccountPageLayout } from '@/pages/account/_layout';
 import { ensure } from '@/utils';
 
 type AccountProps = InferGetServerSidePropsType<typeof getServerSideProps>;

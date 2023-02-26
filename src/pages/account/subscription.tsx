@@ -1,6 +1,5 @@
+import { AccountPageLayout } from '@/components/layout/AccountPageLayout';
 import { MainLayout } from '@/components/layout/MainLayout';
-
-import { AccountPageLayout } from '@/pages/account/_layout';
 
 function Subscription() {
   return <main>Subs</main>;
