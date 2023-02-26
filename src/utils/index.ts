@@ -12,3 +12,11 @@ export function joinRoutes(mainRoute: string, nestedRout: string): string {
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
+
+export function ensure<T>(value: T) {
+  if (value == undefined) {
+    throw new Error('value must be defined');
+  }
+
+  return value;
+}

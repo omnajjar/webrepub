@@ -1,7 +1,6 @@
-import { DashboardPageLayout } from '@/components/layout/DashboardPageLayout';
 import { MainLayout } from '@/components/layout/MainLayout';
 
-export default function AccountsPage() {
+function Account() {
   return (
     <main className='flex-1'>
       <div className='py-6'>
@@ -20,10 +19,8 @@ export default function AccountsPage() {
   );
 }
 
-AccountsPage.getLayout = function getLayout(page: JSX.Element) {
-  return (
-    <MainLayout>
-      <DashboardPageLayout>{page}</DashboardPageLayout>
-    </MainLayout>
-  );
+Account.getLayout = function getLayout(page: JSX.Element) {
+  return <MainLayout>{page}</MainLayout>;
 };
+
+export default Account;
