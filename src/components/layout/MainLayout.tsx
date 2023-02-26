@@ -2,9 +2,9 @@
 import { Dialog, Transition } from '@headlessui/react';
 import {
   BellIcon,
-  HomeIcon,
-  InboxIcon,
+  CollectionIcon,
   MenuAlt2Icon,
+  PencilAltIcon,
   PrinterIcon,
   XIcon,
 } from '@heroicons/react/outline';
@@ -20,8 +20,8 @@ import NextImage from '@/components/NextImage';
 import { classNames, ensure, isActiveRoute } from '@/utils';
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', Icon: HomeIcon },
-  { name: 'Document builder', href: '/document-builder', Icon: InboxIcon },
+  { name: 'Projects', href: '/projects', Icon: CollectionIcon },
+  { name: 'Document editor', href: '/document-editor', Icon: PencilAltIcon },
   { name: 'Print', href: '/print', Icon: PrinterIcon },
 ];
 
