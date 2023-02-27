@@ -8,12 +8,13 @@ import Button from '@/components/buttons/Button';
 import { AccountPageLayout } from '@/components/layout/AccountPageLayout';
 import { MainLayout } from '@/components/layout/MainLayout';
 
+import { Database } from '@/schema';
 import { ensure } from '@/utils';
 
 type AccountProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const supabase = createServerSupabaseClient(ctx);
+  const supabase = createServerSupabaseClient<Database>(ctx);
   // Check if we have a session
   const {
     data: { session },
@@ -33,11 +34,17 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     .eq('id', session.user.id)
     .single();
 
+  const {
+    first_name: firstName,
+    last_name: lastName,
+    username: email,
+  } = ensure(data);
+
   return {
     props: {
-      firstName: data?.first_name ?? '',
-      lastName: data?.last_name ?? '',
-      email: data?.username,
+      firstName: firstName ?? '',
+      lastName: lastName ?? '',
+      email,
     },
   };
 }
