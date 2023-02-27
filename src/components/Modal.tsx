@@ -7,7 +7,7 @@ interface ModalProps extends PropsWithChildren {
   setIsOpen: (v: boolean) => void;
 }
 
-export default function Modal({ isOpen, setIsOpen, children }: ModalProps) {
+export function Modal({ isOpen, setIsOpen, children }: ModalProps) {
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog

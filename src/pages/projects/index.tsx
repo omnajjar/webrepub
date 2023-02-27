@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import Button from '@/components/buttons/Button';
 import { IDAvatar } from '@/components/IDAvatar';
 import { MainLayout } from '@/components/layout/MainLayout';
-import Modal from '@/components/Modal';
+import { Modal } from '@/components/Modal';
 import { NewFolder } from '@/components/svg/NewFolder';
 
 import { Database } from '@/schema';
