@@ -1,7 +1,9 @@
-export function NewFolder() {
+import { classNames } from '@/utils';
+
+export function NewFolder({ className }: { className?: string }) {
   return (
     <svg
-      className='mx-auto h-12 w-12 text-gray-400'
+      className={classNames('mx-auto h-12 w-12', className ?? '')}
       fill='none'
       viewBox='0 0 24 24'
       stroke='currentColor'

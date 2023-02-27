@@ -1,7 +1,5 @@
-import {
-  NewProjectListItem,
-  ProjectListItem,
-} from '@/components/projects/ProjectListItem';
+import { NewProjectListItem } from '@/components/projects/NewProjectListItem';
+import { ProjectListItem } from '@/components/projects/ProjectListItem';
 
 import { Database } from '@/schema';
 
