@@ -16,7 +16,7 @@ export interface Database {
           id: string;
           last_name: string | null;
           onboarded: boolean;
-          updated_at: string | null;
+          updated_at: string;
           username: string;
         };
         Insert: {
@@ -25,7 +25,7 @@ export interface Database {
           id: string;
           last_name?: string | null;
           onboarded?: boolean;
-          updated_at?: string | null;
+          updated_at?: string;
           username?: string;
         };
         Update: {
@@ -34,7 +34,7 @@ export interface Database {
           id?: string;
           last_name?: string | null;
           onboarded?: boolean;
-          updated_at?: string | null;
+          updated_at?: string;
           username?: string;
         };
       };
@@ -45,7 +45,7 @@ export interface Database {
           id: string;
           name: string;
           owner: string;
-          updated_at: string | null;
+          updated_at: string;
         };
         Insert: {
           created_at?: string | null;
@@ -53,7 +53,7 @@ export interface Database {
           id?: string;
           name: string;
           owner: string;
-          updated_at?: string | null;
+          updated_at?: string;
         };
         Update: {
           created_at?: string | null;
@@ -61,7 +61,7 @@ export interface Database {
           id?: string;
           name?: string;
           owner?: string;
-          updated_at?: string | null;
+          updated_at?: string;
         };
       };
     };

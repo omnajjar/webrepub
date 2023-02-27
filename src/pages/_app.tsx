@@ -20,6 +20,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AuthPageLayout } from '@/components/layout/AuthPageLayout';
 import { GlobalSpinner } from '@/components/Spinner';
 
+import { Database } from '@/schema';
+
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
   protected?: boolean;
@@ -32,7 +34,7 @@ type DocrepubAppProps = AppProps & {
 
 function MyApp({ Component, pageProps, initialSession }: DocrepubAppProps) {
   // Use the layout defined at the page level, if available
-  const [supabase] = useState(() => createBrowserSupabaseClient());
+  const [supabase] = useState(() => createBrowserSupabaseClient<Database>());
 
   return (
     <SessionContextProvider
