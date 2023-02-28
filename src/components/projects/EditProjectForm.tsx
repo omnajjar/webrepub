@@ -37,9 +37,7 @@ export function EditProjectForm({ project }: EditProjectFormProps) {
     setLoading(false);
 
     if (error) {
-      toast.error(
-        `Oops! Failed to create a new project (code: ${error?.code})`
-      );
+      toast.error(`Oops! Failed to save your changes (code: ${error?.code})`);
     } else {
       setProjectName(data.name);
       setDescription(data.description ?? '');
