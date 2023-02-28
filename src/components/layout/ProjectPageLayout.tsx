@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import { PropsWithChildren, useEffect, useState } from 'react';
 
-import { TabRouting } from '@/components/layout/TabRouting';
+import { Tab, TabRouting } from '@/components/layout/TabRouting';
 import { GlobalSpinner } from '@/components/Spinner';
 
-export function AccountPageLayout({ children }: PropsWithChildren) {
-  const { isReady, asPath } = useRouter();
+export function ProjectPageLayout({ children }: PropsWithChildren) {
+  const { isReady, query, asPath } = useRouter();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,16 +18,20 @@ export function AccountPageLayout({ children }: PropsWithChildren) {
     return <GlobalSpinner />;
   }
 
-  const tabs = [
+  const { projectId } = query;
+
+  const mainRoute = `/projects/${projectId}`;
+
+  const tabs: Tab[] = [
     {
-      caption: 'Personal information',
-      current: asPath === '/account',
-      link: '/account',
+      caption: 'Project details',
+      current: asPath === mainRoute,
+      link: mainRoute,
     },
     {
-      caption: 'Subscription',
-      current: asPath === '/account/subscription',
-      link: '/account/subscription',
+      caption: 'Settings',
+      current: asPath === `${mainRoute}/settings`,
+      link: `${mainRoute}/settings`,
     },
   ];
 

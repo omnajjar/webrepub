@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-interface Tab {
+export interface Tab {
   caption: string;
   link: string;
   current: boolean;
@@ -26,7 +26,7 @@ export function TabRouting({ tabs }: TabRoutingProps) {
           id='tabs'
           name='tabs'
           className='block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-          defaultValue={tabs.filter(({ current }) => current)[0].link}
+          defaultValue={tabs.filter(({ current }) => current)[0]?.link}
           onChange={(e) => router.push(e.target.value)}
         >
           {tabs.map(({ caption, link }) => (

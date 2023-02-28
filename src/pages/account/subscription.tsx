@@ -13,4 +13,6 @@ Subscription.getLayout = function getLayout(page: JSX.Element) {
   );
 };
 
+Subscription.protected = true;
+
 export default Subscription;
