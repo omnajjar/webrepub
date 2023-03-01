@@ -17,13 +17,14 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session)
+  if (!session) {
     return {
       redirect: {
         destination: '/',
         permanent: false,
       },
     };
+  }
 
   const projectId = ensure(ctx.params).projectId;
 
