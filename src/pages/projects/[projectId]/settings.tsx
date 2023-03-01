@@ -58,7 +58,7 @@ function Settings({ project }: ProjectSettingsProps) {
         leftIcon={TrashIcon}
         leftIconClassName='-ml-1 mr-2 h-5 w-5'
         onClick={openModal}
-        className='bg-red-500 hover:bg-red-700'
+        className='bg-red-500 outline-red-500 hover:bg-red-700 focus:ring-red-500'
       >
         Delete project
       </Button>
@@ -66,6 +66,7 @@ function Settings({ project }: ProjectSettingsProps) {
         <DeleteProjectForm
           project={ensure(project)}
           onFormSubmit={closeModal}
+          onCancel={closeModal}
         />
       </Modal>
     </section>

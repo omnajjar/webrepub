@@ -1,4 +1,4 @@
-import { TrashIcon } from '@heroicons/react/outline';
+import { TrashIcon, XIcon } from '@heroicons/react/outline';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
@@ -11,12 +11,14 @@ import { Database } from '@/schema';
 
 interface DeleteProjectFormProps {
   project: Database['public']['Tables']['projects']['Row'];
+  onCancel: () => void;
   onFormSubmit?: () => void;
 }
 
 export function DeleteProjectForm({
   project,
   onFormSubmit,
+  onCancel,
 }: DeleteProjectFormProps) {
   const [confirmed, setConfirmed] = useState(false);
   const [confirmedProjectName, setConfirmedProjectName] = useState('');
@@ -106,13 +108,22 @@ export function DeleteProjectForm({
             loadingCaption='Deleting...'
             className={
               confirmed
-                ? 'bg-red-500 hover:bg-red-700'
-                : 'bg-gray-500 hover:bg-gray-500'
+                ? 'bg-red-500 hover:bg-red-700 focus:ring-red-500'
+                : 'bg-gray-500 hover:bg-gray-500 focus:ring-gray-500'
             }
             disabled={!confirmed}
             isLoading={loading}
           >
             Delete
+          </Button>
+          <Button
+            leftIcon={XIcon}
+            leftIconClassName='-ml-1 mr-2 h-5 w-5'
+            loadingCaption='Deleting...'
+            className='ml-2 -mt-2'
+            onClick={onCancel}
+          >
+            Cancel
           </Button>
         </div>
       </div>
