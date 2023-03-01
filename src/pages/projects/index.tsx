@@ -50,7 +50,7 @@ function Projects({ projects }: ProjectsProps) {
         <ProjectList projects={projects} onCreateProjectClicked={openModal} />
       )}
       <Modal isOpen={showModal} setIsOpen={setShowModal}>
-        <NewProjectForm onFormSubmit={closeModal} />
+        <NewProjectForm onFormSubmit={closeModal} onCancel={closeModal} />
       </Modal>
     </section>
   );

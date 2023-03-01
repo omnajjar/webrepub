@@ -1,3 +1,4 @@
+import { PlusCircleIcon, XIcon } from '@heroicons/react/outline';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
@@ -10,9 +11,13 @@ import { ensure } from '@/utils';
 
 interface NewProjectFormProps {
   onFormSubmit?: () => void;
+  onCancel: () => void;
 }
 
-export function NewProjectForm({ onFormSubmit }: NewProjectFormProps) {
+export function NewProjectForm({
+  onFormSubmit,
+  onCancel,
+}: NewProjectFormProps) {
   const supabase = useSupabaseClient<Database>();
   const user = ensure(useUser());
   const router = useRouter();
@@ -105,12 +110,23 @@ export function NewProjectForm({ onFormSubmit }: NewProjectFormProps) {
         </div>
         <div className='border-t py-3'>
           <Button
+            leftIcon={PlusCircleIcon}
+            leftIconClassName='-ml-1 mr-2 h-5 w-5'
             variant='success'
             type='submit'
             loadingCaption='Creating...'
             isLoading={loading}
           >
             Create
+          </Button>
+          <Button
+            leftIcon={XIcon}
+            leftIconClassName='-ml-1 mr-2 h-5 w-5'
+            loadingCaption='Deleting...'
+            className='ml-2 -mt-2'
+            onClick={onCancel}
+          >
+            Cancel
           </Button>
         </div>
       </div>
