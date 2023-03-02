@@ -1,4 +1,4 @@
-import { NewFolder } from '@/components/svg/NewFolder';
+import { NewFolder } from '@/components/svg/NewFolderIcon';
 
 interface NewProjectListItemProps {
   onClick: () => void;

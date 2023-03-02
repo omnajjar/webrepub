@@ -24,6 +24,11 @@ export function ProjectPageLayout({ children }: PropsWithChildren) {
 
   const tabs: Tab[] = [
     {
+      caption: 'Desing',
+      current: asPath === `${mainRoute}/design`,
+      link: `${mainRoute}/design`,
+    },
+    {
       caption: 'Project details',
       current: asPath === mainRoute,
       link: mainRoute,

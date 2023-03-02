@@ -1,7 +1,7 @@
 import { PlusCircleIcon } from '@heroicons/react/outline';
 
 import Button from '@/components/buttons/Button';
-import { NewFolder } from '@/components/svg/NewFolder';
+import { NewFolder } from '@/components/svg/NewFolderIcon';
 
 interface EmptyProjectsProps {
   onCreateProjectClicked: () => void;
