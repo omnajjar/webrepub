@@ -54,7 +54,7 @@ export function NewProjectForm({
         onFormSubmit();
       }
 
-      router.push(`/projects/${data.id}`);
+      router.push(`/projects/${data.id}/design`);
     }
   };
 
