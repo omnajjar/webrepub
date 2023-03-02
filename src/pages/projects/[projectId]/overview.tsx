@@ -11,7 +11,7 @@ import { ensure } from '@/utils';
 
 import DocumentIcon from '~/icons/document.svg';
 
-type DesignProjectProps = InferGetServerSidePropsType<
+type ProjectOverviewProps = InferGetServerSidePropsType<
   typeof getServerSideProps
 >;
 
@@ -45,7 +45,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     },
   };
 }
-function Design({ _project }: DesignProjectProps) {
+function Overview({ _project }: ProjectOverviewProps) {
   // TODO: For new projects render ability to start from a desing template
   // or render continue to design.
   return (
@@ -63,7 +63,7 @@ function Design({ _project }: DesignProjectProps) {
   );
 }
 
-Design.getLayout = function getLayout(page: JSX.Element) {
+Overview.getLayout = function getLayout(page: JSX.Element) {
   return (
     <MainLayout title='Project'>
       <ProjectPageLayout>{page}</ProjectPageLayout>
@@ -71,6 +71,6 @@ Design.getLayout = function getLayout(page: JSX.Element) {
   );
 };
 
-Design.protected = true;
+Overview.protected = true;
 
-export default Design;
+export default Overview;

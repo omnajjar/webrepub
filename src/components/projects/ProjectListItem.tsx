@@ -28,7 +28,7 @@ export function ProjectListItem({ project }: ProjectListItemProps) {
           aria-hidden='true'
         />
         <Link
-          href={`/projects/${id}/design`}
+          href={`/projects/${id}/overview`}
           className='relative mx-2 -mr-px w-40 flex-1 items-center justify-center overflow-hidden text-ellipsis whitespace-nowrap rounded-bl-lg border border-transparent py-3 text-sm font-medium text-gray-700 hover:text-gray-500'
         >
           <span className='overflow-hidden text-ellipsis whitespace-nowrap'>
