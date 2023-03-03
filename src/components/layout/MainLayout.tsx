@@ -95,10 +95,11 @@ export function MainLayout({ children, title }: MainLayoutProps) {
               <div className='flex flex-shrink-0 items-center px-4'>
                 <NextImage
                   className='h-8 w-auto'
-                  src='https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg'
-                  alt='Workflow'
+                  src='/icons/logo.svg'
+                  alt='Logo'
                   height='180'
                   width='180'
+                  imgClassName='cursor-pointer'
                 />
               </div>
               <div className='mt-5 h-0 flex-1 overflow-y-auto'>
@@ -141,13 +142,16 @@ export function MainLayout({ children, title }: MainLayoutProps) {
         {/* Sidebar component, swap this element with another sidebar if you like */}
         <div className='flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5'>
           <div className='flex flex-shrink-0 items-center px-4'>
-            <NextImage
-              className='h-8 w-auto'
-              src='https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg'
-              alt='Workflow'
-              width='180'
-              height='180'
-            />
+            <Link href='/'>
+              <NextImage
+                className='h-8 w-auto'
+                src='/icons/logo.svg'
+                alt='Logo'
+                width='180'
+                height='180'
+                imgClassName='cursor-pointer'
+              />
+            </Link>
           </div>
           <div className='mt-5 flex flex-grow flex-col'>
             <nav className='flex-1 space-y-1 px-2 pb-4'>

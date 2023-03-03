@@ -11,7 +11,7 @@ export function AuthPageLayout({ children }: PropsWithChildren) {
             <div className='mb-8 flex justify-center'>
               <NextImage
                 className='h-20 w-auto'
-                src='https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg'
+                src='/icons/logo.svg'
                 alt='Workflow'
                 height='240'
                 width='240'
