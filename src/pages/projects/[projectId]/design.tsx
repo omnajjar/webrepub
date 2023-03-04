@@ -1,14 +1,12 @@
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 
-import { MainLayout } from '@/components/layout/MainLayout';
-import { ProjectPageLayout } from '@/components/layout/ProjectPageLayout';
-import { EditProjectForm } from '@/components/projects/EditProjectForm';
-
+import { DocumentDesigner } from '@/builder/editor/DocumentDesigner';
 import { Database } from '@/schema';
 import { ensure } from '@/utils';
 
-type EditProjectProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+type DesignPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const supabase = createServerSupabaseClient<Database>(ctx);
@@ -46,23 +44,23 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     },
   };
 }
+function Design({ project }: DesignPageProps) {
+  const supabase = useSupabaseClient<Database>();
 
-function Project({ project }: EditProjectProps) {
-  return (
-    <section>
-      <EditProjectForm project={project} />
-    </section>
-  );
+  const saveContent = async (content: string) => {
+    const { error } = await supabase
+      .from('projects')
+      .update({ content })
+      .eq('id', project.id);
+
+    if (error) {
+      throw new Error(`${error.message} (code: ${error.code})`);
+    }
+  };
+
+  return <DocumentDesigner project={project} save={saveContent} />;
 }
 
-Project.getLayout = function getLayout(page: JSX.Element) {
-  return (
-    <MainLayout title='Project'>
-      <ProjectPageLayout>{page}</ProjectPageLayout>
-    </MainLayout>
-  );
-};
+Design.protected = true;
 
-Project.protected = true;
-
-export default Project;
+export default Design;

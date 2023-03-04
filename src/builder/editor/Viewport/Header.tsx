@@ -1,9 +1,9 @@
 import { useEditor } from '@craftjs/core';
 import { Tooltip } from '@material-ui/core';
-import cx from 'classnames';
 import lz from 'lzutf8';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 import Checkmark from '~/icons/check.svg';
@@ -52,7 +52,11 @@ const Item = styled.a<{ disabled?: boolean }>`
   `}
 `;
 
-export const Header = () => {
+interface HeaderProps {
+  save: (content: string) => Promise<void>;
+}
+
+export function Header({ save }: HeaderProps) {
   const { enabled, canUndo, canRedo, actions, query } = useEditor(
     (state, query) => ({
       enabled: state.options.enabled,
@@ -62,6 +66,17 @@ export const Header = () => {
   );
 
   const router = useRouter();
+
+  const handleSaveContent = async () => {
+    const compressedJson = lz.encodeBase64(lz.compress(query.serialize()));
+
+    try {
+      await save(compressedJson);
+      toast.success(`Project saved successfully!`);
+    } catch (e) {
+      toast.error(`Oops! Failed to save your project`);
+    }
+  };
 
   return (
     <HeaderDiv className='header w-full bg-white text-white transition'>
@@ -81,62 +96,35 @@ export const Header = () => {
           </div>
         )}
         <div className='flex'>
+          {enabled ? (
+            <>
+              <Btn
+                className='mr-2 cursor-pointer bg-primary-500 transition'
+                onClick={() => {
+                  router.push('/');
+                }}
+              >
+                Home
+              </Btn>
+              <Btn
+                className='mr-2 cursor-pointer bg-primary-500 transition'
+                onClick={handleSaveContent}
+              >
+                Save
+              </Btn>
+            </>
+          ) : null}
           <Btn
-            className='mr-2 cursor-pointer bg-primary-500 transition'
-            onClick={() => {
-              router.push('/');
-            }}
-          >
-            Home
-          </Btn>
-          <Btn
-            className='mr-2 cursor-pointer bg-primary-500 transition'
-            onClick={() => {
-              const compressedJson = lz.encodeBase64(
-                lz.compress(query.serialize())
-              );
-              window.localStorage.setItem('design', compressedJson);
-            }}
-          >
-            Save
-          </Btn>
-          <Btn
-            className='mr-2 cursor-pointer bg-primary-500 transition'
-            onClick={() => {
-              const savedDesign = window.localStorage.getItem('design');
-              if (savedDesign) {
-                const json = lz.decompress(lz.decodeBase64(savedDesign));
-                actions.deserialize(json);
-              }
-            }}
-          >
-            Load
-          </Btn>
-          <Btn
-            className='mr-2 cursor-pointer bg-primary-500 transition'
-            onClick={() => {
-              window.localStorage.removeItem('desing');
-            }}
-          >
-            Clear
-          </Btn>
-          <Btn
-            className={cx([
-              'cursor-pointer transition',
-              {
-                'bg-green-400': enabled,
-                'bg-primary-500': !enabled,
-              },
-            ])}
+            className='cursor-pointer bg-primary-500 transition'
             onClick={() => {
               actions.setOptions((options) => (options.enabled = !enabled));
             }}
           >
             {enabled ? <Checkmark /> : <Customize />}
-            {enabled ? 'Finish Editing' : 'Edit'}
+            {enabled ? 'Preview' : 'Edit'}
           </Btn>
         </div>
       </div>
     </HeaderDiv>
   );
-};
+}

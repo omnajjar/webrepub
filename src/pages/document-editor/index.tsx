@@ -1,7 +1,7 @@
-import { BuilderPage } from '@/builder/editor/page';
+import { DocumentDesigner } from '@/builder/editor/DocumentDesigner';
 
 function DocumentEditor() {
-  return <BuilderPage />;
+  return <DocumentDesigner />;
 }
 
 DocumentEditor.protected = true;

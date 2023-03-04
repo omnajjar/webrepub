@@ -1,6 +1,7 @@
 import { PencilIcon } from '@heroicons/react/outline';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import { useRouter } from 'next/router';
 
 import Button from '@/components/buttons/Button';
 import { MainLayout } from '@/components/layout/MainLayout';
@@ -39,15 +40,26 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     .eq('id', projectId)
     .single();
 
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       project: data,
     },
   };
 }
-function Overview({ _project }: ProjectOverviewProps) {
+function Overview({ project }: ProjectOverviewProps) {
   // TODO: For new projects render ability to start from a desing template
   // or render continue to design.
+  const { updated_at, created_at } = project;
+
+  const isNew = updated_at === created_at;
+
+  const router = useRouter();
   return (
     <section className='flex h-full flex-col items-center justify-center'>
       <DocumentIcon fill='#6B7280' className='my-10 h-44 w-44' />
@@ -56,8 +68,11 @@ function Overview({ _project }: ProjectOverviewProps) {
         leftIconClassName='-ml-1 mr-2 h-5 w-5'
         loadingCaption='Deleting...'
         className='ml-2 -mt-2'
+        onClick={() => {
+          router.push(`/projects/${project.id}/design`);
+        }}
       >
-        Start designing your document
+        {`${isNew ? 'Start' : 'Continue'} designing your document`}
       </Button>
     </section>
   );

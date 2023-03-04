@@ -11,6 +11,8 @@ import { Custom2, Custom2VideoDrop } from '../selectors/Custom2';
 import { Custom3, Custom3BtnDrop } from '../selectors/Custom3';
 import { Video } from '../selectors/Video';
 
+import { Project } from '@/types';
+
 const theme = createTheme({
   typography: {
     fontFamily: [
@@ -23,7 +25,12 @@ const theme = createTheme({
   },
 });
 
-export function BuilderPage() {
+interface DcoumentDesignerProps {
+  project: Project;
+  save: (content: string) => Promise<void>;
+}
+
+export function DocumentDesigner({ project, save }: DcoumentDesignerProps) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
@@ -49,7 +56,7 @@ export function BuilderPage() {
           enabled={false}
           onRender={RenderNode}
         >
-          <Viewport>
+          <Viewport project={project} save={save}>
             <Frame>
               <Element
                 canvas

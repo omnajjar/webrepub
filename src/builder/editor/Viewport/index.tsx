@@ -1,18 +1,24 @@
 import { useEditor } from '@craftjs/core';
 import cx from 'classnames';
-import React, { useEffect } from 'react';
+import lz from 'lzutf8';
+import React, { PropsWithChildren, useEffect } from 'react';
 
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import { Toolbox } from './Toolbox';
 
-export const Viewport: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+import { Project } from '@/types';
+
+interface ViewportProps extends PropsWithChildren {
+  project: Project;
+  save: (content: string) => Promise<void>;
+}
+
+export function Viewport({ children, project, save }: ViewportProps) {
   const {
     enabled,
     connectors,
-    actions: { setOptions },
+    actions: { setOptions, deserialize },
   } = useEditor((state) => ({
     enabled: state.options.enabled,
   }));
@@ -21,6 +27,9 @@ export const Viewport: React.FC<{ children?: React.ReactNode }> = ({
     if (!window) {
       return;
     }
+
+    const json = lz.decompress(lz.decodeBase64(project.content));
+    deserialize(json);
 
     window.requestAnimationFrame(() => {
       // Notify doc site
@@ -37,7 +46,7 @@ export const Viewport: React.FC<{ children?: React.ReactNode }> = ({
         });
       }, 200);
     });
-  }, [setOptions]);
+  }, [setOptions, deserialize, project.content]);
 
   return (
     <div className='viewport'>
@@ -46,7 +55,7 @@ export const Viewport: React.FC<{ children?: React.ReactNode }> = ({
       >
         <Toolbox />
         <div className='page-container bg-white-smoke flex h-full flex-1 flex-col'>
-          <Header />
+          <Header save={save} />
           <div
             className={cx([
               'craftjs-renderer h-full w-full flex-1 overflow-auto pb-8 transition',
@@ -68,4 +77,4 @@ export const Viewport: React.FC<{ children?: React.ReactNode }> = ({
       </div>
     </div>
   );
-};
+}

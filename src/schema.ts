@@ -40,6 +40,7 @@ export interface Database {
       };
       projects: {
         Row: {
+          content: string;
           created_at: string | null;
           description: string | null;
           id: string;
@@ -48,6 +49,7 @@ export interface Database {
           updated_at: string;
         };
         Insert: {
+          content?: string;
           created_at?: string | null;
           description?: string | null;
           id?: string;
@@ -56,6 +58,7 @@ export interface Database {
           updated_at?: string;
         };
         Update: {
+          content?: string;
           created_at?: string | null;
           description?: string | null;
           id?: string;
