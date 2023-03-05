@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import Button from '@/components/buttons/Button';
 import { MainLayout } from '@/components/layout/MainLayout';
+import { ProjectPageLayout } from '@/components/layout/ProjectPageLayout';
 import { Modal } from '@/components/Modal';
 import { DeleteProjectForm } from '@/components/projects/DeleteProjectForm';
 
@@ -74,7 +75,11 @@ function Settings({ project }: ProjectSettingsProps) {
 }
 
 Settings.getLayout = function getLayout(page: JSX.Element) {
-  return <MainLayout title='Project settings'>{page}</MainLayout>;
+  return (
+    <MainLayout title='Project settings'>
+      <ProjectPageLayout>{page}</ProjectPageLayout>
+    </MainLayout>
+  );
 };
 
 Settings.protected = true;

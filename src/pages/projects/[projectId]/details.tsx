@@ -1,18 +1,15 @@
-import { PencilIcon } from '@heroicons/react/outline';
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
-import { useRouter } from 'next/router';
 
-import Button from '@/components/buttons/Button';
+import { Header } from '@/components/common/Header';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { ProjectPageLayout } from '@/components/layout/ProjectPageLayout';
+import { EditProjectForm } from '@/components/projects/EditProjectForm';
 
 import { Database } from '@/schema';
 import { ensure } from '@/utils';
 
-import DocumentIcon from '~/icons/document.svg';
-
-type ProjectOverviewProps = InferGetServerSidePropsType<
+type ProjectDetailsProps = InferGetServerSidePropsType<
   typeof getServerSideProps
 >;
 
@@ -52,33 +49,20 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     },
   };
 }
-function Overview({ project }: ProjectOverviewProps) {
-  // TODO: For new projects render ability to start from a desing template
-  // or render continue to design.
-  const { updated_at, created_at } = project;
 
-  const isNew = updated_at === created_at;
-
-  const router = useRouter();
+function ProjectDetails({ project }: ProjectDetailsProps) {
   return (
-    <section className='flex h-full flex-col items-center justify-center'>
-      <DocumentIcon fill='#6B7280' className='my-10 h-44 w-44' />
-      <Button
-        leftIcon={PencilIcon}
-        leftIconClassName='-ml-1 mr-2 h-5 w-5'
-        loadingCaption='Deleting...'
-        className='ml-2 -mt-2'
-        onClick={() => {
-          router.push(`/projects/${project.id}/design`);
-        }}
-      >
-        {`${isNew ? 'Start' : 'Continue'} designing your document`}
-      </Button>
+    <section>
+      <Header
+        title='Edit project'
+        subtitle='Fill in the details to edit your prject'
+      />
+      <EditProjectForm project={project} />
     </section>
   );
 }
 
-Overview.getLayout = function getLayout(page: JSX.Element) {
+ProjectDetails.getLayout = function getLayout(page: JSX.Element) {
   return (
     <MainLayout title='Project'>
       <ProjectPageLayout>{page}</ProjectPageLayout>
@@ -86,6 +70,6 @@ Overview.getLayout = function getLayout(page: JSX.Element) {
   );
 };
 
-Overview.protected = true;
+ProjectDetails.protected = true;
 
-export default Overview;
+export default ProjectDetails;

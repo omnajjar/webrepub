@@ -38,6 +38,29 @@ export interface Database {
           username?: string;
         };
       };
+      project_tokens: {
+        Row: {
+          created_at: string;
+          id: string;
+          project_id: string;
+          token: string;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          project_id: string;
+          token: string;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          project_id?: string;
+          token?: string;
+          updated_at?: string;
+        };
+      };
       projects: {
         Row: {
           content: string;
@@ -72,7 +95,31 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      create_token: {
+        Args: {
+          name: string;
+        };
+        Returns: string;
+      };
+      get_projects_secret: {
+        Args: Record<PropertyKey, never>;
+        Returns: string;
+      };
+      get_secret: {
+        Args: Record<PropertyKey, never>;
+        Returns: string;
+      };
+      hello_world:
+        | {
+            Args: Record<PropertyKey, never>;
+            Returns: string;
+          }
+        | {
+            Args: {
+              name: string;
+            };
+            Returns: string;
+          };
     };
     Enums: {
       [_ in never]: never;

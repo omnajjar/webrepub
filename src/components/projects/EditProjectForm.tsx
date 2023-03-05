@@ -48,16 +48,7 @@ export function EditProjectForm({ project }: EditProjectFormProps) {
   return (
     <form onSubmit={handleFormSubmit}>
       <div className='px-1 sm:overflow-hidden sm:rounded-md'>
-        <div className='mb-4 space-y-6 bg-white'>
-          <div>
-            <h3 className='text-lg font-medium leading-6 text-gray-900'>
-              Edit Project
-            </h3>
-            <p className='mt-1 text-sm text-gray-500'>
-              Fill in the details to edit your prject
-            </p>
-          </div>
-
+        <div className='mb-4 space-y-6'>
           <div className='grid grid-cols-6 gap-6'>
             <div className='col-span-6'>
               <label
