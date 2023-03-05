@@ -4,7 +4,6 @@ import {
   BellIcon,
   CollectionIcon,
   MenuAlt2Icon,
-  PencilAltIcon,
   PrinterIcon,
   XIcon,
 } from '@heroicons/react/outline';
@@ -21,7 +20,6 @@ import { classNames, ensure, isActiveRoute } from '@/utils';
 
 const navigation = [
   { name: 'Projects', href: '/projects', Icon: CollectionIcon },
-  { name: 'Document editor', href: '/document-editor', Icon: PencilAltIcon },
   { name: 'Print', href: '/print', Icon: PrinterIcon },
 ];
 
