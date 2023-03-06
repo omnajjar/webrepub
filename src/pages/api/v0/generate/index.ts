@@ -11,7 +11,15 @@ export default async function generateProject(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { projectId } = req.query;
+  if (req.method !== 'POST') {
+    return res.status(405).send({ message: 'Only POST requests allowed' });
+  }
+
+  if (!isValidRequestBody(req.body)) {
+    return res.status(400).send({ message: 'Invalid request body' });
+  }
+
+  const { projectId, fileName } = req.body;
 
   if (!req.headers.authorization) {
     return res.status(401).send('Unauthorized');
@@ -33,7 +41,13 @@ export default async function generateProject(
       );
       const pdf = await createPDF(pagePrintURL);
       res.setHeader('Content-Type', 'application/pdf');
-      // res.setHeader('Content-Disposition', 'attachment; filename=dummy.pdf');
+      if (fileName) {
+        res.setHeader(
+          'Content-Disposition',
+          `attachment; filename=${fileName}.pdf`
+        );
+      }
+
       res.send(pdf);
     } else {
       return res.status(401).send('Unauthorized');
@@ -46,4 +60,23 @@ export default async function generateProject(
     }
     res.status(401).send(`Unauthorized ${msg ? `: ${msg}` : ''}`);
   }
+}
+
+function isValidRequestBody(body: {
+  projectId?: string;
+  fileName?: string;
+}): boolean {
+  const { projectId, fileName } = body;
+
+  // projectId is required
+  if (!projectId || typeof projectId !== 'string') {
+    return false;
+  }
+
+  // fileName is optional
+  if (fileName && typeof fileName !== 'string') {
+    return false;
+  }
+
+  return true;
 }
