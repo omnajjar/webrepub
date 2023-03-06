@@ -4,6 +4,18 @@ const nextConfig = {
     dirs: ['src'],
   },
 
+  headers: () => [
+    {
+      source: '/service/v0',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'no-store',
+        },
+      ],
+    },
+  ],
+
   reactStrictMode: true,
   swcMinify: true,
 

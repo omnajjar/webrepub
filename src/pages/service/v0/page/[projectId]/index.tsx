@@ -2,7 +2,7 @@ import { Editor, Frame } from '@craftjs/core';
 import { JwtPayload } from 'jsonwebtoken';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 
-import { PrintViewPort } from '@/builder/editor/Viewport/PrintViewPort';
+import { PrintViewport } from '@/builder/editor/Viewport/PrintViewPort';
 import { Container, Text } from '@/builder/selectors';
 import { getServiceSupabase } from '@/services/supbaseServiceClient';
 import { verifyProjectToken } from '@/utils/projects/verifyProjectToken';
@@ -56,7 +56,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   };
 }
 
-function ProjectPrintPage({ _project }: ProjectPrintPageProps) {
+function ProjectPrintPage({ project }: ProjectPrintPageProps) {
   return (
     <div className='flex justify-center'>
       <Editor
@@ -66,9 +66,9 @@ function ProjectPrintPage({ _project }: ProjectPrintPageProps) {
         }}
         enabled={false}
       >
-        <PrintViewPort>
+        <PrintViewport project={project}>
           <Frame></Frame>
-        </PrintViewPort>
+        </PrintViewport>
       </Editor>
     </div>
   );
