@@ -55,10 +55,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             variant === 'primary' && [
               'inline-flex justify-center',
               'rounded-md border',
-              'border-transparent bg-indigo-600',
+              'border-transparent',
               'py-2 px-4',
               'text-sm font-medium',
-              'text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
+              'bg-indigo-600 text-white  shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
             ],
             variant === 'success' && [
               'inline-flex justify-center',

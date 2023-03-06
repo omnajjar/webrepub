@@ -4,7 +4,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { Header } from '@/components/common/Header';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { ProjectPageLayout } from '@/components/layout/ProjectPageLayout';
-import { APITokenView } from '@/components/projects/APITokenView';
+import { APITokenView } from '@/components/projects/ProjectAPIView';
 
 import { Database } from '@/schema';
 import { ensure } from '@/utils';
@@ -48,14 +48,14 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   };
 }
 
-function ProjectAPI({ project_token: { token } }: ProjectAPIProps) {
+function ProjectAPI({ project_token: { token, project_id } }: ProjectAPIProps) {
   return (
     <section>
       <Header
         title='API'
         subtitle="Project's API key for programmatically accessing the project"
       />
-      <APITokenView token={token} />
+      <APITokenView token={token} projectId={project_id} />
     </section>
   );
 }
