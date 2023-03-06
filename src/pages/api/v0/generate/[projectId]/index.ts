@@ -1,9 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
+import { JwtPayload } from 'jsonwebtoken';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default function generateProject(
+import { createPDF } from '@/services/pdf';
+import { generateProjectPagePrintURL } from '@/utils/projects/generateProjectPagePrintURL';
+import { verifyProjectToken } from '@/utils/projects/verifyProjectToken';
+
+export default async function generateProject(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -18,13 +22,21 @@ export default function generateProject(
   let decoded: JwtPayload;
 
   try {
-    decoded = jwt.verify(
-      token,
-      process.env.PROJECT_TOKENS_SECRET as Secret
-    ) as JwtPayload;
+    decoded = verifyProjectToken(token);
 
     if (decoded.projectId === projectId) {
-      return res.status(200).json({ access: true });
+      const pagePrintURL = generateProjectPagePrintURL(
+        'v0',
+        req.headers.host as string,
+        projectId as string,
+        token
+      );
+      const pdf = await createPDF(pagePrintURL);
+      res.setHeader('Content-Type', 'application/pdf');
+      // res.setHeader('Content-Disposition', 'attachment; filename=dummy.pdf');
+      res.send(pdf);
+    } else {
+      return res.status(401).send('Unauthorized');
     }
   } catch (err: unknown) {
     let msg = '';
