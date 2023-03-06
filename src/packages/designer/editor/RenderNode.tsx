@@ -81,7 +81,7 @@ export const RenderNode = ({ render }: any) => {
     const { current: currentDOM } = currentRef;
 
     if (!currentDOM) return;
-    const { top, left } = getPos(dom);
+    const { top, left } = getPos(dom as HTMLElement);
     currentDOM.style.top = top;
     currentDOM.style.left = left;
   }, [dom, getPos]);

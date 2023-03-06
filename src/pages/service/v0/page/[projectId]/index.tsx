@@ -2,8 +2,8 @@ import { Editor, Frame } from '@craftjs/core';
 import { JwtPayload } from 'jsonwebtoken';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 
-import { PrintViewport } from '@/builder/editor/Viewport/PrintViewPort';
-import { Container, Text } from '@/builder/selectors';
+import { PrintViewport } from '@/packages/designer/editor/Viewport/PrintViewPort';
+import { Container, Text } from '@/packages/designer/selectors';
 import { getServiceSupabase } from '@/services/supbaseServiceClient';
 import { verifyProjectToken } from '@/utils/projects/verifyProjectToken';
 

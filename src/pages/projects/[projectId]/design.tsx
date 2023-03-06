@@ -2,7 +2,7 @@ import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 
-import { DocumentDesigner } from '@/builder/editor/DocumentDesigner';
+import { DocumentDesigner } from '@/packages/designer/editor/DocumentDesigner';
 import { Database } from '@/schema';
 import { ensure } from '@/utils';
 
