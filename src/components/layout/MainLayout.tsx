@@ -4,7 +4,6 @@ import {
   BellIcon,
   CollectionIcon,
   MenuAlt2Icon,
-  PrinterIcon,
   XIcon,
 } from '@heroicons/react/outline';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
@@ -20,7 +19,6 @@ import { classNames, ensure, isActiveRoute } from '@/utils';
 
 const navigation = [
   { name: 'Projects', href: '/projects', Icon: CollectionIcon },
-  { name: 'Print', href: '/print', Icon: PrinterIcon },
 ];
 
 interface MainLayoutProps extends PropsWithChildren {
