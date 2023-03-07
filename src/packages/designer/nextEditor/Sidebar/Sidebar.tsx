@@ -1,11 +1,10 @@
-/* tslint:disable */
 import { useEditor } from '@craftjs/core';
 import { Layers } from '@craftjs/layers';
 import { PencilIcon } from '@heroicons/react/solid';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { Toolbar } from '@/packages/designer/nextEditor/Toolbar';
+import { PropsPanel } from '@/packages/designer/nextEditor/PropsPanel';
 
 import { SidebarItem } from './SidebarItem';
 
@@ -15,7 +14,7 @@ export const SidebarDiv = styled.div<{ enabled: boolean }>`
   width: 300px;
   opacity: ${(props) => (props.enabled ? 1 : 0)};
   background: #fff;
-  margin-right: ${(props) => (props.enabled ? 0 : -280)}px;
+  margin-right: ${(props) => (props.enabled ? 0 : -300)}px;
 `;
 
 export const Sidebar = () => {
@@ -36,7 +35,7 @@ export const Sidebar = () => {
           visible={toolbarVisible}
           onChange={(val) => setToolbarVisible(val)}
         >
-          <Toolbar />
+          <PropsPanel />
         </SidebarItem>
         <SidebarItem
           icon={LayerIcon}

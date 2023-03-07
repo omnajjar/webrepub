@@ -3,9 +3,10 @@ import cx from 'classnames';
 import lz from 'lzutf8';
 import React, { PropsWithChildren, useEffect } from 'react';
 
+import { Toolbox } from '@/packages/designer/editor/Viewport/Toolbox';
+import { Sidebar } from '@/packages/designer/nextEditor/Sidebar';
+
 import { Header } from './Header';
-import { Sidebar } from './Sidebar';
-import { Toolbox } from './Toolbox';
 
 import { Project } from '@/types';
 

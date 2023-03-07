@@ -4,7 +4,7 @@ import React from 'react';
 
 import { classNames } from '@/utils';
 
-export function Toolbar() {
+export function PropsPanel() {
   const { active, related: Related } = useEditor<{
     active: boolean;
     related: {
@@ -24,8 +24,7 @@ export function Toolbar() {
     <div
       className={classNames('h-full px-2', !active ? 'flex items-center' : '')}
     >
-      {active && Related.toolbar ? <Related.toolbar /> : null}
-      {!active ? <IdleInfoMessage /> : null}
+      {active && Related.toolbar ? <Related.toolbar /> : <IdleInfoMessage />}
     </div>
   );
 }
