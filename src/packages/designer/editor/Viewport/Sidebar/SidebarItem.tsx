@@ -1,6 +1,8 @@
 import React, { FunctionComponent, SVGProps } from 'react';
 import styled from 'styled-components';
 
+import { classNames } from '@/utils';
+
 import Arrow from '~/icons/arrow.svg';
 
 const SidebarItemDiv = styled.div<{ visible?: boolean; height?: string }>`
@@ -25,6 +27,7 @@ export type SidebarItemProps = {
   title: string;
   height?: string;
   icon: FunctionComponent<SVGProps<SVGSVGElement>>;
+  iconClassName?: string;
   visible?: boolean;
   onChange?: (bool: boolean) => void;
   children?: React.ReactNode;
@@ -41,6 +44,7 @@ const HeaderDiv = styled.div`
 export const SidebarItem: React.FC<SidebarItemProps> = ({
   visible,
   icon,
+  iconClassName,
   title,
   children,
   height,
@@ -57,7 +61,9 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
         className='flex cursor-pointer items-center border-b-2 bg-white px-2 last:border-b-0'
       >
         <div className='flex flex-1 items-center'>
-          {React.createElement(icon, { className: 'w-4 h-4 mr-2' })}
+          {React.createElement(icon, {
+            className: classNames('w-4 h-4 mr-2', iconClassName ?? ''),
+          })}
           <h2 className='text-xs uppercase'>{title}</h2>
         </div>
         <Chevron visible={visible ?? false}>

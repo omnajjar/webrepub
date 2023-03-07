@@ -1,6 +1,7 @@
 /* tslint:disable */
 import { useEditor } from '@craftjs/core';
 import { Layers } from '@craftjs/layers';
+import { PencilIcon } from '@heroicons/react/solid';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -8,7 +9,6 @@ import { Toolbar } from '@/packages/designer/nextEditor/Toolbar';
 
 import { SidebarItem } from './SidebarItem';
 
-import CustomizeIcon from '~/icons/customize.svg';
 import LayerIcon from '~/icons/layers.svg';
 
 export const SidebarDiv = styled.div<{ enabled: boolean }>`
@@ -29,7 +29,8 @@ export const Sidebar = () => {
     <SidebarDiv enabled={enabled} className='sidebar w-2 bg-white transition'>
       <div className='flex h-full flex-col'>
         <SidebarItem
-          icon={CustomizeIcon}
+          icon={PencilIcon}
+          iconClassName='w-5 h-5'
           title='Customize'
           height={!layersVisible ? 'full' : '55%'}
           visible={toolbarVisible}
@@ -44,9 +45,7 @@ export const Sidebar = () => {
           visible={layersVisible}
           onChange={(val) => setLayerVisible(val)}
         >
-          <div className=''>
-            <Layers expandRootOnLoad={true} />
-          </div>
+          <Layers expandRootOnLoad={true} />
         </SidebarItem>
       </div>
     </SidebarDiv>
