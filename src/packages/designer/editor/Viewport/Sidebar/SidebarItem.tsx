@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent, SVGProps } from 'react';
 import styled from 'styled-components';
 
 import Arrow from '~/icons/arrow.svg';
@@ -24,7 +24,7 @@ const Chevron = styled.a<{ visible: boolean }>`
 export type SidebarItemProps = {
   title: string;
   height?: string;
-  icon: string;
+  icon: FunctionComponent<SVGProps<SVGSVGElement>>;
   visible?: boolean;
   onChange?: (bool: boolean) => void;
   children?: React.ReactNode;
@@ -60,7 +60,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
           {React.createElement(icon, { className: 'w-4 h-4 mr-2' })}
           <h2 className='text-xs uppercase'>{title}</h2>
         </div>
-        <Chevron visible={visible}>
+        <Chevron visible={visible ?? false}>
           <Arrow />
         </Chevron>
       </HeaderDiv>
