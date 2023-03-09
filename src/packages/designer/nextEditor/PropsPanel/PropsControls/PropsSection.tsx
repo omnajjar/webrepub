@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNode } from '@craftjs/core';
 import {
@@ -6,9 +7,9 @@ import {
   ExpansionPanelDetails,
   ExpansionPanelSummary,
   Grid,
+  makeStyles,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
+import React, { PropsWithChildren, ReactNode } from 'react';
 
 const usePanelStyles = makeStyles((_) => ({
   root: {
@@ -40,13 +41,25 @@ const useSummaryStyles = makeStyles((_) => ({
   },
 }));
 
-export const ToolbarSection = ({ title, props, summary, children }: any) => {
+interface PropsSectionProps extends PropsWithChildren {
+  caption: string;
+  propsNames?: string[];
+  summary?: (props: any) => ReactNode;
+}
+
+export const PropsSection = ({
+  caption,
+  propsNames,
+  summary,
+  children,
+}: PropsSectionProps) => {
   const panelClasses = usePanelStyles({});
   const summaryClasses = useSummaryStyles({});
+
   const { nodeProps } = useNode((node) => ({
     nodeProps:
-      props &&
-      props.reduce((res: any, key: any) => {
+      propsNames &&
+      propsNames.reduce<{ [key: string]: string }>((res, key: string) => {
         res[key] = node.data.props[key] || null;
         return res;
       }, {}),
@@ -58,18 +71,13 @@ export const ToolbarSection = ({ title, props, summary, children }: any) => {
           <Grid container direction='row' alignItems='center' spacing={3}>
             <Grid item xs={4}>
               <h5 className='text-light-gray-1 text-dark-gray text-left text-sm font-medium'>
-                {title}
+                {caption}
               </h5>
             </Grid>
-            {summary && props ? (
+            {summary && propsNames ? (
               <Grid item xs={8}>
                 <h5 className='text-light-gray-2 text-dark-blue text-right text-sm'>
-                  {summary(
-                    props.reduce((acc: any, key: any) => {
-                      acc[key] = nodeProps[key];
-                      return acc;
-                    }, {})
-                  )}
+                  {summary(nodeProps)}
                 </h5>
               </Grid>
             ) : null}

@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { FormControlLabel, Radio } from '@material-ui/core';
+import { FormControlLabel, Radio, RadioProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import React from 'react';
@@ -30,7 +29,7 @@ const useStyles = makeStyles({
 });
 
 // Inspired by blueprintjs
-function StyledRadio(props: any) {
+function StyledRadio(props: RadioProps) {
   const classes = useStyles({});
 
   return (
@@ -52,7 +51,12 @@ const useLabelStyles = makeStyles({
   },
 });
 
-export const ToolbarRadio = ({ value, label }: any) => {
+interface PropsRadioProps {
+  label: string;
+  value: string;
+}
+
+export function PropsRadio({ label, value }: PropsRadioProps) {
   const classes = useLabelStyles({});
   return (
     <FormControlLabel
@@ -62,4 +66,4 @@ export const ToolbarRadio = ({ value, label }: any) => {
       label={label}
     />
   );
-};
+}

@@ -5,7 +5,8 @@ import { Grid, RadioGroup, Slider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import React from 'react';
 
-import { ToolbarDropdown } from './ToolbarDropdown';
+import { PropsDropdown } from '@/packages/designer/nextEditor/PropsPanel/PropsControls/PropsDropDown';
+
 import { ToolbarTextInput } from './ToolbarTextInput';
 
 const iOSBoxShadow =
@@ -67,7 +68,7 @@ export type ToolbarItemProps = {
   prefix?: string;
   label?: string;
   full?: boolean;
-  propKey?: string;
+  propKey: string;
   index?: number;
   children?: React.ReactNode;
   type: string;
@@ -153,13 +154,12 @@ export const ToolbarItem = ({
             </RadioGroup>
           </>
         ) : type === 'select' ? (
-          <ToolbarDropdown
+          <PropsDropdown
             value={value || ''}
             onChange={(value) =>
-              setProp(
-                (props: any) =>
-                  (props[propKey] = onChange ? onChange(value) : value)
-              )
+              setProp((props: { [k: string]: any }) => {
+                props[propKey] = onChange ? onChange(value) : value;
+              })
             }
             {...props}
           />

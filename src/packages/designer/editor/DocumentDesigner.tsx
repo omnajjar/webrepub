@@ -7,9 +7,7 @@ import { RenderNode, Viewport } from '.';
 import { Container, Text } from '../selectors';
 import { Button } from '../selectors/Button';
 import { Custom1, OnlyButtons } from '../selectors/Custom1';
-import { Custom2, Custom2VideoDrop } from '../selectors/Custom2';
 import { Custom3, Custom3BtnDrop } from '../selectors/Custom3';
-import { Video } from '../selectors/Video';
 
 import { Project } from '@/types';
 
@@ -45,13 +43,10 @@ export function DocumentDesigner({ project, save }: DcoumentDesignerProps) {
             Container,
             Text,
             Custom1,
-            Custom2,
-            Custom2VideoDrop,
             Custom3,
             Custom3BtnDrop,
             OnlyButtons,
             Button,
-            Video,
           }}
           enabled={false}
           onRender={RenderNode}

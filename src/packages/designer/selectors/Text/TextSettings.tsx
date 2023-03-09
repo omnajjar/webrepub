@@ -1,17 +1,20 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
+import { PropsRadio } from '@/packages/designer/nextEditor/PropsPanel/PropsControls/PropsRadio';
+import { PropsSection } from '@/packages/designer/nextEditor/PropsPanel/PropsControls/PropsSection';
 import { capitalize, weightDescription } from '@/utils/text';
 
-import { ToolbarItem, ToolbarSection } from '../../editor';
-import { ToolbarRadio } from '../../editor/Toolbar/ToolbarRadio';
+import { ToolbarItem } from '../../editor';
 
 export const TextSettings = () => {
   return (
     <React.Fragment>
-      <ToolbarSection
-        title='Typography'
-        props={['fontSize', 'fontWeight', 'textAlign']}
+      <PropsSection
+        caption='Typography'
+        propsNames={['fontSize', 'fontWeight', 'textAlign']}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         summary={({ fontSize, fontWeight, textAlign }: any) => {
           return `${fontSize || ''}, ${weightDescription(
             fontWeight
@@ -25,48 +28,30 @@ export const TextSettings = () => {
           label='Font Size'
         />
         <ToolbarItem propKey='textAlign' type='radio' label='Align'>
-          <ToolbarRadio value='left' label='Left' />
-          <ToolbarRadio value='center' label='Center' />
-          <ToolbarRadio value='right' label='Right' />
+          <PropsRadio value='left' label='Left' />
+          <PropsRadio value='center' label='Center' />
+          <PropsRadio value='right' label='Right' />
         </ToolbarItem>
         <ToolbarItem propKey='fontWeight' type='radio' label='Weight'>
-          <ToolbarRadio value='400' label='Regular' />
-          <ToolbarRadio value='500' label='Medium' />
-          <ToolbarRadio value='700' label='Bold' />
+          <PropsRadio value='400' label='Regular' />
+          <PropsRadio value='500' label='Medium' />
+          <PropsRadio value='700' label='Bold' />
         </ToolbarItem>
-      </ToolbarSection>
-      <ToolbarSection
-        title='Margin'
-        props={['margin']}
-        summary={({ margin }: any) => {
-          return `${margin[0] || 0}px ${margin[1] || 0}px ${margin[2] || 0}px ${
-            margin[3] || 0
-          }px`;
-        }}
+      </PropsSection>
+      <PropsSection
+        caption='Margin'
+        propsNames={['margin']}
+        summary={MarginSummary}
       >
         <ToolbarItem propKey='margin' index={0} type='slider' label='Top' />
         <ToolbarItem propKey='margin' index={1} type='slider' label='Right' />
         <ToolbarItem propKey='margin' index={2} type='slider' label='Bottom' />
         <ToolbarItem propKey='margin' index={3} type='slider' label='Left' />
-      </ToolbarSection>
-      <ToolbarSection
-        title='Appearance'
-        props={['color', 'shadow']}
-        summary={({ color, shadow }: any) => {
-          return (
-            <div className='fletext-right'>
-              <p
-                style={{
-                  color: color && `rgba(${Object.values(color)})`,
-                  textShadow: `0px 0px 2px rgba(0, 0, 0, ${shadow / 100})`,
-                }}
-                className='text-right text-white'
-              >
-                T
-              </p>
-            </div>
-          );
-        }}
+      </PropsSection>
+      <PropsSection
+        caption='Appearance'
+        propsNames={['color', 'shadow']}
+        summary={AppearanceSummary}
       >
         <ToolbarItem full={true} propKey='color' type='color' label='Text' />
         <ToolbarItem
@@ -75,7 +60,35 @@ export const TextSettings = () => {
           type='slider'
           label='Shadow'
         />
-      </ToolbarSection>
+      </PropsSection>
     </React.Fragment>
   );
 };
+
+function MarginSummary({ margin }: { margin: string[] }) {
+  return `${margin[0] || 0}px ${margin[1] || 0}px ${margin[2] || 0}px ${
+    margin[3] || 0
+  }px`;
+}
+
+function AppearanceSummary({
+  color,
+  shadow,
+}: {
+  color: { [key: string]: string };
+  shadow: number;
+}) {
+  return (
+    <div className='fletext-right'>
+      <p
+        style={{
+          color: color && `rgba(${Object.values(color)})`,
+          textShadow: `0px 0px 2px rgba(0, 0, 0, ${shadow / 100})`,
+        }}
+        className='text-right text-white'
+      >
+        T
+      </p>
+    </div>
+  );
+}
