@@ -1,8 +1,9 @@
 import { useNode } from '@craftjs/core';
+import { Slider, Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import ContentEditable from 'react-contenteditable';
 
-import { NodeType } from '@/types';
+import { CraftExtention, NodeType } from '@/types';
 
 interface TextComponentProps
   extends React.DetailedHTMLProps<
@@ -56,8 +57,59 @@ export const TextComponent = ({ text, ...props }: TextComponentProps) => {
   );
 };
 
-TextComponent.craft = {
+const TextComponentSettings = () => {
+  const {
+    actions: { setProp },
+    style,
+  } = useNode<{ style: React.CSSProperties }>((node) => ({
+    style: node.data.props.style,
+  }));
+
+  const [textSyle, setTextStyle] = useState(style);
+
+  return (
+    <>
+      <Typography id='non-linear-slider' gutterBottom>
+        Font size
+      </Typography>
+      <Slider
+        value={Number(textSyle.fontSize?.toString().replace('px', ''))}
+        min={5}
+        step={1}
+        max={200}
+        onChange={(_, value) => {
+          setProp((props: Pick<TextComponentProps, 'style'>) => {
+            if (!props.style) {
+              props.style = {};
+            }
+
+            const nextFontSize = value;
+            const nextStyle = {
+              ...textSyle,
+              fontSize: nextFontSize.toString() + 'px',
+            };
+            setTextStyle(nextStyle);
+            props.style = nextStyle;
+          });
+        }}
+      />
+    </>
+  );
+};
+
+const TextComponentExtention: CraftExtention<TextComponentProps> = {
+  props: {
+    text: 'Hi',
+    style: {
+      fontSize: '14px',
+    },
+  },
   rules: {
     canDrag: (_node: NodeType<TextComponentProps>) => true,
   },
+  related: {
+    settings: TextComponentSettings,
+  },
 };
+
+TextComponent.craft = TextComponentExtention;

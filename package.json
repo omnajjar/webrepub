@@ -25,6 +25,7 @@
     "@craftjs/layers": "^0.2.0-beta.8",
     "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^1.0.6",
+    "@material-tailwind/react": "^1.4.2",
     "@material-ui/core": "^4.5.2",
     "@material-ui/icons": "^4.5.1",
     "@supabase/auth-helpers-nextjs": "^0.5.4",

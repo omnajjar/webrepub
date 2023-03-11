@@ -8,3 +8,13 @@ export interface NodeType<TNodeProps> {
     props: TNodeProps;
   };
 }
+
+export interface CraftExtention<TNodeProps> {
+  props?: Partial<TNodeProps>;
+  rules?: {
+    canDrag?: (node: NodeType<TNodeProps>) => boolean;
+  };
+  related?: {
+    settings: () => JSX.Element;
+  };
+}
