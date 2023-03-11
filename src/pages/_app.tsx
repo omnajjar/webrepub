@@ -16,7 +16,6 @@ import '@/styles/globals.css';
 import '@/styles/colors.css';
 import '@/styles/builder.css';
 import '@/styles/projects.css';
-import '@/styles/designer.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { AuthPageLayout } from '@/components/layout/AuthPageLayout';
