@@ -186,7 +186,7 @@ export default function Designer() {
               </main>
 
               {/* Secondary column (hidden on smaller screens) */}
-              <aside className='flex w-96 items-center justify-center overflow-y-auto border-l border-gray-200 bg-white'>
+              <aside className='flex w-96 overflow-y-auto border-l border-gray-200 bg-white'>
                 <PropertiesBox />
               </aside>
             </div>

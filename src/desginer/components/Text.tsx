@@ -1,4 +1,11 @@
 import { useNode } from '@craftjs/core';
+import {
+  Tab,
+  TabPanel,
+  Tabs,
+  TabsBody,
+  TabsHeader,
+} from '@material-tailwind/react';
 import { Slider, Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import ContentEditable from 'react-contenteditable';
@@ -68,32 +75,42 @@ const TextComponentSettings = () => {
   const [textSyle, setTextStyle] = useState(style);
 
   return (
-    <>
-      <Typography id='non-linear-slider' gutterBottom>
-        Font size
-      </Typography>
-      <Slider
-        value={Number(textSyle.fontSize?.toString().replace('px', ''))}
-        min={5}
-        step={1}
-        max={200}
-        onChange={(_, value) => {
-          setProp((props: Pick<TextComponentProps, 'style'>) => {
-            if (!props.style) {
-              props.style = {};
-            }
+    <Tabs value='font'>
+      <TabsHeader className='border-radios-0 w-full'>
+        <Tab value='font'>Font</Tab>
+        <Tab value='alignment'>Alignment</Tab>
+      </TabsHeader>
+      <TabsBody>
+        <TabPanel value='font' className='w-full'>
+          <>
+            <Typography id='non-linear-slider' gutterBottom className='foo'>
+              Font size
+            </Typography>
+            <Slider
+              value={Number(textSyle.fontSize?.toString().replace('px', ''))}
+              min={8}
+              step={1}
+              max={250}
+              onChange={(_, value) => {
+                setProp((props: Pick<TextComponentProps, 'style'>) => {
+                  if (!props.style) {
+                    props.style = {};
+                  }
 
-            const nextFontSize = value;
-            const nextStyle = {
-              ...textSyle,
-              fontSize: nextFontSize.toString() + 'px',
-            };
-            setTextStyle(nextStyle);
-            props.style = nextStyle;
-          });
-        }}
-      />
-    </>
+                  const nextFontSize = value;
+                  const nextStyle = {
+                    ...textSyle,
+                    fontSize: nextFontSize.toString() + 'px',
+                  };
+                  setTextStyle(nextStyle);
+                  props.style = nextStyle;
+                });
+              }}
+            />
+          </>
+        </TabPanel>
+      </TabsBody>
+    </Tabs>
   );
 };
 

@@ -23,11 +23,8 @@ export const PropertiesBox = () => {
 
   if (!selected) {
     return (
-      <div className='flex flex-col items-center justify-center'>
-        <div className='flex flex-col'>
-          <h1>Please select an element</h1>
-          <p></p>
-        </div>
+      <div className='flex w-full justify-center p-4'>
+        <h1 className='text-gray-500'>Please select an element to edit</h1>
       </div>
     );
   }
@@ -43,9 +40,5 @@ export const PropertiesBox = () => {
     );
   }
 
-  return (
-    <div className='flex flex-col items-center justify-center'>
-      {React.createElement(selected.settings)}
-    </div>
-  );
+  return <div className='w-full'>{React.createElement(selected.settings)}</div>;
 };
