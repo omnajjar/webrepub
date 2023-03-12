@@ -24,7 +24,7 @@ export const ContainerComponent = ({
 
   return (
     <div
-      style={props.style ? { ...props.style } : defaultContainerComponentStyles}
+      style={children ? { ...props.style } : defaultContainerComponentStyles}
       {...props}
       ref={(ref) => {
         if (ref) {
