@@ -30,7 +30,6 @@ interface TextComponentProps
 export const TextComponent = ({
   text,
   textColor,
-  bgColor,
   ...props
 }: TextComponentProps) => {
   const {
@@ -73,7 +72,6 @@ export const TextComponent = ({
         style={{
           padding: '8px',
           borderRadios: '0px',
-          background: colorToCSSrgba(ensure(bgColor)),
           color: colorToCSSrgba(ensure(textColor)),
           ...props.style,
         }}
@@ -216,27 +214,10 @@ const defaultTextColor: ColorResult = {
   },
 };
 
-const defaultBgColor: ColorResult = {
-  hex: '#fff',
-  rgb: {
-    r: 255,
-    g: 255,
-    b: 255,
-    a: 1,
-  },
-  hsl: {
-    h: 0,
-    s: 0,
-    l: 0,
-    a: 1,
-  },
-};
-
 const TextComponentExtention: CraftExtention<TextComponentProps> = {
   props: {
     text: 'Hi',
     textColor: defaultTextColor,
-    bgColor: defaultBgColor,
     style: {
       fontSize: '14px',
     },

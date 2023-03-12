@@ -5,7 +5,7 @@ import AngleRightIcon from '@rsuite/icons/legacy/AngleRight';
 import MagicIcon from '@rsuite/icons/legacy/Magic';
 import React, { MouseEventHandler, PropsWithChildren, useState } from 'react';
 import { CustomProvider, Divider, Navbar, SidenavProps, Stack } from 'rsuite';
-import { Container, Content, Nav, Sidebar, Sidenav } from 'rsuite';
+import { Container, Nav, Sidebar, Sidenav } from 'rsuite';
 
 const headerStyles = {
   padding: 18,
@@ -100,9 +100,7 @@ export function MainLayout({
           <Container>
             <h4 style={headerStyles}>Page Title</h4>
             <Divider style={{ margin: '0px' }}></Divider>
-            <Content>
-              <Container className='container-p'>{children}</Container>
-            </Content>
+            {children}
           </Container>
         </Container>
       </div>
