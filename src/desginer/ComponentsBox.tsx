@@ -1,49 +1,77 @@
 import { useEditor } from '@craftjs/core';
-import { PencilIcon } from '@heroicons/react/solid';
+import { CSSProperties } from 'react';
+import { IconType } from 'react-icons';
+import { TbSquare } from 'react-icons/tb';
+import { TfiText } from 'react-icons/tfi';
+import { List, SidenavProps } from 'rsuite';
 
+import { ContainerComponent } from '@/desginer/components/Container';
 import { TextComponent } from '@/desginer/components/Text';
-import { classNames } from '@/utils';
 
-export const ComponentsBox = () => {
-  const { connectors, _query } = useEditor();
+type ComponentsBoxProps = SidenavProps;
+
+export function ComponentsBox(
+  { expanded }: ComponentsBoxProps = { expanded: false }
+) {
+  const { connectors } = useEditor();
 
   return (
-    <div className='mt-6 w-full flex-1 space-y-1 px-2'>
-      <div
-        className='cursor-grab'
+    <List hover>
+      <List.Item
         ref={(ref) => {
           if (ref) {
             connectors.create(ref, <TextComponent text='Hi text!' />);
           }
         }}
       >
-        <ComponentItem name='Text' icon={PencilIcon}></ComponentItem>
-      </div>
-    </div>
+        <ComponentItem icon={TfiText} name='Text' expanded={expanded ?? true} />
+      </List.Item>
+      <List.Item
+        ref={(ref) => {
+          if (ref) {
+            connectors.create(ref, <ContainerComponent />);
+          }
+        }}
+      >
+        <ComponentItem
+          icon={TbSquare}
+          name='Container'
+          expanded={expanded ?? true}
+        />
+      </List.Item>
+    </List>
   );
-};
+}
 
 interface ComponentItemProps {
   name: string;
-  icon: (props: React.ComponentProps<'svg'>) => JSX.Element;
+  icon: IconType;
+  expanded: boolean;
 }
 
-function ComponentItem({ name, icon: Icon }: ComponentItemProps) {
+const componentIconStyle: CSSProperties = {
+  fontSize: '24px',
+};
+
+const componentItemStyle: CSSProperties = {
+  padding: '10px',
+};
+
+const componentNameStyle: CSSProperties = {
+  fontSize: '18px',
+  marginLeft: '14px',
+};
+
+function ComponentItem({ name, icon: Icon, expanded }: ComponentItemProps) {
   return (
-    <a
-      className={classNames(
-        ' text-indigo-100 hover:bg-indigo-800 hover:text-white',
-        'group flex w-full flex-col items-center rounded-md p-3 text-xs font-medium',
-        'select-none'
-      )}
+    <div
+      style={componentItemStyle}
+      className={`pointer-grab flex w-full items-center ${
+        expanded ? '' : 'space-around'
+      }`}
     >
-      <Icon
-        className={classNames(
-          'h-12  text-indigo-100 hover:bg-indigo-800 hover:text-white',
-          'group flex w-full flex-col items-center rounded-md p-3 text-xs font-medium'
-        )}
-      />
-      <span>{name}</span>
-    </a>
+      <Icon style={componentIconStyle} />
+      {expanded ? <div style={componentNameStyle}>{name}</div> : null}
+    </div>
   );
 }

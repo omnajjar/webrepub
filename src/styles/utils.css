@@ -1,0 +1,37 @@
+.h-screen {
+  height: 100vh;
+}
+
+.container-p {
+  padding: 18px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.jsutify-center {
+  justify-content: center;
+}
+.items-center {
+  align-items: center;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+.pointer-grab {
+  cursor: grab;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+/* Designer */
+.component-container {
+}

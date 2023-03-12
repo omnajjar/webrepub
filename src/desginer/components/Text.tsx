@@ -1,8 +1,5 @@
 import { useNode } from '@craftjs/core';
 import {
-  Popover,
-  PopoverContent,
-  PopoverHandler,
   Tab,
   TabPanel,
   Tabs,
@@ -26,8 +23,8 @@ interface TextComponentProps
     HTMLParagraphElement
   > {
   text: string;
-  textColor: ColorResult;
-  bgColor: ColorResult;
+  textColor?: ColorResult;
+  bgColor?: ColorResult;
 }
 
 export const TextComponent = ({
@@ -76,8 +73,8 @@ export const TextComponent = ({
         style={{
           padding: '8px',
           borderRadios: '0px',
-          background: colorToCSSrgba(bgColor),
-          color: colorToCSSrgba(textColor),
+          background: colorToCSSrgba(ensure(bgColor)),
+          color: colorToCSSrgba(ensure(textColor)),
           ...props.style,
         }}
       />
@@ -96,6 +93,12 @@ const TextComponentSettings = () => {
     textColor: node.data.props.textColor,
     bgColor: node.data.props.bgColor,
   }));
+
+  const [showTextColor, setShowTextColor] = useState(false);
+  const toggleTextColor = () => setShowTextColor(!showTextColor);
+
+  const [showBgColor, setShowBgColor] = useState(false);
+  const toggleBgColor = () => setShowBgColor(!showBgColor);
 
   const handleTextColorChange = (color: ColorResult) => {
     setProp((props: Pick<TextComponentProps, 'textColor'>) => {
@@ -153,22 +156,21 @@ const TextComponentSettings = () => {
               color='blue-gray'
               className='mb-4 flex flex-row items-center justify-between font-medium'
             >
-              <span>Color</span>
-              <Popover>
-                <PopoverHandler>
-                  <span
-                    className='block h-6 w-6 cursor-pointer rounded-full shadow'
-                    style={{ background: colorToCSSrgba(ensure(textColor)) }}
-                  ></span>
-                </PopoverHandler>
-                <PopoverContent className='rounded-none p-0'>
-                  <ChromePicker
-                    color={textColor?.rgb}
-                    onChange={handleTextColorChange}
-                  />
-                </PopoverContent>
-              </Popover>
+              <span>Text color</span>
+              <span
+                className='block h-6 w-6 cursor-pointer rounded-full border-2 border-blue-gray-500 shadow-lg'
+                style={{ background: colorToCSSrgba(ensure(textColor)) }}
+                onClick={toggleTextColor}
+              ></span>
             </Typography>
+            {showTextColor ? (
+              <div className='flex justify-center'>
+                <ChromePicker
+                  color={textColor?.rgb}
+                  onChange={handleTextColorChange}
+                />
+              </div>
+            ) : null}
           </div>
           <div className='mb-2'>
             <Typography
@@ -177,21 +179,20 @@ const TextComponentSettings = () => {
               className='mb-2 flex flex-row items-center justify-between font-medium'
             >
               <span>Background color</span>
-              <Popover>
-                <PopoverHandler>
-                  <span
-                    className='block h-6 w-6 cursor-pointer rounded-full shadow'
-                    style={{ background: colorToCSSrgba(ensure(bgColor)) }}
-                  ></span>
-                </PopoverHandler>
-                <PopoverContent className='rounded-none p-0'>
-                  <ChromePicker
-                    color={bgColor?.rgb}
-                    onChange={handleBGColorChange}
-                  />
-                </PopoverContent>
-              </Popover>
+              <span
+                className='block h-6 w-6 cursor-pointer rounded-full border-2 border-blue-gray-500 shadow-lg'
+                style={{ background: colorToCSSrgba(ensure(bgColor)) }}
+                onClick={toggleBgColor}
+              ></span>
             </Typography>
+            {showBgColor ? (
+              <div className='flex justify-center'>
+                <ChromePicker
+                  color={bgColor?.rgb}
+                  onChange={handleBGColorChange}
+                />
+              </div>
+            ) : null}
           </div>
         </TabPanel>
       </TabsBody>

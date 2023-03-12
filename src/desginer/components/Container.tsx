@@ -7,8 +7,10 @@ type ContainerComponentProps = Omit<
 
 const defaultContainerComponentProps: ContainerComponentProps = {
   style: {
-    padding: '4px',
+    // padding: '4px',
     background: 'blue',
+    width: '100%',
+    height: '200px',
   },
 };
 
