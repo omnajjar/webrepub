@@ -1,4 +1,4 @@
-import { useNode } from '@craftjs/core';
+import { useNode, UserComponent } from '@craftjs/core';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import { useEffect, useState } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
@@ -16,8 +16,6 @@ import {
 import { colorToCSSrgba } from '@/desginer/utils';
 import { ensure } from '@/utils';
 
-import { CraftExtention, NodeType } from '@/types';
-
 interface TextComponentProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLParagraphElement>,
@@ -28,7 +26,7 @@ interface TextComponentProps
   bgColor?: ColorResult;
 }
 
-export const TextComponent = ({
+export const TextComponent: UserComponent<TextComponentProps> = ({
   text,
   textColor,
   bgColor,
@@ -251,7 +249,7 @@ const defaultBgColor: ColorResult = {
   },
 };
 
-const TextComponentExtention: CraftExtention<TextComponentProps> = {
+TextComponent.craft = {
   props: {
     text: 'Hi',
     textColor: defaultTextColor,
@@ -261,11 +259,9 @@ const TextComponentExtention: CraftExtention<TextComponentProps> = {
     },
   },
   rules: {
-    canDrag: (_node: NodeType<TextComponentProps>) => true,
+    canDrag: () => true,
   },
   related: {
     settings: TextComponentSettings,
   },
 };
-
-TextComponent.craft = TextComponentExtention;

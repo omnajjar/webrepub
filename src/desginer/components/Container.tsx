@@ -1,4 +1,4 @@
-import { useNode } from '@craftjs/core';
+import { useNode, UserComponent } from '@craftjs/core';
 import { CSSProperties } from 'react';
 
 type ContainerComponentProps = Omit<
@@ -7,14 +7,10 @@ type ContainerComponentProps = Omit<
 >;
 
 const defaultContainerComponentStyles: CSSProperties = {
-  width: '100%',
-  height: '200px',
-  color: 'black',
-  textAlign: 'center',
   padding: '8px',
 };
 
-export const ContainerComponent = ({
+export const ContainerComponent: UserComponent<ContainerComponentProps> = ({
   children,
   ...props
 }: ContainerComponentProps) => {
@@ -24,7 +20,7 @@ export const ContainerComponent = ({
 
   return (
     <div
-      style={children ? { ...props.style } : defaultContainerComponentStyles}
+      style={defaultContainerComponentStyles}
       {...props}
       ref={(ref) => {
         if (ref) {
@@ -32,7 +28,27 @@ export const ContainerComponent = ({
         }
       }}
     >
-      {children ? children : 'empty container'}
+      {children ? children : <EmptyContainerContent></EmptyContainerContent>}
     </div>
   );
+};
+
+const EmptyContainerContent = () => {
+  const emptyContainerStyles: CSSProperties = {
+    color: 'black',
+    textAlign: 'center',
+    padding: '15px',
+    border: '2px dashed lightgray',
+  };
+  return (
+    <div style={emptyContainerStyles}>Drag and drop a component here!</div>
+  );
+};
+
+ContainerComponent.craft = {
+  isCanvas: true,
+  rules: {
+    canMoveIn: () => true,
+    canDrag: () => true,
+  },
 };

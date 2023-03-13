@@ -1,11 +1,15 @@
 import { Element, Frame } from '@craftjs/core';
 
-import { ContainerComponent } from '@/desginer/components/Container';
+import { DocumentComponent } from '@/desginer/components/DocumentComponent';
+import { PaperComponent } from '@/desginer/components/Paper';
 
 export function MainFrame() {
   return (
     <Frame>
-      <Element canvas is={ContainerComponent}></Element>
+      <Element is={DocumentComponent} canvas>
+        <Element is={PaperComponent} canvas></Element>
+        <Element is={PaperComponent} canvas></Element>
+      </Element>
     </Frame>
   );
 }
