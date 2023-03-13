@@ -10,7 +10,7 @@ import { ThemeProvider } from '@material-tailwind/react';
 import { Fragment, useState } from 'react';
 
 import { ContainerComponent } from '@/desginer/components/Container';
-import { TextComponent } from '@/desginer/components/Text';
+import { TextComponent } from '@/desginer/components/Text/Text';
 import { ComponentsBox } from '@/desginer/ComponentsBox';
 import { PropertiesBox } from '@/desginer/PropertiesBox';
 import { classNames } from '@/utils';
@@ -22,7 +22,7 @@ export default function Designer() {
 
   return (
     <ThemeProvider>
-      <Editor resolver={{ ContainerComponent, TextComponent }}>
+      <Editor resolver={{ ContainerComponent, ContainerB, TextComponent }}>
         <div className='flex h-screen'>
           {/* Narrow sidebar */}
           <div className='hidden w-28 overflow-y-auto bg-indigo-700 md:block'>

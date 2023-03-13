@@ -8,7 +8,6 @@ export function MainFrame() {
     <Frame>
       <Element is={DocumentComponent} canvas>
         <Element is={PaperComponent} canvas></Element>
-        <Element is={PaperComponent} canvas></Element>
       </Element>
     </Frame>
   );

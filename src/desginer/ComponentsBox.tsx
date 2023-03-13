@@ -6,7 +6,7 @@ import { TfiText } from 'react-icons/tfi';
 import { List, SidenavProps } from 'rsuite';
 
 import { ContainerComponent } from '@/desginer/components/Container';
-import { TextComponent } from '@/desginer/components/Text';
+import { TextComponent } from '@/desginer/components/Text/Text';
 
 type ComponentsBoxProps = SidenavProps;
 

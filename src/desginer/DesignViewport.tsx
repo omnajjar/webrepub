@@ -17,7 +17,7 @@ export function DesignViewport() {
 
   return (
     <Container
-      className='designer-bg-pattern items-center overflow-auto'
+      className='design-view-port designer-bg-pattern items-center overflow-auto'
       style={{ height: `${initialHeigh}` }}
     >
       <div className='shadow-paper m-0 mt-20 mb-20 p-0'>

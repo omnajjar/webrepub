@@ -1,92 +1,27 @@
-import { useNode, UserComponent } from '@craftjs/core';
-import { CSSProperties } from '@material-ui/core/styles/withStyles';
-import { useEffect, useState } from 'react';
+import { useNode } from '@craftjs/core';
+import { CSSProperties, useState } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
-import ContentEditable from 'react-contenteditable';
 import { BsCircleFill } from 'react-icons/bs';
 import {
   InputNumber,
   Panel,
   PanelGroup,
-  Placeholder,
+  Radio,
+  RadioGroup,
   Slider,
   Stack,
 } from 'rsuite';
 
+import { TextComponentProps } from '@/desginer/components/Text/Text';
 import { colorToCSSrgba } from '@/desginer/utils';
 import { ensure } from '@/utils';
-
-interface TextComponentProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLParagraphElement>,
-    HTMLParagraphElement
-  > {
-  text: string;
-  textColor?: ColorResult;
-  bgColor?: ColorResult;
-}
-
-export const TextComponent: UserComponent<TextComponentProps> = ({
-  text,
-  textColor,
-  bgColor,
-  ...props
-}: TextComponentProps) => {
-  const {
-    connectors: { connect, drag },
-    actions: { setProp },
-    hasSelectedNode,
-  } = useNode((state) => ({
-    hasSelectedNode: state.events.selected,
-  }));
-
-  const [editable, setEditable] = useState(false);
-
-  useEffect(() => {
-    if (hasSelectedNode) {
-      setEditable(true);
-      return;
-    }
-
-    setEditable(false);
-  }, [hasSelectedNode]);
-
-  return (
-    <div
-      ref={(ref) => {
-        if (ref) {
-          connect(drag(ref));
-        }
-      }}
-    >
-      <ContentEditable
-        html={text}
-        disabled={!editable}
-        onChange={(e) =>
-          setProp(
-            (props: Pick<TextComponentProps, 'text'>) =>
-              (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, ''))
-          )
-        }
-        tagName='p'
-        style={{
-          padding: '8px',
-          borderRadios: '0px',
-          color: colorToCSSrgba(ensure(textColor)),
-          background: colorToCSSrgba(ensure(bgColor)),
-          ...props.style,
-        }}
-      />
-    </div>
-  );
-};
 
 const colorIconStyle: CSSProperties = {
   fontSize: '20px',
   marginTop: '5px',
 };
 
-const TextComponentSettings = () => {
+export const TextComponentSettings = () => {
   const {
     actions: { setProp },
     style,
@@ -103,6 +38,8 @@ const TextComponentSettings = () => {
 
   const [showBgColor, setShowBgColor] = useState(false);
   const toggleBgColor = () => setShowBgColor(!showBgColor);
+
+  const [textAlignValue, setTextAlignValue] = useState(style?.textAlign);
 
   const handleTextColorChange = (color: ColorResult) => {
     setProp((props: Pick<TextComponentProps, 'textColor'>) => {
@@ -122,6 +59,16 @@ const TextComponentSettings = () => {
         props.style = {};
       }
       props.style.fontSize = fontSize.toString() + 'px';
+    });
+  };
+
+  const handleTextAlignChanged = (value: CSSProperties['textAlign']) => {
+    setProp((props: Pick<TextComponentProps, 'style'>) => {
+      if (!props.style) {
+        props.style = {};
+      }
+      setTextAlignValue(value);
+      props.style.textAlign = value;
     });
   };
 
@@ -211,57 +158,20 @@ const TextComponentSettings = () => {
         </Stack>
       </Panel>
       <Panel header='Alignment' defaultExpanded>
-        <Placeholder.Paragraph />
+        <span>Text align</span>
+        <RadioGroup
+          name='radioList'
+          inline
+          value={textAlignValue}
+          onChange={(v) => {
+            handleTextAlignChanged(v as CSSProperties['textAlign']);
+          }}
+        >
+          <Radio value='left'>Left</Radio>
+          <Radio value='center'>Center</Radio>
+          <Radio value='right'>Right</Radio>
+        </RadioGroup>
       </Panel>
     </PanelGroup>
   );
-};
-
-const defaultTextColor: ColorResult = {
-  hex: '#333',
-  rgb: {
-    r: 51,
-    g: 51,
-    b: 51,
-    a: 1,
-  },
-  hsl: {
-    h: 0,
-    s: 0,
-    l: 0.2,
-    a: 1,
-  },
-};
-
-const defaultBgColor: ColorResult = {
-  hex: '#fff',
-  rgb: {
-    r: 255,
-    g: 255,
-    b: 255,
-    a: 1,
-  },
-  hsl: {
-    h: 0,
-    s: 0,
-    l: 0,
-    a: 1,
-  },
-};
-
-TextComponent.craft = {
-  props: {
-    text: 'Hi',
-    textColor: defaultTextColor,
-    bgColor: defaultBgColor,
-    style: {
-      fontSize: '14px',
-    },
-  },
-  rules: {
-    canDrag: () => true,
-  },
-  related: {
-    settings: TextComponentSettings,
-  },
 };
