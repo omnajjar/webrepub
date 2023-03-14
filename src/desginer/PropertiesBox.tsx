@@ -1,6 +1,6 @@
 import { useEditor } from '@craftjs/core';
 import React from 'react';
-import { Container } from 'rsuite';
+import { Container, Message, Stack } from 'rsuite';
 
 export const PropertiesBox = () => {
   const { selected } = useEditor((state) => {
@@ -26,7 +26,15 @@ export const PropertiesBox = () => {
     <Container className='h-full w-full'>
       {!!selected && !!selected.settings ? (
         <div className='w-full'> {React.createElement(selected.settings)}</div>
-      ) : null}
+      ) : (
+        <Stack justifyContent='center' alignItems='center' className='h-full'>
+          <Stack.Item>
+            <Message showIcon type='info'>
+              Please select a component!
+            </Message>
+          </Stack.Item>
+        </Stack>
+      )}
     </Container>
   );
 };
