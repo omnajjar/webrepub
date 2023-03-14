@@ -97,7 +97,7 @@ export function MainLayout({
               </div>
             </Stack>
           </Sidebar>
-          <Container>
+          <Container className='page-container'>
             <h4 style={headerStyles}>Page Title</h4>
             <Divider style={{ margin: '0px' }}></Divider>
             {children}

@@ -44,6 +44,9 @@ body {
 .pointer-cursor {
   cursor: pointer;
 }
+.pointer-move {
+  cursor: move;
+}
 
 .space-around {
   justify-content: space-around;
@@ -83,4 +86,44 @@ body {
 
 .bg-props-box {
   background: #292c33;
+}
+
+.component-selected {
+  position: relative;
+}
+
+.component-selected:after {
+  content: ' ';
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: darkblue;
+}
+
+.indicator-container {
+  height: 30px;
+  margin-top: -29px;
+  font-size: 12px;
+  line-height: 12px;
+  position: absolute;
+}
+
+.indicator-component-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.indicator-container-icon {
+  fill: white;
+  font-size: 14px;
+}
+
+.indicator-container-icon:hover {
+  fill: rgba(255, 255, 255, 0.7);
 }

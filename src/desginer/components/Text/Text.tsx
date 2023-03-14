@@ -66,6 +66,7 @@ export const TextComponent: UserComponent<TextComponentProps> = ({
           color: colorToCSSrgba(ensure(textColor)),
           background: colorToCSSrgba(ensure(bgColor)),
           textAlign: 'left',
+          outline: 'none',
           ...props.style,
         }}
       />

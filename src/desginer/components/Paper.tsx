@@ -52,5 +52,6 @@ PaperComponent.craft = {
   isCanvas: true,
   rules: {
     canMoveIn: () => true,
+    canDrag: () => false,
   },
 };

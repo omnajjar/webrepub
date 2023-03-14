@@ -15,7 +15,7 @@ export default function DesignerNew() {
           <DesignViewport />
         </Content>
       </Stack.Item>
-      <Stack.Item basis={320} className='bg-props-box h-full'>
+      <Stack.Item basis='320px' className='bg-props-box h-full w-full'>
         <PropertiesBox />
       </Stack.Item>
     </Stack>

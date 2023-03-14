@@ -34,5 +34,6 @@ DocumentComponent.craft = {
   rules: {
     canMoveIn: (inComingNode) =>
       inComingNode.every((n) => n.data.type === PaperComponent),
+    canDrag: () => false,
   },
 };

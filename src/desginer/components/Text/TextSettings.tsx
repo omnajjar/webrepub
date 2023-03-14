@@ -93,7 +93,7 @@ export const TextComponentSettings = () => {
               }}
             />
           </Stack.Item>
-          <Stack.Item basis={70}>
+          <Stack.Item basis='70px'>
             <InputNumber
               min={6}
               max={100}
