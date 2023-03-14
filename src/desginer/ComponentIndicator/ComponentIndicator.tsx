@@ -51,7 +51,7 @@ export const ComponentIndicator = ({
     nodeType,
   } = useNode((node) => {
     const deletable =
-      query.node(node.id).isDeletable() && deletableNodes?.has(node.data.type);
+      query.node(node.id).isDeletable() || deletableNodes?.has(node.data.type);
 
     return {
       isHover: node.events.hovered,
