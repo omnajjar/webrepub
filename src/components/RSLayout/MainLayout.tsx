@@ -7,6 +7,8 @@ import React, { MouseEventHandler, PropsWithChildren, useState } from 'react';
 import { CustomProvider, Divider, Navbar, SidenavProps, Stack } from 'rsuite';
 import { Container, Nav, Sidebar, Sidenav } from 'rsuite';
 
+import { HistoryComponent } from '@/desginer/HistoryComponent';
+
 const headerStyles = {
   padding: 18,
   fontSize: 16,
@@ -44,7 +46,6 @@ export function MainLayout({
             <Sidenav.Header>
               <div style={{ ...headerStyles }}>
                 <h6 style={{ fontWeight: 'bold', textAlign: 'center' }}>
-                  {' '}
                   {expand ? 'Docrepup' : 'D'}
                 </h6>
               </div>
@@ -98,7 +99,11 @@ export function MainLayout({
             </Stack>
           </Sidebar>
           <Container className='page-container'>
-            <h4 style={headerStyles}>Page Title</h4>
+            <Stack direction='row' className='top-bar'>
+              <Stack.Item>
+                <HistoryComponent />
+              </Stack.Item>
+            </Stack>
             <Divider style={{ margin: '0px' }}></Divider>
             {children}
           </Container>

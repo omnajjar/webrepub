@@ -24,13 +24,13 @@ export default function DesignerNew() {
           className='h-full'
         >
           <Stack.Item grow={1}>
-            <Stack className='h-full' justifyContent='center'>
-              <Stack.Item>
+            <Stack className='h-full' alignItems='stretch'>
+              <Stack.Item grow={1}>
                 <PropertiesBox />
               </Stack.Item>
             </Stack>
           </Stack.Item>
-          <Divider></Divider>
+          <Divider className='my-10'></Divider>
           <Stack.Item basis='200px'>
             <PanelGroup accordion>
               <Panel header='Layers' defaultExpanded>
