@@ -127,3 +127,14 @@ body {
 .indicator-container-icon:hover {
   fill: rgba(255, 255, 255, 0.7);
 }
+
+.components-layers {
+  max-height: 200px;
+  overflow: auto;
+}
+.components-layers .craft-layer-node.ROOT {
+  overflow: auto;
+}
+.components-layers .craft-layer-node.ROOT * {
+  background: var(--rs-gray-900);
+}

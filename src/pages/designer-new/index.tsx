@@ -1,4 +1,5 @@
-import { Content, Stack } from 'rsuite';
+import { Layers } from '@craftjs/layers';
+import { Content, Divider, Panel, PanelGroup, Stack } from 'rsuite';
 
 import { MainLayout } from '@/components/RSLayout/MainLayout';
 
@@ -16,7 +17,30 @@ export default function DesignerNew() {
         </Content>
       </Stack.Item>
       <Stack.Item basis='320px' className='bg-props-box h-full w-full'>
-        <PropertiesBox />
+        <Stack
+          direction='column'
+          justifyContent='space-between'
+          alignItems='stretch'
+          className='h-full'
+        >
+          <Stack.Item grow={1}>
+            <Stack className='h-full' justifyContent='center'>
+              <Stack.Item>
+                <PropertiesBox />
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+          <Divider></Divider>
+          <Stack.Item basis='200px'>
+            <PanelGroup accordion>
+              <Panel header='Layers' defaultExpanded>
+                <div className='components-layers'>
+                  <Layers expandRootOnLoad={true}></Layers>
+                </div>
+              </Panel>
+            </PanelGroup>
+          </Stack.Item>
+        </Stack>
       </Stack.Item>
     </Stack>
   );
