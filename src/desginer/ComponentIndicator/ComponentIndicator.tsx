@@ -31,7 +31,7 @@ export const ComponentIndicator = ({
   const {
     isHover,
     componentDOM,
-    _name,
+    name,
     moveable,
     connectors: { drag },
     parent,
@@ -88,7 +88,7 @@ export const ComponentIndicator = ({
 
     // This is a bit hacky way to keep whisper content refreshed and correctly postioned
     // on screen resize/scroll
-    // TODO: condifer researching and having a better solution to handle it in the future.
+    // TODO: consider researching and having a better solution to handle it in the future.
     const indicatorPlaceholderEl = document.getElementById(id);
     if (indicatorPlaceholderEl) {
       indicatorPlaceholderEl.style.top = nextPos.top;
@@ -152,7 +152,14 @@ export const ComponentIndicator = ({
             speaker={
               showIndicator ? (
                 <Tooltip arrow={false}>
-                  <ButtonGroup size='sm'>
+                  <span style={{ marginRight: '8px' }}>{name}</span>
+                  <ButtonGroup
+                    size='xs'
+                    style={{
+                      border: '1px solid darkblue',
+                      borderRadius: '7px',
+                    }}
+                  >
                     {moveable ? (
                       <IconButton
                         icon={<Move className='indicator-container-icon' />}

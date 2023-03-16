@@ -68,6 +68,10 @@ body {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.my-5 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 
 .mt-20 {
   margin-top: 20px;
