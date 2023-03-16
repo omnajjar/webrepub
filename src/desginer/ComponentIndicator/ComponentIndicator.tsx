@@ -1,28 +1,16 @@
 import { NodeData, useEditor, useNode } from '@craftjs/core';
 import { ROOT_NODE } from '@craftjs/utils';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { SVGProps, useCallback, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { Stack } from 'rsuite';
+import { ButtonGroup, IconButton, Tooltip, Whisper } from 'rsuite';
+import { OverlayTriggerHandle } from 'rsuite/esm/Picker';
 
 import { ensure } from '@/utils';
 
 import ArrowUp from '~/icons/arrow-up.svg';
 import Delete from '~/icons/delete.svg';
 import Move from '~/icons/move.svg';
-
-const IndicatorContainerStyle: CSSProperties = {
-  height: '30px',
-  marginTop: '-30px',
-  fontSize: '12px',
-  lineHeight: '12px',
-  position: 'absolute',
-  padding: '5px',
-  zIndex: 9999,
-  background: '#2A2C32',
-  display: 'flex',
-  alignItems: 'center',
-};
 
 interface ComponentIndicatorProps {
   ComponentToRender: JSX.Element;
@@ -42,8 +30,8 @@ export const ComponentIndicator = ({
 
   const {
     isHover,
-    dom,
-    name,
+    componentDOM,
+    _name,
     moveable,
     connectors: { drag },
     parent,
@@ -55,7 +43,7 @@ export const ComponentIndicator = ({
 
     return {
       isHover: node.events.hovered,
-      dom: node.dom,
+      componentDOM: node.dom,
       name: node.data.custom.displayName || node.data.displayName,
       moveable: query.node(node.id).isDraggable(),
       parent: node.data.parent,
@@ -68,130 +56,244 @@ export const ComponentIndicator = ({
   const showIndicator =
     (isHover || isActive) && !hideIndicatorFor.has(nodeType);
 
-  useEffect(() => {
-    if (dom) {
-      if (showIndicator) {
-        dom.classList.add('component-selected');
-        return;
-      }
+  const getPos = useCallback((element: HTMLElement | null) => {
+    const defaultPos = { top: 0, left: 0, bottom: 0, width: 0, height: 0 };
 
-      dom.classList.remove('component-selected');
-    }
-  }, [dom, showIndicator]);
+    const { top, left, bottom, height, width } = element
+      ? element.getBoundingClientRect()
+      : defaultPos;
 
-  const getPos = useCallback((dom: HTMLElement | null) => {
-    const { top, left, bottom } = dom
-      ? dom.getBoundingClientRect()
-      : { top: 0, left: 0, bottom: 0 };
     return {
       top: `${top > 0 ? top : bottom}px`,
       left: `${left}px`,
+      width: `${width}px`,
+      height: `${height}px`,
     };
   }, []);
 
-  const currentRef = useRef<HTMLDivElement>(null);
+  const indicatorRef = useRef<HTMLDivElement | null>(null);
+  const whisperRef = useRef<OverlayTriggerHandle>(null);
 
   const refreshIndicatorPosition = useCallback(() => {
-    const { current: currentDOM } = currentRef;
-
-    if (!currentDOM) {
+    if (!indicatorRef.current) {
       return;
     }
 
-    const { top, left } = getPos(dom);
+    const nextPos = getPos(componentDOM);
 
-    currentDOM.style.top = top;
-    currentDOM.style.left = left;
-  }, [dom, getPos]);
+    indicatorRef.current.style.top = nextPos.top;
+    indicatorRef.current.style.left = nextPos.left;
+    indicatorRef.current.style.height = nextPos.height;
+    indicatorRef.current.style.width = nextPos.width;
+
+    // This is a bit hacky way to keep whisper content refreshed and correctly postioned
+    // on screen resize/scroll
+    // TODO: condifer researching and having a better solution to handle it in the future.
+    const indicatorPlaceholderEl = document.getElementById(id);
+    if (indicatorPlaceholderEl) {
+      indicatorPlaceholderEl.style.top = nextPos.top;
+      indicatorPlaceholderEl.style.left = nextPos.left;
+      indicatorPlaceholderEl.style.width = nextPos.width;
+    }
+  }, [componentDOM, getPos, id]);
+
+  const refreshWhisperPosition = useCallback(() => {
+    if (!whisperRef.current) {
+      return;
+    }
+
+    whisperRef.current.updatePosition();
+  }, []);
 
   useEffect(() => {
-    document
-      .querySelector('.design-view-port')
-      ?.addEventListener('scroll', refreshIndicatorPosition);
+    const refresh = () => {
+      refreshIndicatorPosition();
+      refreshWhisperPosition();
+    };
+
+    const designViewPortElement = ensure(
+      document.querySelector('.design-view-port')
+    );
+
+    designViewPortElement.addEventListener('scroll', refresh);
+    window.addEventListener('resize', refresh);
 
     return () => {
-      document
-        .querySelector('.design-view-port')
-        ?.removeEventListener('scroll', refreshIndicatorPosition);
+      designViewPortElement.removeEventListener('scroll', refresh);
+      window.removeEventListener('resize', refresh);
     };
-  }, [refreshIndicatorPosition]);
+  }, [refreshIndicatorPosition, refreshWhisperPosition]);
 
-  useEffect(() => {
-    window.addEventListener('resize', refreshIndicatorPosition);
+  if (!showIndicator) {
+    return NodeToRender;
+  }
 
-    return () => {
-      window.removeEventListener('resize', refreshIndicatorPosition);
-    };
-  }, [refreshIndicatorPosition]);
+  const currentPosition = getPos(componentDOM);
+
+  const selectParent = () => {
+    actions.selectNode(parent);
+  };
+
+  const deleteComponent = () => {
+    actions.delete(id);
+  };
 
   return (
     <>
-      {showIndicator
-        ? ReactDOM.createPortal(
+      {NodeToRender}
+
+      {ReactDOM.createPortal(
+        <>
+          <Whisper
+            preventOverflow
+            ref={whisperRef}
+            placement='top'
+            open={true}
+            speaker={
+              showIndicator ? (
+                <Tooltip arrow={false}>
+                  <ButtonGroup size='sm'>
+                    {moveable ? (
+                      <IconButton
+                        icon={<Move className='indicator-container-icon' />}
+                        ref={(ref) => {
+                          if (ref) {
+                            drag(ref);
+                          }
+                        }}
+                      />
+                    ) : null}
+                    {id !== ROOT_NODE ? (
+                      <IconButton
+                        icon={<ArrowUp className='indicator-container-icon' />}
+                        onclick={selectParent}
+                      />
+                    ) : null}
+                    {deletable ? (
+                      <IconButton
+                        icon={<Delete className='indicator-container-icon' />}
+                        onClick={deleteComponent}
+                      />
+                    ) : null}
+                  </ButtonGroup>
+                </Tooltip>
+              ) : (
+                <></>
+              )
+            }
+          >
             <div
+              id={id}
               style={{
-                ...IndicatorContainerStyle,
-                ...(dom
+                position: 'absolute',
+                pointerEvents: 'none',
+                zIndex: 9000,
+                ...(componentDOM
                   ? {
-                      left: getPos(dom).left,
-                      top: getPos(dom).top,
+                      top: currentPosition.top,
+                      left: currentPosition.left,
+                      width: currentPosition.width,
+                      height: '0px',
                     }
                   : {}),
               }}
-              ref={currentRef}
-              className='indicator-bg fixed flex items-center px-2 py-2 text-white'
+            ></div>
+          </Whisper>
+          {showIndicator ? (
+            <div
+              style={{
+                position: 'absolute',
+                pointerEvents: 'none',
+                zIndex: 9000,
+                ...(componentDOM
+                  ? {
+                      ...currentPosition,
+                    }
+                  : {}),
+              }}
+              ref={indicatorRef}
             >
-              <Stack direction='row' spacing={8}>
-                <Stack.Item>
-                  <span className='indicator-component-name'>{name}</span>
-                </Stack.Item>
-                <Stack.Item>
-                  {moveable ? (
-                    <a
-                      className='indicator-action pointer-move'
-                      style={{ color: 'red' }}
-                      ref={(ref) => {
-                        if (ref) {
-                          drag(ref);
-                        }
-                      }}
-                    >
-                      <Move className='indicator-container-icon' />
-                    </a>
-                  ) : null}
-                </Stack.Item>
-                <Stack.Item>
-                  {id !== ROOT_NODE && (
-                    <a
-                      className='indicator-action pointer-cursor'
-                      onClick={() => {
-                        actions.selectNode(parent);
-                      }}
-                    >
-                      <ArrowUp className='indicator-container-icon' />
-                    </a>
-                  )}
-                </Stack.Item>
-                <Stack.Item>
-                  {' '}
-                  {deletable ? (
-                    <a
-                      className='indicator-action pointer-cursor'
-                      onMouseDown={(e: React.MouseEvent) => {
-                        e.stopPropagation();
-                        actions.delete(id);
-                      }}
-                    >
-                      <Delete className='indicator-container-icon' />
-                    </a>
-                  ) : null}
-                </Stack.Item>
-              </Stack>
-            </div>,
-            ensure(document.querySelector('.design-view-port'))
-          )
-        : null}
-      {NodeToRender}
+              <IndicatorCorner position='top-left'></IndicatorCorner>
+              <IndicatorCorner position='top-right'></IndicatorCorner>
+              <IndicatorCorner position='bottom-left'></IndicatorCorner>
+              <IndicatorCorner position='bottom-right'></IndicatorCorner>
+            </div>
+          ) : null}
+        </>,
+        document.body
+      )}
     </>
+  );
+};
+
+interface IndicatorCornerProps extends React.SVGProps<SVGSVGElement> {
+  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  color?: CSSProperties['color'];
+  strokeWidth?: SVGProps<SVGPathElement>['strokeWidth'];
+}
+
+const IndicatorCorner = ({
+  position,
+  color,
+  strokeWidth,
+  ...props
+}: IndicatorCornerProps) => {
+  let style: CSSProperties = {
+    position: 'absolute',
+    width: '14px',
+    height: '14px',
+    display: 'block',
+    cursor: 'pointer',
+  };
+
+  switch (position) {
+    case 'top-left':
+      style = {
+        ...style,
+        transform: 'rotate(270deg)',
+        top: 0,
+        left: 0,
+      };
+      break;
+    case 'top-right':
+      style = {
+        ...style,
+        top: 0,
+        right: 0,
+      };
+      break;
+    case 'bottom-left':
+      style = {
+        ...style,
+        bottom: 0,
+        left: 0,
+        transform: 'rotate(180deg)',
+      };
+      break;
+    case 'bottom-right':
+      style = {
+        ...style,
+        bottom: 0,
+        right: 0,
+        transform: 'rotate(90deg)',
+      };
+      break;
+  }
+
+  const { style: propsStyle, ...otherProps } = props;
+
+  return (
+    <svg
+      custom-position={position}
+      style={{ ...propsStyle, ...style }}
+      {...otherProps}
+    >
+      <path
+        d='M0,0 L14,0 L14,14 L12,14 L12,2 L0,2 Z'
+        stroke={color ?? 'darkblue'}
+        strokeWidth={strokeWidth ?? '3'}
+        fill='#000'
+      ></path>
+    </svg>
   );
 };
