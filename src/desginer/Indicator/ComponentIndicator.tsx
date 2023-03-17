@@ -1,7 +1,7 @@
 import { NodeData, useEditor, useNode } from '@craftjs/core';
 import { ROOT_NODE } from '@craftjs/utils';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
-import React, { SVGProps, useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { ButtonGroup, IconButton, Tooltip, Whisper } from 'rsuite';
 import { OverlayTriggerHandle } from 'rsuite/esm/Picker';
@@ -158,7 +158,10 @@ export const ComponentIndicator = ({
             open={true}
             speaker={
               showIndicator ? (
-                <Tooltip arrow={false}>
+                <Tooltip
+                  arrow={false}
+                  style={{ opacity: isHover && !isActive ? 0.3 : 1 }}
+                >
                   <span style={{ marginRight: '8px' }}>{name}</span>
                   <ButtonGroup
                     size='xs'
@@ -227,10 +230,22 @@ export const ComponentIndicator = ({
               }}
               ref={indicatorRef}
             >
-              <IndicatorCorner position='top-left'></IndicatorCorner>
-              <IndicatorCorner position='top-right'></IndicatorCorner>
-              <IndicatorCorner position='bottom-left'></IndicatorCorner>
-              <IndicatorCorner position='bottom-right'></IndicatorCorner>
+              <IndicatorCorner
+                position='top-left'
+                isActive={isActive}
+              ></IndicatorCorner>
+              <IndicatorCorner
+                position='top-right'
+                isActive={isActive}
+              ></IndicatorCorner>
+              <IndicatorCorner
+                position='bottom-left'
+                isActive={isActive}
+              ></IndicatorCorner>
+              <IndicatorCorner
+                position='bottom-right'
+                isActive={isActive}
+              ></IndicatorCorner>
             </div>
           ) : null}
         </>,
@@ -242,14 +257,12 @@ export const ComponentIndicator = ({
 
 interface IndicatorCornerProps extends React.SVGProps<SVGSVGElement> {
   position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-  color?: CSSProperties['color'];
-  strokeWidth?: SVGProps<SVGPathElement>['strokeWidth'];
+  isActive: boolean;
 }
 
 const IndicatorCorner = ({
   position,
-  color,
-  strokeWidth,
+  isActive,
   ...props
 }: IndicatorCornerProps) => {
   let style: CSSProperties = {
@@ -304,8 +317,8 @@ const IndicatorCorner = ({
     >
       <path
         d='M0,0 L14,0 L14,14 L12,14 L12,2 L0,2 Z'
-        stroke={color ?? 'darkblue'}
-        strokeWidth={strokeWidth ?? '3'}
+        stroke={isActive ? 'darkblue' : 'darkgray'}
+        strokeWidth={isActive ? '3' : '1'}
         fill='#000'
       ></path>
     </svg>

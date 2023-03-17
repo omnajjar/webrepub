@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Container } from 'rsuite';
 
-import { MainFrame } from '@/desginer/MainFrame';
+import { MainFrame } from '@/desginer/frames/MainFrame';
 
 export function DesignViewport() {
   const [initialHeigh, setIntialHeight] = useState('100%');

@@ -1,8 +1,8 @@
-import { ComponentIndicator } from '@/desginer/componentIndicator/ComponentIndicator';
 import { ContainerComponent } from '@/desginer/components/Container';
 import { DocumentComponent } from '@/desginer/components/DocumentComponent';
 import { PaperComponent } from '@/desginer/components/Paper';
 import { TextComponent } from '@/desginer/components/Text/Text';
+import { ComponentIndicator } from '@/desginer/Indicator/ComponentIndicator';
 
 export function createRenderComponentIndicator({
   render,
