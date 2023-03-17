@@ -145,6 +145,8 @@ export const ComponentIndicator = ({
     actions.delete(id);
   };
 
+  const isOnlyHovered = isHover && !isActive;
+
   return (
     <>
       {NodeToRender}
@@ -154,13 +156,13 @@ export const ComponentIndicator = ({
           <Whisper
             preventOverflow
             ref={whisperRef}
-            placement='top'
+            placement={isOnlyHovered ? 'topStart' : 'top'}
             open={true}
             speaker={
               showIndicator ? (
                 <Tooltip
                   arrow={false}
-                  style={{ opacity: isHover && !isActive ? 0.3 : 1 }}
+                  style={{ opacity: isOnlyHovered ? 0.3 : 1 }}
                 >
                   <span style={{ marginRight: '8px' }}>{name}</span>
                   <ButtonGroup
