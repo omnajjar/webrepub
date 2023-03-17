@@ -9,8 +9,8 @@ export function HistoryComponent() {
     canRedo: query.history.canRedo(),
   }));
 
-  return enabled ? (
-    <ButtonGroup size='sm'>
+  return (
+    <ButtonGroup size='sm' disabled={!enabled}>
       <Whisper
         placement='bottom'
         trigger='hover'
@@ -30,5 +30,5 @@ export function HistoryComponent() {
         </Button>
       </Whisper>
     </ButtonGroup>
-  ) : null;
+  );
 }

@@ -22,7 +22,7 @@ export default function Designer() {
 
   return (
     <ThemeProvider>
-      <Editor resolver={{ ContainerComponent, ContainerB, TextComponent }}>
+      <Editor resolver={{ ContainerComponent, TextComponent }}>
         <div className='flex h-screen'>
           {/* Narrow sidebar */}
           <div className='hidden w-28 overflow-y-auto bg-indigo-700 md:block'>
@@ -30,7 +30,7 @@ export default function Designer() {
               <div className='flex flex-shrink-0 items-center text-white'>
                 Logo
               </div>
-              <ComponentsBar />
+              <ComponentsBar expanded={true} />
             </div>
           </div>
 
