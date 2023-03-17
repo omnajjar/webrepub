@@ -1,17 +1,16 @@
 import { useEditor } from '@craftjs/core';
 import { CSSProperties } from 'react';
+import React from 'react';
 import { IconType } from 'react-icons';
 import { TbSquare } from 'react-icons/tb';
 import { TfiText } from 'react-icons/tfi';
-import { List, SidenavProps } from 'rsuite';
+import { List } from 'rsuite';
 
 import { ContainerComponent } from '@/desginer/components/Container';
 import { TextComponent } from '@/desginer/components/Text/Text';
 
-type ComponentsBoxProps = SidenavProps;
-
-export function ComponentsBox(
-  { expanded }: ComponentsBoxProps = { expanded: false }
+export function ComponentsBar(
+  { expanded }: { expanded: boolean } = { expanded: false }
 ) {
   const { connectors } = useEditor();
 
@@ -24,7 +23,7 @@ export function ComponentsBox(
           }
         }}
       >
-        <ComponentItem icon={TfiText} name='Text' expanded={expanded ?? true} />
+        <ComponentItem icon={TfiText} name='Text' expanded={expanded} />
       </List.Item>
       <List.Item
         ref={(ref) => {
@@ -33,11 +32,7 @@ export function ComponentsBox(
           }
         }}
       >
-        <ComponentItem
-          icon={TbSquare}
-          name='Container'
-          expanded={expanded ?? true}
-        />
+        <ComponentItem icon={TbSquare} name='Container' expanded={expanded} />
       </List.Item>
     </List>
   );

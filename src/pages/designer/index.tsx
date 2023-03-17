@@ -11,7 +11,7 @@ import { Fragment, useState } from 'react';
 
 import { ContainerComponent } from '@/desginer/components/Container';
 import { TextComponent } from '@/desginer/components/Text/Text';
-import { ComponentsBox } from '@/desginer/ComponentsBox';
+import { ComponentsBar } from '@/desginer/ComponentsBox';
 import { PropertiesBox } from '@/desginer/PropertiesBox';
 import { classNames } from '@/utils';
 
@@ -30,7 +30,7 @@ export default function Designer() {
               <div className='flex flex-shrink-0 items-center text-white'>
                 Logo
               </div>
-              <ComponentsBox />
+              <ComponentsBar />
             </div>
           </div>
 

@@ -1,4 +1,4 @@
-import { ComponentIndicator } from '@/desginer/ComponentIndicator/ComponentIndicator';
+import { ComponentIndicator } from '@/desginer/componentIndicator/ComponentIndicator';
 import { ContainerComponent } from '@/desginer/components/Container';
 import { DocumentComponent } from '@/desginer/components/DocumentComponent';
 import { PaperComponent } from '@/desginer/components/Paper';

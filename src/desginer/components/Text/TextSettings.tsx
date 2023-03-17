@@ -13,7 +13,7 @@ import {
 } from 'rsuite';
 
 import { TextComponentProps } from '@/desginer/components/Text/Text';
-import { colorToCSSrgba } from '@/desginer/utils';
+import { colorToCSSrgba } from '@/desginer/utils/colors';
 import { ensure } from '@/utils';
 
 const colorIconStyle: CSSProperties = {

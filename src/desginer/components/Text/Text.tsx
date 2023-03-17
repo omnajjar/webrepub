@@ -4,7 +4,7 @@ import { ColorResult } from 'react-color';
 import ContentEditable from 'react-contenteditable';
 
 import { TextComponentSettings } from '@/desginer/components/Text/TextSettings';
-import { colorToCSSrgba } from '@/desginer/utils';
+import { colorToCSSrgba } from '@/desginer/utils/colors';
 import { ensure } from '@/utils';
 
 export interface TextComponentProps

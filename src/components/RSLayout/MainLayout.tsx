@@ -7,7 +7,7 @@ import React, { MouseEventHandler, PropsWithChildren, useState } from 'react';
 import { CustomProvider, Divider, Navbar, SidenavProps, Stack } from 'rsuite';
 import { Container, Nav, Sidebar, Sidenav } from 'rsuite';
 
-import { HistoryComponent } from '@/desginer/HistoryComponent';
+import { HistoryComponent } from '@/desginer/historyCompnent/HistoryComponent';
 
 const headerStyles = {
   padding: 18,

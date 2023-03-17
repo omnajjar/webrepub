@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import { ButtonGroup, IconButton, Tooltip, Whisper } from 'rsuite';
 import { OverlayTriggerHandle } from 'rsuite/esm/Picker';
 
+import { onElementResize } from '@/desginer/utils/resizeObserver';
 import { ensure } from '@/utils';
 
 import ArrowUp from '~/icons/arrow-up.svg';
@@ -115,12 +116,18 @@ export const ComponentIndicator = ({
       document.querySelector('.design-view-port')
     );
 
-    designViewPortElement.addEventListener('scroll', refresh);
     window.addEventListener('resize', refresh);
 
+    designViewPortElement.addEventListener('scroll', refresh);
+    const editorResizeObserver = onElementResize(
+      designViewPortElement,
+      refresh
+    );
+
     return () => {
-      designViewPortElement.removeEventListener('scroll', refresh);
       window.removeEventListener('resize', refresh);
+      designViewPortElement.removeEventListener('scroll', refresh);
+      editorResizeObserver.disconnect();
     };
   }, [refreshIndicatorPosition, refreshWhisperPosition]);
 
