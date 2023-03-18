@@ -150,7 +150,6 @@ export const ComponentIndicator = ({
   return (
     <>
       {NodeToRender}
-
       {ReactDOM.createPortal(
         <>
           <Whisper
@@ -185,7 +184,7 @@ export const ComponentIndicator = ({
                     {id !== ROOT_NODE ? (
                       <IconButton
                         icon={<ArrowUp className='indicator-container-icon' />}
-                        onclick={selectParent}
+                        onClick={selectParent}
                       />
                     ) : null}
                     {deletable ? (
