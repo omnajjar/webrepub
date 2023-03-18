@@ -17,12 +17,10 @@ export function DesignViewport() {
 
   return (
     <Container
-      className='design-view-port designer-bg-pattern items-center overflow-auto'
-      style={{ height: `${initialHeigh}` }}
+      className='design-view-port designer-bg-pattern flex flex-col items-center'
+      style={{ height: `${initialHeigh}`, padding: '30px' }}
     >
-      <div className='shadow-paper m-0 mt-20 mb-20 p-0'>
-        <MainFrame></MainFrame>
-      </div>
+      <MainFrame></MainFrame>
     </Container>
   );
 }

@@ -26,6 +26,10 @@ body {
   display: flex;
 }
 
+.flex-col {
+  flex-direction: column;
+}
+
 .jsutify-center {
   justify-content: center;
 }
@@ -60,6 +64,10 @@ body {
   padding: 0px;
 }
 
+.p-15 {
+  padding: 15px;
+}
+
 .mt-10 {
   margin-top: 10px;
 }
@@ -68,6 +76,12 @@ body {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.mx-10 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .my-5 {
   margin-top: 5px;
   margin-bottom: 5px;

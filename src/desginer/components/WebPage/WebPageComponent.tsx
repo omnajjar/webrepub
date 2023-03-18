@@ -8,8 +8,9 @@ type WebPageComponentProps = Omit<
 
 const defaultWebPageComponentComponentStyles: CSSProperties = {
   minHeight: '842px',
-  width: '595px',
+  width: '100%',
   background: '#fff',
+  overflow: 'auto',
 };
 
 export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
