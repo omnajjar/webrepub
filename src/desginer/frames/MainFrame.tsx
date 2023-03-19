@@ -1,16 +1,16 @@
 import { Element, Frame } from '@craftjs/core';
 
-import { WEBREPUB_LOCALSTORAGE_KEY } from '@/desginer/contsants';
+import {
+  BLANK_DESIGN_JSON_STRING,
+  WEBREPUB_LOCALSTORAGE_KEY,
+} from '@/desginer/contsants';
 import { WebPageComponent } from '@/desginer/designComponents/WebPage/WebPageComponent';
 import { useLocalStorage } from '@/desginer/hooks/useLocalStorage';
-
-const emptyPageDesingJson =
-  '{"ROOT":{"type":{"resolvedName":"WebPageComponent"},"isCanvas":true,"props":{},"displayName":"WebPageComponent","custom":{},"hidden":false,"nodes":[],"linkedNodes":{}}}';
 
 export function MainFrame() {
   const [designJson] = useLocalStorage(
     WEBREPUB_LOCALSTORAGE_KEY,
-    emptyPageDesingJson
+    BLANK_DESIGN_JSON_STRING
   );
   return (
     <Frame data={JSON.parse(designJson)}>

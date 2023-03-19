@@ -38,6 +38,7 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
   const userConfiguredStyles: CSSProperties = {
     flexDirection: direction,
     padding: '8px',
+    gap: '5px',
   };
 
   const addStackItem = () => {

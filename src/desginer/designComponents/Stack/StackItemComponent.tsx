@@ -52,14 +52,12 @@ const EmptyStackItemContent = () => {
   const emptyContainerStyles: CSSProperties = {
     color: 'black',
     textAlign: 'center',
+    verticalAlign: 'center',
     padding: '15px',
     border: '2px dashed lightgray',
+    minHeight: '100%',
   };
-  return (
-    <div style={emptyContainerStyles} className='foo'>
-      Stack Item
-    </div>
-  );
+  return <div style={emptyContainerStyles}>Stack Item</div>;
 };
 
 StackItemComponent.craft = {
