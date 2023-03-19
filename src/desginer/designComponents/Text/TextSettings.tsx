@@ -12,7 +12,7 @@ import {
   Stack,
 } from 'rsuite';
 
-import { TextComponentProps } from '@/desginer/components/Text/Text';
+import { TextComponentProps } from '@/desginer/designComponents/Text/Text';
 import { colorToCSSrgba } from '@/desginer/utils/colors';
 import { ensure } from '@/utils';
 

@@ -17,8 +17,11 @@ import { Container, Nav, Sidebar, Sidenav } from 'rsuite';
 import { ComponentsBar } from '@/desginer/ComponentsBox';
 import { DesignViewport } from '@/desginer/DesignViewport';
 import { DesignerContext } from '@/desginer/EditorContext';
-import { HistoryComponent } from '@/desginer/historyCompnent/HistoryComponent';
 import { PropertiesBox } from '@/desginer/PropertiesBox';
+import {
+  ActionsComponent,
+  HistoryComponent,
+} from '@/desginer/topbarComponents';
 
 const headerStyles = {
   padding: 18,
@@ -41,13 +44,31 @@ export function WebRepubEditor() {
               toggle={() => setExpanded(!expanded)}
             />
             <Container className='page-container'>
-              <Stack direction='row' className='top-bar'>
-                <Stack.Item>
-                  <HistoryComponent />
+              <Stack
+                direction='row'
+                className='top-bar px-30'
+                justifyContent='space-between'
+              >
+                <Stack.Item flex-grow={6} flex={6}>
+                  <Stack justifyContent='space-between'>
+                    <Stack.Item grow={1}>
+                      <HistoryComponent />
+                    </Stack.Item>
+                    <Stack.Item grow={1} order='revert'>
+                      <Stack direction='row-reverse'>
+                        <Stack.Item>
+                          <ActionsComponent />
+                        </Stack.Item>
+                      </Stack>
+                    </Stack.Item>
+                  </Stack>
+                </Stack.Item>
+                <Stack.Item basis='320px' className='h-full w-full'>
+                  {/* <HistoryComponent /> */}
                 </Stack.Item>
               </Stack>
               <Divider style={{ margin: '0px' }}></Divider>
-              {/* Editing rea */}
+              {/* Editing area */}
               <Stack direction='row' alignItems='flex-start' spacing={0}>
                 <Stack.Item grow={6}>
                   <Content>

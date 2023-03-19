@@ -6,8 +6,8 @@ import { TbSquare } from 'react-icons/tb';
 import { TfiText } from 'react-icons/tfi';
 import { List } from 'rsuite';
 
-import { ContainerComponent } from '@/desginer/components/Container';
-import { TextComponent } from '@/desginer/components/Text';
+import { ContainerComponent } from '@/desginer/designComponents/Container';
+import { TextComponent } from '@/desginer/designComponents/Text';
 
 export function ComponentsBar(
   { expanded }: { expanded: boolean } = { expanded: false }

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ColorResult } from 'react-color';
 import ContentEditable from 'react-contenteditable';
 
-import { TextComponentSettings } from '@/desginer/components/Text/TextSettings';
+import { TextComponentSettings } from '@/desginer/designComponents/Text/TextSettings';
 import { colorToCSSrgba } from '@/desginer/utils/colors';
 import { ensure } from '@/utils';
 

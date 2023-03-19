@@ -1,6 +1,6 @@
-import { ContainerComponent } from '@/desginer/components/Container';
-import { TextComponent } from '@/desginer/components/Text/Text';
-import { WebPageComponent } from '@/desginer/components/WebPage/WebPageComponent';
+import { ContainerComponent } from '@/desginer/designComponents/Container';
+import { TextComponent } from '@/desginer/designComponents/Text/Text';
+import { WebPageComponent } from '@/desginer/designComponents/WebPage/WebPageComponent';
 import { ComponentIndicator } from '@/desginer/Indicator/ComponentIndicator';
 
 export function createRenderComponentIndicator({

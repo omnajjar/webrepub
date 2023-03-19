@@ -68,6 +68,11 @@ body {
   padding: 15px;
 }
 
+.px-30 {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 .mt-10 {
   margin-top: 10px;
 }
@@ -164,5 +169,4 @@ body {
 
 .top-bar {
   height: 56px;
-  padding: 15px;
 }
