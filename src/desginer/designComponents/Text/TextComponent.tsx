@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ColorResult } from 'react-color';
 import ContentEditable from 'react-contenteditable';
 
-import { TextComponentSettings } from '@/desginer/designComponents/Text/TextSettings';
+import { TextComponentSettings } from '@/desginer/designComponents/Text/TextComponentSettings';
 import { colorToCSSrgba } from '@/desginer/utils/colors';
 import { ensure } from '@/utils';
 
@@ -107,6 +107,7 @@ const defaultBgColor: ColorResult = {
 };
 
 TextComponent.craft = {
+  displayName: 'Text',
   props: {
     text: 'Hi',
     textColor: defaultTextColor,

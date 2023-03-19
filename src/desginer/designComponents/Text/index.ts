@@ -1,2 +1,2 @@
-export * from './Text';
-export * from './TextSettings';
+export * from './TextComponent';
+export * from './TextComponentSettings';

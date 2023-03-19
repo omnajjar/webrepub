@@ -11,7 +11,7 @@ import { Fragment, useState } from 'react';
 
 import { ComponentsBar } from '@/desginer/ComponentsBox';
 import { ContainerComponent } from '@/desginer/designComponents/Container';
-import { TextComponent } from '@/desginer/designComponents/Text/Text';
+import { TextComponent } from '@/desginer/designComponents/Text/TextComponent';
 import { PropertiesBox } from '@/desginer/PropertiesBox';
 import { classNames } from '@/utils';
 

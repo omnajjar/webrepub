@@ -52,6 +52,7 @@ export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
 };
 
 WebPageComponent.craft = {
+  displayName: 'Web page',
   isCanvas: true,
   rules: {
     canMoveIn: (_incomingNode) => true,

@@ -13,7 +13,7 @@ export function MainFrame() {
     emptyPageDesingJson
   );
   return (
-    <Frame json={JSON.parse(designJson)}>
+    <Frame data={JSON.parse(designJson)}>
       <Element is={WebPageComponent} canvas></Element>
     </Frame>
   );

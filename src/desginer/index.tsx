@@ -54,7 +54,7 @@ export function WebRepubEditor() {
                     <Stack.Item grow={1}>
                       <HistoryComponent />
                     </Stack.Item>
-                    <Stack.Item grow={1} order='revert'>
+                    <Stack.Item grow={1}>
                       <Stack direction='row-reverse'>
                         <Stack.Item>
                           <ActionsComponent />

@@ -46,6 +46,7 @@ const EmptyContainerContent = () => {
 };
 
 ContainerComponent.craft = {
+  displayName: 'Container',
   isCanvas: true,
   rules: {
     canMoveIn: () => true,

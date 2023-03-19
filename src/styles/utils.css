@@ -30,7 +30,7 @@ body {
   flex-direction: column;
 }
 
-.jsutify-center {
+.justify-center {
   justify-content: center;
 }
 .items-center {
@@ -99,6 +99,27 @@ body {
 .mb-20 {
   margin-bottom: 20px;
 }
+
+.bg-darkblue {
+  background: #00008b;
+}
+
+.color-darkblue {
+  color: #00008b;
+}
+
+.color-gray {
+  color: #808080;
+}
+
+.hover-bg-darkblue:hover {
+  background: #00008b;
+}
+
+.hover-color-darkblue:hover {
+  color: #00008b;
+}
+
 /* Designer */
 
 .designer-bg-pattern {
@@ -169,4 +190,19 @@ body {
 
 .top-bar {
   height: 56px;
+}
+
+.zig-zag-bg {
+  background-color: #f4f4f4;
+  background-image: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 1) 25%,
+      transparent 25%
+    ),
+    linear-gradient(225deg, rgba(255, 255, 255, 1) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(255, 255, 255, 1) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(255, 255, 255, 1) 25%, #f4f4f4 25%);
+  background-position: 10px 0, 10px 0, 0 0, 0 0;
+  background-size: 20px 20px;
+  background-repeat: repeat;
 }

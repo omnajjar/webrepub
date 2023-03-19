@@ -177,6 +177,7 @@ export const ComponentIndicator = ({
                         ref={(ref) => {
                           if (ref) {
                             drag(ref);
+                            refreshWhisperPosition();
                           }
                         }}
                       />

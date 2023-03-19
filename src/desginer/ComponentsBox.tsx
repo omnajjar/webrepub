@@ -3,10 +3,11 @@ import { CSSProperties } from 'react';
 import React from 'react';
 import { IconType } from 'react-icons';
 import { TbSquare } from 'react-icons/tb';
-import { TfiText } from 'react-icons/tfi';
+import { TfiLayoutColumn3, TfiText } from 'react-icons/tfi';
 import { List } from 'rsuite';
 
 import { ContainerComponent } from '@/desginer/designComponents/Container';
+import { StackComponent } from '@/desginer/designComponents/Stack';
 import { TextComponent } from '@/desginer/designComponents/Text';
 
 export function ComponentsBar(
@@ -33,6 +34,19 @@ export function ComponentsBar(
         }}
       >
         <ComponentItem icon={TbSquare} name='Container' expanded={expanded} />
+      </List.Item>
+      <List.Item
+        ref={(ref) => {
+          if (ref) {
+            connectors.create(ref, <StackComponent />);
+          }
+        }}
+      >
+        <ComponentItem
+          icon={TfiLayoutColumn3}
+          name='Stack'
+          expanded={expanded}
+        />
       </List.Item>
     </List>
   );
