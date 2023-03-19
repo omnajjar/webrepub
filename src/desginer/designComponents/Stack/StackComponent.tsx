@@ -1,13 +1,6 @@
 import { FreshNode, useEditor, useNode, UserComponent } from '@craftjs/core';
 import PlusRoundIcon from '@rsuite/icons/PlusRound';
-import {
-  Children,
-  CSSProperties,
-  FC,
-  PropsWithChildren,
-  useEffect,
-  useRef,
-} from 'react';
+import { Children, CSSProperties } from 'react';
 import { Tooltip, Whisper } from 'rsuite';
 
 import { StackItemComponent } from '@/desginer/designComponents/Stack/StackItemComponent';
@@ -59,40 +52,23 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
     actions.add(node, id);
   };
 
-  const stackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const stackDom = stackRef.current;
-    if (stackDom) {
-      connect(drag(stackDom));
-    }
-  }, [connect, drag]);
-
-  const MainStackComponent: FC<PropsWithChildren> = ({ children }) => {
-    return (
-      <div
-        style={{
-          ...style,
-          ...userConfiguredStyles,
-          ...requiredStackComponentStyles,
-        }}
-        {...props}
-        ref={stackRef}
-      >
-        {children}
-      </div>
-    );
-  };
-
-  if (!enabled) {
-    return <MainStackComponent>{children}</MainStackComponent>;
-  }
-
-  Children.count(children);
-
   return (
-    <MainStackComponent>
-      {Children.count(children) === 0 ? (
+    <div
+      style={{
+        ...style,
+        ...userConfiguredStyles,
+        ...requiredStackComponentStyles,
+      }}
+      {...props}
+      ref={(ref) => {
+        if (ref) {
+          connect(drag(ref));
+        }
+      }}
+    >
+      {!enabled ? (
+        children
+      ) : Children.count(children) === 0 ? (
         <AddStackItem addItem={addStackItem} fullWidth={true} />
       ) : (
         <>
@@ -100,7 +76,7 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
           <AddStackItem addItem={addStackItem} fullWidth={false} />
         </>
       )}
-    </MainStackComponent>
+    </div>
   );
 };
 
