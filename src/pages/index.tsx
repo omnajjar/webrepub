@@ -1,13 +1,5 @@
-import { MainLayout } from '@/components/layout/MainLayout';
+import { WebRepubEditor } from '@/desginer';
 
-function HomePage() {
-  return <main>Hello there main!</main>;
+export default function HomePage() {
+  return <WebRepubEditor />;
 }
-
-HomePage.getLayout = function getLayout(page: JSX.Element) {
-  return <MainLayout>{page}</MainLayout>;
-};
-
-HomePage.protected = true;
-
-export default HomePage;

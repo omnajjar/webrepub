@@ -1,7 +1,11 @@
 {
-  "name": "docrepub",
-  "version": "1.1.0",
+  "name": "webrepub",
+  "version": "0.1",
   "private": true,
+  "author": {
+    "name": "Osama Mohammad Najjar",
+    "url": "https://www.linkedin.com/in/osama-najjar"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,45 +19,19 @@
     "format": "prettier -w .",
     "format:check": "prettier -c .",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
-    "prepare": "husky install",
-    "supabase:login": "npx supabase login",
-    "supabase:gen": "npx supabase gen types typescript --project-id \"wudflebxljxbcuysygql\" --schema public > src/schema.ts",
-    "tw:view": "tailwind-config-viewer -o"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@craftjs/core": "^0.2.0-beta.8",
     "@craftjs/layers": "^0.2.0-beta.8",
-    "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^1.0.6",
-    "@material-tailwind/react": "^1.4.2",
-    "@material-ui/core": "^4.5.2",
-    "@material-ui/icons": "^4.5.1",
-    "@supabase/auth-helpers-nextjs": "^0.5.4",
-    "@supabase/auth-helpers-react": "^0.3.1",
-    "@supabase/auth-ui-react": "^0.2.8",
-    "@supabase/supabase-js": "^2.8.0",
-    "classnames": "^2.3.2",
-    "clsx": "^1.2.1",
-    "cssnano": "^5.1.15",
-    "debounce": "^1.2.1",
-    "generate-avatar": "^1.4.10",
-    "jsonwebtoken": "^9.0.0",
-    "lzutf8": "^0.6.3",
     "next": "^13.1.6",
-    "puppeteer": "^19.7.2",
-    "re-resizable": "^6.9.9",
     "react": "^18.2.0",
     "react-color": "^2.19.3",
     "react-contenteditable": "^3.3.7",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
-    "react-loading": "^2.0.3",
-    "react-rnd": "^10.4.1",
-    "react-toastify": "^9.1.1",
-    "react-youtube": "^10.1.0",
-    "rsuite": "^5.28.2",
-    "styled-components": "^5.3.6",
-    "tailwind-merge": "^1.9.0"
+    "rsuite": "^5.28.2"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -61,16 +39,11 @@
     "@commitlint/config-conventional": "^16.2.4",
     "@fullhuman/postcss-purgecss": "^5.0.0",
     "@svgr/webpack": "^6.5.1",
-    "@tailwindcss/forms": "^0.5.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@types/classnames": "^2.3.1",
-    "@types/debounce": "^1.2.1",
-    "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "^18.14.0",
     "@types/react": "^18.0.27",
     "@types/react-color": "^3.0.6",
-    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
     "autoprefixer": "^10.4.13",
@@ -89,10 +62,6 @@
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^8.0.1",
     "prettier": "^2.8.3",
-    "prettier-plugin-tailwindcss": "^0.1.13",
-    "supabase": "^1.38.7",
-    "tailwind-config-viewer": "^1.7.2",
-    "tailwindcss": "^3.2.4",
     "typescript": "^4.9.5"
   },
   "lint-staged": {
@@ -103,5 +72,10 @@
     "**/*.{json,css,scss,md,webmanifest}": [
       "prettier -w"
     ]
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omnajjar/webrepub.git"
   }
 }
