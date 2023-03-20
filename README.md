@@ -1,1 +1,1 @@
-# Webrepub - React Web Page Editor
+# WebRepub - React Web Page Editor
