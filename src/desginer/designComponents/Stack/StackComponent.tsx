@@ -1,9 +1,8 @@
-import { FreshNode, useEditor, useNode, UserComponent } from '@craftjs/core';
-import PlusRoundIcon from '@rsuite/icons/PlusRound';
+import { useEditor, useNode, UserComponent } from '@craftjs/core';
 import { Children, CSSProperties } from 'react';
-import { Tooltip, Whisper } from 'rsuite';
 
-import { StackItemComponent } from '@/desginer/designComponents/Stack/StackItemComponent';
+import { StackItemComponent } from '@/desginer/designComponents/Stack';
+import { StackComponentExtraActions } from '@/desginer/designComponents/Stack/StackComponentExtraActions';
 
 interface StackComponentProps
   extends Omit<
@@ -16,10 +15,6 @@ interface StackComponentProps
   direction?: CSSProperties['flexDirection'];
 }
 
-const requiredStackComponentStyles: CSSProperties = {
-  display: 'flex',
-};
-
 export const StackComponent: UserComponent<StackComponentProps> = ({
   style,
   children,
@@ -27,30 +22,21 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
   ...props
 }: StackComponentProps) => {
   const {
-    id,
     connectors: { connect, drag },
   } = useNode();
 
-  const { actions, query, enabled } = useEditor((state) => ({
+  const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled,
   }));
+
+  const requiredStackComponentStyles: CSSProperties = {
+    display: 'flex',
+  };
 
   const userConfiguredStyles: CSSProperties = {
     flexDirection: direction,
     padding: '8px',
     gap: '5px',
-  };
-
-  const addStackItem = () => {
-    const freshNode: FreshNode = {
-      data: {
-        parent: id,
-        type: StackItemComponent,
-      },
-    };
-
-    const node = query.parseFreshNode(freshNode).toNode();
-    actions.add(node, id);
   };
 
   return (
@@ -67,40 +53,23 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
         }
       }}
     >
-      {!enabled ? (
-        children
-      ) : Children.count(children) === 0 ? (
-        <AddStackItem addItem={addStackItem} fullWidth={true} />
+      {enabled ? (
+        Children.count(children) === 0 ? (
+          <EmptyStackComponent />
+        ) : (
+          children
+        )
       ) : (
-        <>
-          {children}
-          <AddStackItem addItem={addStackItem} fullWidth={false} />
-        </>
+        children
       )}
     </div>
   );
 };
 
-function AddStackItem({
-  addItem,
-  fullWidth,
-}: {
-  addItem: () => void;
-  fullWidth: boolean;
-}) {
+function EmptyStackComponent() {
   return (
-    <div
-      className={`zig-zag-bg flex flex-col items-center justify-center ${
-        fullWidth ? 'w-full' : ''
-      }`}
-    >
-      <Whisper placement='bottom' speaker={<Tooltip>Add item</Tooltip>}>
-        <PlusRoundIcon
-          onClick={addItem}
-          style={{ fontSize: '20px' }}
-          className='pointer-cursor color-gray hover-color-darkblue'
-        />
-      </Whisper>
+    <div className='empty-container-bg empty-container-size flex items-center justify-center '>
+      <span>Content</span>
     </div>
   );
 }
@@ -114,5 +83,10 @@ StackComponent.craft = {
   rules: {
     canDrag: () => true,
     canDrop: () => true,
+    canMoveIn: (incomingNodes) =>
+      incomingNodes.every((n) => n.data.type === StackItemComponent),
+  },
+  related: {
+    extraActions: StackComponentExtraActions,
   },
 };

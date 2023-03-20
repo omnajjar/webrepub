@@ -30,7 +30,6 @@ export const StackItemComponent: UserComponent<StackItemComponentProps> = ({
 
   return (
     <div
-      custom-foo={Date.now()}
       style={{
         ...style,
         ...userConfiguredStyles,
@@ -49,15 +48,11 @@ export const StackItemComponent: UserComponent<StackItemComponentProps> = ({
 };
 
 const EmptyStackItemContent = () => {
-  const emptyContainerStyles: CSSProperties = {
-    color: 'black',
-    textAlign: 'center',
-    verticalAlign: 'center',
-    padding: '15px',
-    border: '2px dashed lightgray',
-    minHeight: '100%',
-  };
-  return <div style={emptyContainerStyles}>Stack Item</div>;
+  return (
+    <div className='empty-container-bg empty-container-size flex items-center justify-center'>
+      <span>Stack Item content</span>
+    </div>
+  );
 };
 
 StackItemComponent.craft = {

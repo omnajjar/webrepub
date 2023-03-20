@@ -3,9 +3,10 @@ import { ROOT_NODE } from '@craftjs/utils';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import React, { useCallback, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { ButtonGroup, IconButton, Tooltip, Whisper } from 'rsuite';
+import { ButtonGroup, Divider, IconButton, Tooltip, Whisper } from 'rsuite';
 import { OverlayTriggerHandle } from 'rsuite/esm/Picker';
 
+import { getPos } from '@/desginer/utils/elements';
 import { onElementResize } from '@/desginer/utils/resizeObserver';
 import { ensure } from '@/utils';
 
@@ -24,7 +25,9 @@ export const ComponentIndicator = ({
   deletableNodes,
   hideIndicatorFor,
 }: ComponentIndicatorProps) => {
-  const { id } = useNode();
+  const { id, extraActions } = useNode((node) => ({
+    extraActions: node?.related?.extraActions,
+  }));
   const { actions, query, isActive } = useEditor((_, query) => ({
     isActive: query.getEvent('selected').contains(id),
   }));
@@ -57,21 +60,6 @@ export const ComponentIndicator = ({
   const showIndicator =
     (isHover || isActive) && !hideIndicatorFor.has(nodeType);
 
-  const getPos = useCallback((element: HTMLElement | null) => {
-    const defaultPos = { top: 0, left: 0, bottom: 0, width: 0, height: 0 };
-
-    const { top, left, bottom, height, width } = element
-      ? element.getBoundingClientRect()
-      : defaultPos;
-
-    return {
-      top: `${top > 0 ? top : bottom}px`,
-      left: `${left}px`,
-      width: `${width}px`,
-      height: `${height}px`,
-    };
-  }, []);
-
   const indicatorRef = useRef<HTMLDivElement | null>(null);
   const whisperRef = useRef<OverlayTriggerHandle>(null);
 
@@ -87,8 +75,7 @@ export const ComponentIndicator = ({
     indicatorRef.current.style.height = nextPos.height;
     indicatorRef.current.style.width = nextPos.width;
 
-    // This is a bit hacky way to keep whisper content refreshed and correctly postioned
-    // on screen resize/scroll
+    // This is a bit hacky way to keep whisper content refreshed and correctly postioned on screen resize/scroll.
     // TODO: consider researching and having a better solution to handle it in the future.
     const indicatorPlaceholderEl = document.getElementById(id);
     if (indicatorPlaceholderEl) {
@@ -96,7 +83,7 @@ export const ComponentIndicator = ({
       indicatorPlaceholderEl.style.left = nextPos.left;
       indicatorPlaceholderEl.style.width = nextPos.width;
     }
-  }, [componentDOM, getPos, id]);
+  }, [componentDOM, id]);
 
   const refreshWhisperPosition = useCallback(() => {
     if (!whisperRef.current) {
@@ -145,8 +132,6 @@ export const ComponentIndicator = ({
     actions.delete(id);
   };
 
-  const isOnlyHovered = isHover && !isActive;
-
   return (
     <>
       {NodeToRender}
@@ -155,46 +140,63 @@ export const ComponentIndicator = ({
           <Whisper
             preventOverflow
             ref={whisperRef}
-            placement={isOnlyHovered ? 'topStart' : 'top'}
-            open={true}
+            placement='top'
+            open={isActive}
             speaker={
               showIndicator ? (
-                <Tooltip
-                  arrow={false}
-                  style={{ opacity: isOnlyHovered ? 0.3 : 1 }}
-                >
+                <Tooltip arrow={false}>
                   <span style={{ marginRight: '8px' }}>{name}</span>
                   <ButtonGroup
+                    className='indicator-actions-btn-group'
                     size='xs'
-                    style={{
-                      border: '1px solid darkblue',
-                      borderRadius: '7px',
-                    }}
                   >
                     {moveable ? (
-                      <IconButton
-                        icon={<Move className='indicator-container-icon' />}
-                        ref={(ref) => {
-                          if (ref) {
-                            drag(ref);
-                            refreshWhisperPosition();
-                          }
-                        }}
-                      />
+                      <Whisper
+                        placement='bottom'
+                        speaker={<Tooltip>Move</Tooltip>}
+                      >
+                        <IconButton
+                          icon={<Move className='indicator-container-icon' />}
+                          ref={(ref) => {
+                            if (ref) {
+                              drag(ref);
+                              refreshWhisperPosition();
+                            }
+                          }}
+                        />
+                      </Whisper>
                     ) : null}
                     {id !== ROOT_NODE ? (
-                      <IconButton
-                        icon={<ArrowUp className='indicator-container-icon' />}
-                        onClick={selectParent}
-                      />
+                      <Whisper
+                        placement='bottom'
+                        speaker={<Tooltip>Go to parent</Tooltip>}
+                      >
+                        <IconButton
+                          icon={
+                            <ArrowUp className='indicator-container-icon' />
+                          }
+                          onClick={selectParent}
+                        />
+                      </Whisper>
                     ) : null}
                     {deletable ? (
-                      <IconButton
-                        icon={<Delete className='indicator-container-icon' />}
-                        onClick={deleteComponent}
-                      />
+                      <Whisper
+                        placement='bottom'
+                        speaker={<Tooltip>Delete</Tooltip>}
+                      >
+                        <IconButton
+                          icon={<Delete className='indicator-container-icon' />}
+                          onClick={deleteComponent}
+                        />
+                      </Whisper>
                     ) : null}
                   </ButtonGroup>
+                  {extraActions ? (
+                    <>
+                      <Divider vertical></Divider>
+                      {React.createElement(extraActions)}
+                    </>
+                  ) : null}
                 </Tooltip>
               ) : (
                 <></>
