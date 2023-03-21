@@ -5,13 +5,7 @@ export default function Document() {
     <Html lang='en'>
       <title>WebRepub</title>
       <Head>
-        <link
-          rel='preload'
-          href='/fonts/inter-var-latin.woff2'
-          as='font'
-          type='font/woff2'
-          crossOrigin='anonymous'
-        />
+        <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
       </Head>
       <body>
         <Main />

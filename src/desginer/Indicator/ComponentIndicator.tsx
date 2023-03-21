@@ -1,7 +1,6 @@
 import { NodeData, useEditor, useNode } from '@craftjs/core';
 import { ROOT_NODE } from '@craftjs/utils';
-import { CSSProperties } from '@material-ui/core/styles/withStyles';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { CSSProperties, useCallback, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { ButtonGroup, Divider, IconButton, Tooltip, Whisper } from 'rsuite';
 import { OverlayTriggerHandle } from 'rsuite/esm/Picker';

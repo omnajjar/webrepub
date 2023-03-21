@@ -2,7 +2,7 @@ import { Layers } from '@craftjs/layers';
 import { CogIcon } from '@heroicons/react/solid';
 import AngleLeftIcon from '@rsuite/icons/legacy/AngleLeft';
 import AngleRightIcon from '@rsuite/icons/legacy/AngleRight';
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import {
   Content,
   CustomProvider,
@@ -23,12 +23,18 @@ import {
   HistoryComponent,
 } from '@/desginer/topbarComponents';
 
-const headerStyles = {
-  padding: 18,
+import Logo from '~/svg/logo.svg';
+
+const headerStyles: CSSProperties = {
+  paddingTop: 18,
+  paddingBottom: 18,
   fontSize: 16,
   height: 56,
   color: ' #fff',
   overflow: 'hidden',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 };
 
 export function WebRepubEditor() {
@@ -133,9 +139,9 @@ function EditorSidebar({
     >
       <Sidenav.Header>
         <div style={{ ...headerStyles }}>
-          <h6 style={{ fontWeight: 'bold', textAlign: 'center' }}>
-            {expanded ? 'WebRepub' : 'WR'}
-          </h6>
+          <Logo
+            style={{ height: '32px', width: expanded ? '100%' : '32px' }}
+          ></Logo>
         </div>
       </Sidenav.Header>
       <Divider style={{ margin: '0px' }}></Divider>
