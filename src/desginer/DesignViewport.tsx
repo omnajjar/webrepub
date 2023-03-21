@@ -17,7 +17,7 @@ export function DesignViewport() {
 
   return (
     <Container
-      className='design-view-port designer-bg-pattern flex flex-col items-center'
+      className='design-view-port flex flex-col items-center'
       style={{ height: `${initialHeigh}`, padding: '30px' }}
     >
       <MainFrame></MainFrame>

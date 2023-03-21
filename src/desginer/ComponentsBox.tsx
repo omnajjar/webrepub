@@ -2,21 +2,24 @@ import { useEditor } from '@craftjs/core';
 import { CSSProperties } from 'react';
 import React from 'react';
 import { IconType } from 'react-icons';
+import { BiPointer } from 'react-icons/bi';
+import { BsCardImage } from 'react-icons/bs';
 import { TbSquare } from 'react-icons/tb';
 import { TfiLayoutColumn3, TfiText } from 'react-icons/tfi';
-import { List } from 'rsuite';
+import { List, Tooltip, Whisper } from 'rsuite';
 
 import { ContainerComponent } from '@/desginer/designComponents/Container';
 import { StackComponent } from '@/desginer/designComponents/Stack';
 import { TextComponent } from '@/desginer/designComponents/Text';
 
-export function ComponentsBar(
-  { expanded }: { expanded: boolean } = { expanded: false }
-) {
-  const { connectors } = useEditor();
+export function ComponentsBar() {
+  const { connectors, actions } = useEditor();
 
   return (
-    <List hover>
+    <List hover className='fancy-components-box-shadow'>
+      <List.Item onClick={actions.clearEvents}>
+        <ComponentItem icon={BiPointer} name='Unselect' draggable={false} />
+      </List.Item>
       <List.Item
         ref={(ref) => {
           if (ref) {
@@ -24,7 +27,14 @@ export function ComponentsBar(
           }
         }}
       >
-        <ComponentItem icon={TfiText} name='Text' expanded={expanded} />
+        <ComponentItem
+          icon={TfiText}
+          name={TextComponent.displayName ?? 'Text'}
+          draggable={true}
+        />
+      </List.Item>
+      <List.Item>
+        <ComponentItem icon={BsCardImage} name='Image' draggable={true} />
       </List.Item>
       <List.Item
         ref={(ref) => {
@@ -33,7 +43,11 @@ export function ComponentsBar(
           }
         }}
       >
-        <ComponentItem icon={TbSquare} name='Container' expanded={expanded} />
+        <ComponentItem
+          icon={TbSquare}
+          name={ContainerComponent.displayName ?? 'Container'}
+          draggable={true}
+        />
       </List.Item>
       <List.Item
         ref={(ref) => {
@@ -44,8 +58,8 @@ export function ComponentsBar(
       >
         <ComponentItem
           icon={TfiLayoutColumn3}
-          name='Stack'
-          expanded={expanded}
+          name={StackComponent.displayName ?? 'Stack'}
+          draggable={true}
         />
       </List.Item>
     </List>
@@ -55,7 +69,7 @@ export function ComponentsBar(
 interface ComponentItemProps {
   name: string;
   icon: IconType;
-  expanded: boolean;
+  draggable: boolean;
 }
 
 const componentIconStyle: CSSProperties = {
@@ -66,21 +80,17 @@ const componentItemStyle: CSSProperties = {
   padding: '10px',
 };
 
-const componentNameStyle: CSSProperties = {
-  fontSize: '18px',
-  marginLeft: '14px',
-};
-
-function ComponentItem({ name, icon: Icon, expanded }: ComponentItemProps) {
+function ComponentItem({ name, icon: Icon, draggable }: ComponentItemProps) {
   return (
-    <div
-      style={componentItemStyle}
-      className={`pointer-grab flex w-full items-center ${
-        expanded ? '' : 'space-around'
-      }`}
-    >
-      <Icon style={componentIconStyle} />
-      {expanded ? <div style={componentNameStyle}>{name}</div> : null}
-    </div>
+    <Whisper placement='right' speaker={<Tooltip>{name}</Tooltip>}>
+      <div
+        style={componentItemStyle}
+        className={`flex w-full items-center space-around ${
+          draggable ? 'pointer-grab' : 'pointer-cursor'
+        }`}
+      >
+        <Icon style={componentIconStyle} />
+      </div>
+    </Whisper>
   );
 }

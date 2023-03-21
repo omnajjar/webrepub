@@ -75,7 +75,7 @@ function EmptyStackComponent() {
 }
 
 StackComponent.craft = {
-  displayName: 'Stack container',
+  displayName: 'Stack',
   isCanvas: true,
   props: {
     direction: 'row',

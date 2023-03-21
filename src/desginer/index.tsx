@@ -1,18 +1,14 @@
 import { Layers } from '@craftjs/layers';
-import { CogIcon } from '@heroicons/react/solid';
-import AngleLeftIcon from '@rsuite/icons/legacy/AngleLeft';
-import AngleRightIcon from '@rsuite/icons/legacy/AngleRight';
-import React, { CSSProperties, useState } from 'react';
+import React from 'react';
 import {
   Content,
   CustomProvider,
   Divider,
-  Navbar,
   Panel,
   PanelGroup,
   Stack,
 } from 'rsuite';
-import { Container, Nav, Sidebar, Sidenav } from 'rsuite';
+import { Container } from 'rsuite';
 
 import { ComponentsBar } from '@/desginer/ComponentsBox';
 import { DesignViewport } from '@/desginer/DesignViewport';
@@ -25,38 +21,24 @@ import {
 
 import Logo from '~/svg/logo.svg';
 
-const headerStyles: CSSProperties = {
-  paddingTop: 18,
-  paddingBottom: 18,
-  fontSize: 16,
-  height: 56,
-  color: ' #fff',
-  overflow: 'hidden',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
 export function WebRepubEditor() {
-  const [expanded, setExpanded] = useState(true);
-
   return (
     <CustomProvider theme='dark'>
       <DesignerContext>
         <div className='sidebar-page h-screen'>
-          <Container>
-            <EditorSidebar
-              expanded={expanded}
-              toggle={() => setExpanded(!expanded)}
-            />
+          <Container className='h-screen'>
             <Container className='page-container'>
               <Stack
                 direction='row'
-                className='top-bar px-30'
+                className='top-bar'
                 justifyContent='space-between'
+                alignItems='center'
               >
+                <Stack.Item basis='200px'>
+                  <Logo style={{ height: '32px', width: '100%' }}></Logo>
+                </Stack.Item>
                 <Stack.Item flex-grow={6} flex={6}>
-                  <Stack justifyContent='space-between'>
+                  <Stack justifyContent='space-between' className='px-30'>
                     <Stack.Item grow={1}>
                       <HistoryComponent />
                     </Stack.Item>
@@ -70,12 +52,27 @@ export function WebRepubEditor() {
                   </Stack>
                 </Stack.Item>
                 <Stack.Item basis='320px' className='h-full w-full'>
-                  {/* <HistoryComponent /> */}
+                  {/* Above properties box*/}
                 </Stack.Item>
               </Stack>
               <Divider style={{ margin: '0px' }}></Divider>
               {/* Editing area */}
-              <Stack direction='row' alignItems='flex-start' spacing={0}>
+              <Stack
+                direction='row'
+                alignItems='flex-start'
+                spacing={0}
+                className='h-full designer-bg-pattern'
+              >
+                <Stack.Item basis='200px' className='h-full'>
+                  {/* Componets box sextion */}
+                  <Stack
+                    alignItems='center'
+                    justifyContent='center'
+                    className='h-full'
+                  >
+                    <ComponentsBar />
+                  </Stack>
+                </Stack.Item>
                 <Stack.Item grow={6}>
                   <Content>
                     <DesignViewport />
@@ -116,78 +113,5 @@ export function WebRepubEditor() {
         </div>
       </DesignerContext>
     </CustomProvider>
-  );
-}
-
-function EditorSidebar({
-  expanded,
-  toggle,
-}: {
-  expanded: boolean;
-  toggle: () => void;
-}) {
-  return (
-    <Sidebar
-      className='h-screen'
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        borderRight: '1px solid var(--rs-divider-border)',
-      }}
-      width={expanded ? 260 : 56}
-      collapsible
-    >
-      <Sidenav.Header>
-        <div style={{ ...headerStyles }}>
-          <Logo
-            style={{ height: '32px', width: expanded ? '100%' : '32px' }}
-          ></Logo>
-        </div>
-      </Sidenav.Header>
-      <Divider style={{ margin: '0px' }}></Divider>
-      <Stack
-        direction='column'
-        justifyContent='space-between'
-        alignItems='stretch'
-        className='h-screen'
-      >
-        {/* Components box area (left)*/}
-        <ComponentsBar expanded={expanded} />
-        <div>
-          <Divider></Divider>
-          <SidebarToggle expanded={expanded} toggle={toggle} />
-        </div>
-      </Stack>
-    </Sidebar>
-  );
-}
-
-function SidebarToggle({
-  expanded,
-  toggle,
-}: {
-  expanded: boolean;
-  toggle: () => void;
-}) {
-  return (
-    <Navbar appearance='subtle' className='nav-toggle'>
-      <Nav>
-        <Nav.Menu
-          noCaret
-          placement='topStart'
-          trigger='click'
-          title={<CogIcon style={{ width: 20, height: 20 }} />}
-          menuStyle={{ margin: '10px' }}
-        >
-          <Nav.Item>Settings</Nav.Item>
-        </Nav.Menu>
-      </Nav>
-
-      <Nav pullRight>
-        <Nav.Item onClick={toggle} style={{ width: 56, textAlign: 'center' }}>
-          {expanded ? <AngleLeftIcon /> : <AngleRightIcon />}
-        </Nav.Item>
-      </Nav>
-    </Navbar>
   );
 }
