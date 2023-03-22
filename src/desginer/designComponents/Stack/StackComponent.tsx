@@ -3,8 +3,9 @@ import { Children, CSSProperties } from 'react';
 
 import { StackItemComponent } from '@/desginer/designComponents/Stack';
 import { StackComponentExtraActions } from '@/desginer/designComponents/Stack/StackComponentExtraActions';
+import { StackComponentSettings } from '@/desginer/designComponents/Stack/StackSettings';
 
-interface StackComponentProps
+export interface StackComponentProps
   extends Omit<
     React.DetailedHTMLProps<
       React.HTMLAttributes<HTMLDivElement>,
@@ -18,7 +19,6 @@ interface StackComponentProps
 export const StackComponent: UserComponent<StackComponentProps> = ({
   style,
   children,
-  direction,
   ...props
 }: StackComponentProps) => {
   const {
@@ -34,7 +34,6 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
   };
 
   const userConfiguredStyles: CSSProperties = {
-    flexDirection: direction,
     padding: '8px',
     gap: '5px',
   };
@@ -78,7 +77,9 @@ StackComponent.craft = {
   displayName: 'Stack',
   isCanvas: true,
   props: {
-    direction: 'row',
+    style: {
+      flexDirection: 'row',
+    },
   },
   rules: {
     canDrag: () => true,
@@ -87,6 +88,7 @@ StackComponent.craft = {
       incomingNodes.every((n) => n.data.type === StackItemComponent),
   },
   related: {
+    settings: StackComponentSettings,
     extraActions: StackComponentExtraActions,
   },
 };
