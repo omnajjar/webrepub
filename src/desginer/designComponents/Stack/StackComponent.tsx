@@ -79,6 +79,8 @@ StackComponent.craft = {
   props: {
     style: {
       flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
     },
   },
   rules: {
