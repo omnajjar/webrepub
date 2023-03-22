@@ -80,7 +80,7 @@ StackComponent.craft = {
     style: {
       flexDirection: 'row',
       justifyContent: 'flex-start',
-      alignItems: 'flex-start',
+      alignItems: 'stretch',
     },
   },
   rules: {
