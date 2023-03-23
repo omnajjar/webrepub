@@ -56,11 +56,11 @@ export function FlexboxStyleProps({
     handleStyleChange('alignItems', v);
   const handleGrowChnage = (v: ValueType) => handleStyleChange('flexGrow', v);
 
-  const [rowGapUnit, setRowGapUnit] = useState();
+  const [rowGapUnit, setRowGapUnit] = useState('px');
   const handleRowGapChange = (v: ValueType) =>
     handleStyleChange('rowGap', `${v}${rowGapUnit}`);
 
-  const [columnGapUnit, setColumnGapUnit] = useState();
+  const [columnGapUnit, setColumnGapUnit] = useState('px');
   const handleColumnGapChange = (v: ValueType) =>
     handleStyleChange('columnGap', `${v}${columnGapUnit}`);
 
@@ -188,6 +188,7 @@ export function FlexboxStyleProps({
                 size='sm'
                 onChange={handleGrowChnage}
                 min={0}
+                value={styles.flexGrow}
               ></InputNumber>
             </Stack.Item>
             <Stack spacing={10}>
@@ -197,6 +198,9 @@ export function FlexboxStyleProps({
                   size='sm'
                   onChange={handleRowGapChange}
                   min={0}
+                  value={styles.rowGap
+                    ?.toString()
+                    .replace(rowGapUnit ?? '', '')}
                 ></InputNumber>
               </Stack.Item>
               <Stack.Item grow={1}>
