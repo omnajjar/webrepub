@@ -1,5 +1,5 @@
 import { Layers } from '@craftjs/layers';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Content,
   CustomProvider,
@@ -22,6 +22,12 @@ import {
 import Logo from '~/svg/logo.svg';
 
 export function WebRepubEditor() {
+  const [propsBoxHeight, setPropsBoxHeight] = useState('100%');
+
+  useEffect(() => {
+    setPropsBoxHeight(`${window.innerHeight - 56 - 200}px`); // 56 topbar, 200 layers.
+  }, []);
+
   return (
     <CustomProvider theme='dark'>
       <DesignerContext>
@@ -96,7 +102,10 @@ export function WebRepubEditor() {
                     className='h-full'
                   >
                     <Stack.Item grow={1}>
-                      <Stack className='h-full' alignItems='stretch'>
+                      <Stack
+                        style={{ height: propsBoxHeight, overflow: 'auto' }}
+                        alignItems='stretch'
+                      >
                         <Stack.Item grow={1}>
                           <PropertiesBox />
                         </Stack.Item>
