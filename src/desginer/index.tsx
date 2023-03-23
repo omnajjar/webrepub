@@ -35,8 +35,15 @@ export function WebRepubEditor() {
                 alignItems='center'
               >
                 <Stack.Item basis='200px'>
-                  <Logo style={{ height: '32px', width: '100%' }}></Logo>
+                  <Stack justifyContent='center' alignItems='center'>
+                    <Logo
+                      style={{ height: '32px', width: '64px' }}
+                      className='logo-shadow'
+                    ></Logo>
+                    <Stack.Item></Stack.Item>
+                  </Stack>
                 </Stack.Item>
+
                 <Stack.Item flex-grow={6} flex={6}>
                   <Stack justifyContent='space-between' className='px-30'>
                     <Stack.Item grow={1}>

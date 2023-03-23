@@ -220,3 +220,7 @@ body {
   box-shadow: #00008b66 -5px 5px, #00008b4d -10px 10px, #00008b33 -15px 15px,
     #00008b1a -20px 20px, #00008b0d -25px 25px;
 }
+
+.logo-shadow {
+  filter: drop-shadow(0px 0px 4px #fff);
+}
