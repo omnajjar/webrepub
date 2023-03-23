@@ -1,5 +1,14 @@
 import { CSSProperties, useState } from 'react';
-import { Panel, PanelGroup, Radio, RadioGroup, Stack } from 'rsuite';
+import {
+  Divider,
+  InputNumber,
+  InputPicker,
+  Panel,
+  PanelGroup,
+  Radio,
+  RadioGroup,
+  Stack,
+} from 'rsuite';
 import { ValueType } from 'rsuite/esm/Checkbox';
 
 import { StackComponentProps } from '@/desginer/designComponents/Stack';
@@ -8,18 +17,19 @@ interface FlexboxStyleProps {
   style?: CSSProperties;
   setElementProp: (cb: unknown, throttleRate?: number) => void;
   defaultExpanded: boolean;
+  defaultFlexboxStyles: CSSProperties;
 }
 
-const defaultFlexboxStyles: CSSProperties = {
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'stretch',
-};
+const flexGapUnits = [
+  { label: 'pixel', value: 'px' },
+  { label: 'percentage', value: '%' },
+];
 
 export function FlexboxStyleProps({
   style,
   setElementProp,
   defaultExpanded,
+  defaultFlexboxStyles,
 }: FlexboxStyleProps) {
   const [styles, setStyles] = useState(style ?? defaultFlexboxStyles);
 
@@ -28,35 +38,31 @@ export function FlexboxStyleProps({
       props.style = stylesToCommit;
     });
 
-  const handleFlexDirectionChange = (v: ValueType) => {
+  const handleStyleChange = (styleKey: keyof CSSProperties, v: ValueType) => {
     const nextStyles = {
       ...styles,
-      flexDirection: v,
+      [styleKey]: v,
     } as CSSProperties;
 
     setStyles(nextStyles);
     commitStyles(nextStyles);
   };
 
-  const handleJustifyContentChange = (v: ValueType) => {
-    const nextStyles = {
-      ...styles,
-      justifyContent: v,
-    } as CSSProperties;
+  const handleFlexDirectionChange = (v: ValueType) =>
+    handleStyleChange('flexDirection', v);
+  const handleJustifyContentChange = (v: ValueType) =>
+    handleStyleChange('justifyContent', v);
+  const handleAlignItemsChange = (v: ValueType) =>
+    handleStyleChange('alignItems', v);
+  const handleGrowChnage = (v: ValueType) => handleStyleChange('flexGrow', v);
 
-    setStyles(nextStyles);
-    commitStyles(nextStyles);
-  };
+  const [rowGapUnit, setRowGapUnit] = useState();
+  const handleRowGapChange = (v: ValueType) =>
+    handleStyleChange('rowGap', `${v}${rowGapUnit}`);
 
-  const handleAlignItemsChange = (v: ValueType) => {
-    const nextStyles = {
-      ...styles,
-      alignItems: v,
-    } as CSSProperties;
-
-    setStyles(nextStyles);
-    commitStyles(nextStyles);
-  };
+  const [columnGapUnit, setColumnGapUnit] = useState();
+  const handleColumnGapChange = (v: ValueType) =>
+    handleStyleChange('columnGap', `${v}${columnGapUnit}`);
 
   return (
     <PanelGroup accordion>
@@ -90,6 +96,7 @@ export function FlexboxStyleProps({
             </Stack.Item>
           </Stack>
         </div>
+        <Divider />
         <div>
           <span>Justify Content</span>
           <Stack
@@ -124,6 +131,7 @@ export function FlexboxStyleProps({
             </Stack.Item>
           </Stack>
         </div>
+        <Divider />
         <div>
           <span>Align Items</span>
           <Stack
@@ -164,6 +172,60 @@ export function FlexboxStyleProps({
                 </Stack>
               </RadioGroup>
             </Stack.Item>
+          </Stack>
+        </div>
+        <Divider />
+        <div>
+          <Stack
+            direction='column'
+            spacing={20}
+            alignItems='stretch'
+            justifyContent='flex-start'
+          >
+            <Stack.Item grow={1}>
+              <InputNumber
+                prefix='Grow'
+                size='sm'
+                onChange={handleGrowChnage}
+                min={0}
+              ></InputNumber>
+            </Stack.Item>
+            <Stack spacing={10}>
+              <Stack.Item grow={1}>
+                <InputNumber
+                  prefix='Row gap'
+                  size='sm'
+                  onChange={handleRowGapChange}
+                  min={0}
+                ></InputNumber>
+              </Stack.Item>
+              <Stack.Item grow={1}>
+                <InputPicker
+                  placeholder='unit'
+                  data={flexGapUnits}
+                  defaultValue={rowGapUnit ?? 'px'}
+                  onChange={(v) => setRowGapUnit(v)}
+                />
+              </Stack.Item>
+            </Stack>
+            <Stack spacing={10}>
+              <Stack.Item grow={1}>
+                <InputNumber
+                  prefix='Column gap'
+                  size='sm'
+                  onChange={handleColumnGapChange}
+                  min={0}
+                ></InputNumber>
+              </Stack.Item>
+              <Stack.Item grow={1}>
+                <InputPicker
+                  placeholder='unit'
+                  data={flexGapUnits}
+                  defaultValue={columnGapUnit ?? 'px'}
+                  onChange={(v) => setColumnGapUnit(v)}
+                />
+              </Stack.Item>
+            </Stack>
           </Stack>
         </div>
       </Panel>

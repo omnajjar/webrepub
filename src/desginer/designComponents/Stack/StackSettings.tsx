@@ -1,7 +1,14 @@
 import { useNode } from '@craftjs/core';
+import { CSSProperties } from 'react';
 
 import { FlexboxStyleProps } from '@/desginer/designComponents/Common';
 import { StackComponentProps } from '@/desginer/designComponents/Stack';
+
+const defaultFlexboxStyles: CSSProperties = {
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'stretch',
+};
 
 export const StackComponentSettings = () => {
   const {
@@ -16,6 +23,7 @@ export const StackComponentSettings = () => {
       style={style}
       defaultExpanded={true}
       setElementProp={setProp}
+      defaultFlexboxStyles={defaultFlexboxStyles}
     />
   );
 };
