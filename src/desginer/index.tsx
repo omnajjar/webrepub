@@ -1,6 +1,9 @@
 import { Layers } from '@craftjs/layers';
 import React, { useEffect, useState } from 'react';
+import { FaGithub } from 'react-icons/fa';
+import { FiExternalLink } from 'react-icons/fi';
 import {
+  Button,
   Content,
   CustomProvider,
   Divider,
@@ -64,7 +67,22 @@ export function WebRepubEditor() {
                   </Stack>
                 </Stack.Item>
                 <Stack.Item basis='320px' className='h-full w-full'>
-                  {/* Above properties box*/}
+                  <Stack direction='row' alignItems='center' className='h-full'>
+                    <Stack.Item>
+                      <Button
+                        appearance='subtle'
+                        className='animate__animated animate__pulse'
+                        startIcon={<FaGithub />}
+                        endIcon={<FiExternalLink />}
+                        size='sm'
+                        href='https://github.com/omnajjar/webrepub'
+                        target='_blank'
+                        style={{ color: '#fff', fontSize: '16px' }}
+                      >
+                        Github
+                      </Button>
+                    </Stack.Item>
+                  </Stack>
                 </Stack.Item>
               </Stack>
               <Divider style={{ margin: '0px' }}></Divider>
