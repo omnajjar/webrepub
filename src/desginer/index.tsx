@@ -25,7 +25,7 @@ export function WebRepubEditor() {
   const [propsBoxHeight, setPropsBoxHeight] = useState('100%');
 
   useEffect(() => {
-    setPropsBoxHeight(`${window.innerHeight - 56 - 300}px`); // 56 topbar, 200 layers.
+    setPropsBoxHeight(`${window.innerHeight - 56 - 300}px`); // 56 topbar, 300 layers.
   }, []);
 
   return (
