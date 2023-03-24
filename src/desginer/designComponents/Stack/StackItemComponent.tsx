@@ -15,26 +15,42 @@ interface StackItemComponentProps
   span: CSSProperties['flex'];
 }
 
+const userConfiguredStyles: CSSProperties = {
+  paddingTop: '8px',
+  paddingBottom: '8px',
+  paddingLeft: '8px',
+  paddingRight: '8px',
+
+  marginTop: '0px',
+  marginBottom: '0px',
+  marginLeft: '0px',
+  marginRight: '0px',
+
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'stretch',
+  flexGrow: 1,
+  rowGap: '5px',
+  columnGap: '5px',
+};
+
 const requiredStackItemComponentStyles: CSSProperties = {};
 
 export const StackItemComponent: UserComponent<StackItemComponentProps> = ({
   children,
   style,
-  span,
   ...props
 }: StackItemComponentProps) => {
   const {
     connectors: { connect, drag },
   } = useNode();
 
-  const userConfiguredStyles: CSSProperties = { flex: span };
-
   return (
     <div
       style={{
-        ...style,
         ...userConfiguredStyles,
         ...requiredStackItemComponentStyles,
+        ...style,
       }}
       {...props}
       ref={(ref) => {
@@ -60,7 +76,9 @@ StackItemComponent.craft = {
   displayName: 'Stack Item',
   isCanvas: true,
   props: {
-    span: 1,
+    style: {
+      ...userConfiguredStyles,
+    },
   },
   rules: {
     canDrag: () => true,

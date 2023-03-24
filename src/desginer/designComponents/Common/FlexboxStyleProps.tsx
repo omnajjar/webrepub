@@ -27,9 +27,8 @@ const flexGapUnits = [
 export function FlexboxStyleProps({
   style,
   defaultExpanded,
-  defaultFlexboxStyles,
 }: FlexboxStyleProps) {
-  const [styles, setStyles] = useState(style ?? defaultFlexboxStyles);
+  const [styles, setStyles] = useState(style ?? {});
   const { commitStyles } = useCommitComponentStyles();
 
   const handleStyleChange = (styleKey: keyof CSSProperties, v: ValueType) => {

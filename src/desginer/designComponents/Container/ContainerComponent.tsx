@@ -8,12 +8,27 @@ export type ContainerComponentProps = Omit<
   'is'
 >;
 
-const defaultContainerComponentStyles: CSSProperties = {
-  padding: '8px',
-};
-
 const requiredContainerComponentStyles: CSSProperties = {
   display: 'flex',
+};
+
+const userConfiguredStyles: CSSProperties = {
+  paddingTop: '8px',
+  paddingBottom: '8px',
+  paddingLeft: '8px',
+  paddingRight: '8px',
+
+  marginTop: '0px',
+  marginBottom: '0px',
+  marginLeft: '0px',
+  marginRight: '0px',
+
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'stretch',
+  flexGrow: 1,
+  rowGap: '5px',
+  columnGap: '5px',
 };
 
 export const ContainerComponent: UserComponent<ContainerComponentProps> = ({
@@ -28,9 +43,9 @@ export const ContainerComponent: UserComponent<ContainerComponentProps> = ({
   return (
     <div
       style={{
-        ...defaultContainerComponentStyles,
-        ...style,
+        ...userConfiguredStyles,
         ...requiredContainerComponentStyles,
+        ...style,
       }}
       {...props}
       ref={(ref) => {

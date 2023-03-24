@@ -1,17 +1,10 @@
 import { useNode } from '@craftjs/core';
-import { CSSProperties } from 'react';
 
 import {
   FlexboxStyleProps,
   PaddingMarginStyleProps,
 } from '@/desginer/designComponents/Common';
 import { ContainerComponentProps } from '@/desginer/designComponents/Container';
-
-const defaultFlexboxStyles: CSSProperties = {
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-  alignItems: 'stretch',
-};
 
 export const ContainerComponentSettings = () => {
   const { style } = useNode<Partial<ContainerComponentProps>>((node) => ({
@@ -20,11 +13,7 @@ export const ContainerComponentSettings = () => {
 
   return (
     <>
-      <FlexboxStyleProps
-        style={style}
-        defaultExpanded={true}
-        defaultFlexboxStyles={defaultFlexboxStyles}
-      />
+      <FlexboxStyleProps style={style} defaultExpanded={true} />
       <PaddingMarginStyleProps style={style} defaultExpanded={true} />
     </>
   );

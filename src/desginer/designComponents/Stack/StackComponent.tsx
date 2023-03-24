@@ -10,8 +10,22 @@ const requiredStackComponentStyles: CSSProperties = {
 };
 
 const userConfiguredStyles: CSSProperties = {
-  padding: '8px',
-  gap: '5px',
+  paddingTop: '8px',
+  paddingBottom: '8px',
+  paddingLeft: '8px',
+  paddingRight: '8px',
+
+  marginTop: '0px',
+  marginBottom: '0px',
+  marginLeft: '0px',
+  marginRight: '0px',
+
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'stretch',
+  flexGrow: 1,
+  rowGap: '5px',
+  columnGap: '5px',
 };
 
 export type StackComponentProps = Omit<
@@ -35,9 +49,9 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
   return (
     <div
       style={{
-        ...style,
         ...userConfiguredStyles,
         ...requiredStackComponentStyles,
+        ...style,
       }}
       {...props}
       ref={(ref) => {
@@ -72,9 +86,7 @@ StackComponent.craft = {
   isCanvas: true,
   props: {
     style: {
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      alignItems: 'stretch',
+      ...userConfiguredStyles,
     },
   },
   rules: {
