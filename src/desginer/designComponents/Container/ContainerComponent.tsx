@@ -72,9 +72,7 @@ ContainerComponent.craft = {
   isCanvas: true,
   props: {
     style: {
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      alignItems: 'stretch',
+      ...userConfiguredStyles,
     },
   },
   rules: {
