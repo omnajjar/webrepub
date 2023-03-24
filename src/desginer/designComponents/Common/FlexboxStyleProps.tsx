@@ -16,7 +16,6 @@ import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentSty
 interface FlexboxStyleProps {
   style?: CSSProperties;
   defaultExpanded: boolean;
-  defaultFlexboxStyles: CSSProperties;
 }
 
 const flexGapUnits = [
