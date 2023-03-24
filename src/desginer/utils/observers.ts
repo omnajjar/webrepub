@@ -9,7 +9,7 @@ export function onElementResize(element: Element, callback: () => void) {
 
   resizeObserver.observe(element);
 
-  return { disconnect: resizeObserver.disconnect };
+  return resizeObserver;
 }
 
 export function onElementMutation(element: Element, callback: () => void) {

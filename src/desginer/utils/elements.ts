@@ -12,3 +12,7 @@ export function getPos(element: HTMLElement | null) {
     height: `${height}px`,
   };
 }
+
+export function extractPixelUnit(value: string): string {
+  return value?.replace('px', '');
+}
