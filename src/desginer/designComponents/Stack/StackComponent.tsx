@@ -5,16 +5,19 @@ import { StackItemComponent } from '@/desginer/designComponents/Stack';
 import { StackComponentExtraActions } from '@/desginer/designComponents/Stack/StackComponentExtraActions';
 import { StackComponentSettings } from '@/desginer/designComponents/Stack/StackSettings';
 
-export interface StackComponentProps
-  extends Omit<
-    React.DetailedHTMLProps<
-      React.HTMLAttributes<HTMLDivElement>,
-      HTMLDivElement
-    >,
-    'is'
-  > {
-  direction?: CSSProperties['flexDirection'];
-}
+const requiredStackComponentStyles: CSSProperties = {
+  display: 'flex',
+};
+
+const userConfiguredStyles: CSSProperties = {
+  padding: '8px',
+  gap: '5px',
+};
+
+export type StackComponentProps = Omit<
+  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+  'is'
+>;
 
 export const StackComponent: UserComponent<StackComponentProps> = ({
   style,
@@ -28,15 +31,6 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
   const { enabled } = useEditor((state) => ({
     enabled: state.options.enabled,
   }));
-
-  const requiredStackComponentStyles: CSSProperties = {
-    display: 'flex',
-  };
-
-  const userConfiguredStyles: CSSProperties = {
-    padding: '8px',
-    gap: '5px',
-  };
 
   return (
     <div
@@ -68,7 +62,7 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
 function EmptyStackComponent() {
   return (
     <div className='empty-container-bg empty-container-size flex items-center justify-center '>
-      <span>Content</span>
+      <span>Stack</span>
     </div>
   );
 }

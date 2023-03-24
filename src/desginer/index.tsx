@@ -25,7 +25,7 @@ export function WebRepubEditor() {
   const [propsBoxHeight, setPropsBoxHeight] = useState('100%');
 
   useEffect(() => {
-    setPropsBoxHeight(`${window.innerHeight - 56 - 200}px`); // 56 topbar, 200 layers.
+    setPropsBoxHeight(`${window.innerHeight - 56 - 300}px`); // 56 topbar, 200 layers.
   }, []);
 
   return (
@@ -46,7 +46,6 @@ export function WebRepubEditor() {
                       style={{ height: '32px', width: '64px' }}
                       className='logo-shadow'
                     ></Logo>
-                    <Stack.Item></Stack.Item>
                   </Stack>
                 </Stack.Item>
 
@@ -112,7 +111,7 @@ export function WebRepubEditor() {
                       </Stack>
                     </Stack.Item>
                     <Divider className='my-10'></Divider>
-                    <Stack.Item basis='200px'>
+                    <Stack.Item basis='300px'>
                       <PanelGroup accordion>
                         <Panel header='Layers' defaultExpanded>
                           <div className='components-layers'>
