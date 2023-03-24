@@ -11,7 +11,6 @@ import { ensure } from '@/utils';
 
 import ArrowUp from '~/icons/arrow-up.svg';
 import Delete from '~/icons/delete.svg';
-import Move from '~/icons/move.svg';
 
 interface ComponentIndicatorProps {
   ComponentToRender: JSX.Element;
@@ -31,30 +30,23 @@ export const ComponentIndicator = ({
     isActive: query.getEvent('selected').contains(id),
   }));
 
-  const {
-    isHover,
-    componentDOM,
-    name,
-    moveable,
-    connectors: { drag },
-    parent,
-    deletable,
-    nodeType,
-  } = useNode((node) => {
-    const deletable =
-      query.node(node.id).isDeletable() || deletableNodes?.has(node.data.type);
+  const { isHover, componentDOM, name, parent, deletable, nodeType } = useNode(
+    (node) => {
+      const deletable =
+        query.node(node.id).isDeletable() ||
+        deletableNodes?.has(node.data.type);
 
-    return {
-      isHover: node.events.hovered,
-      componentDOM: node.dom,
-      name: node.data.custom.displayName || node.data.displayName,
-      moveable: query.node(node.id).isDraggable(),
-      parent: node.data.parent,
-      props: node.data.props,
-      deletable,
-      nodeType: node.data.type,
-    };
-  });
+      return {
+        isHover: node.events.hovered,
+        componentDOM: node.dom,
+        name: node.data.custom.displayName || node.data.displayName,
+        parent: node.data.parent,
+        props: node.data.props,
+        deletable,
+        nodeType: node.data.type,
+      };
+    }
+  );
 
   const showIndicator =
     (isHover || isActive) && !hideIndicatorFor.has(nodeType);
@@ -149,22 +141,6 @@ export const ComponentIndicator = ({
                     className='indicator-actions-btn-group'
                     size='xs'
                   >
-                    {moveable ? (
-                      <Whisper
-                        placement='bottom'
-                        speaker={<Tooltip>Move</Tooltip>}
-                      >
-                        <IconButton
-                          icon={<Move className='indicator-container-icon' />}
-                          ref={(ref) => {
-                            if (ref) {
-                              drag(ref);
-                              refreshWhisperPosition();
-                            }
-                          }}
-                        />
-                      </Whisper>
-                    ) : null}
                     {id !== ROOT_NODE ? (
                       <Whisper
                         placement='bottom'
