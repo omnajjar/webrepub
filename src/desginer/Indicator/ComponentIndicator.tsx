@@ -6,7 +6,7 @@ import { ButtonGroup, Divider, IconButton, Tooltip, Whisper } from 'rsuite';
 import { OverlayTriggerHandle } from 'rsuite/esm/Picker';
 
 import { getPos } from '@/desginer/utils/elements';
-import { onElementResize } from '@/desginer/utils/resizeObserver';
+import { onElementMutation, onElementResize } from '@/desginer/utils/observers';
 import { ensure } from '@/utils';
 
 import ArrowUp from '~/icons/arrow-up.svg';
@@ -102,12 +102,21 @@ export const ComponentIndicator = ({
       refresh
     );
 
+    let componentMutationObserver: ReturnType<typeof onElementMutation>;
+
+    if (componentDOM) {
+      componentMutationObserver = onElementMutation(componentDOM, refresh);
+    }
+
     return () => {
       window.removeEventListener('resize', refresh);
       designViewPortElement.removeEventListener('scroll', refresh);
       editorResizeObserver.disconnect();
+      if (componentMutationObserver) {
+        componentMutationObserver.disconnect();
+      }
     };
-  }, [refreshIndicatorPosition, refreshWhisperPosition]);
+  }, [componentDOM, refreshIndicatorPosition, refreshWhisperPosition]);
 
   if (!showIndicator) {
     return NodeToRender;

@@ -11,7 +11,7 @@ import {
 } from 'rsuite';
 import { ValueType } from 'rsuite/esm/Checkbox';
 
-import { StackComponentProps } from '@/desginer/designComponents/Stack';
+import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentStyles';
 
 interface FlexboxStyleProps {
   style?: CSSProperties;
@@ -27,16 +27,11 @@ const flexGapUnits = [
 
 export function FlexboxStyleProps({
   style,
-  setElementProp,
   defaultExpanded,
   defaultFlexboxStyles,
 }: FlexboxStyleProps) {
   const [styles, setStyles] = useState(style ?? defaultFlexboxStyles);
-
-  const commitStyles = (stylesToCommit: CSSProperties) =>
-    setElementProp((props: Pick<StackComponentProps, 'style'>) => {
-      props.style = stylesToCommit;
-    });
+  const { commitStyles } = useCommitComponentStyles();
 
   const handleStyleChange = (styleKey: keyof CSSProperties, v: ValueType) => {
     const nextStyles = {
@@ -219,6 +214,9 @@ export function FlexboxStyleProps({
                   size='sm'
                   onChange={handleColumnGapChange}
                   min={0}
+                  value={styles.columnGap
+                    ?.toString()
+                    .replace(columnGapUnit ?? '', '')}
                 ></InputNumber>
               </Stack.Item>
               <Stack.Item grow={1}>
