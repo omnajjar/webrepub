@@ -2,6 +2,7 @@ import { useNode, UserComponent } from '@craftjs/core';
 import { CSSProperties } from 'react';
 
 import { StackComponent } from '@/desginer/designComponents/Stack/StackComponent';
+import { StackItemComponentSettings } from '@/desginer/designComponents/Stack/StackItemComponentSettings';
 
 interface StackItemComponentProps
   extends Omit<
@@ -64,5 +65,8 @@ StackItemComponent.craft = {
   rules: {
     canDrag: () => true,
     canDrop: (dropTarget) => dropTarget.data.type === StackComponent,
+  },
+  related: {
+    settings: StackItemComponentSettings,
   },
 };

@@ -3,7 +3,7 @@ import { Children, CSSProperties } from 'react';
 
 import { StackItemComponent } from '@/desginer/designComponents/Stack';
 import { StackComponentExtraActions } from '@/desginer/designComponents/Stack/StackComponentExtraActions';
-import { StackComponentSettings } from '@/desginer/designComponents/Stack/StackSettings';
+import { StackComponentSettings } from '@/desginer/designComponents/Stack/StackComponentSettings';
 
 const requiredStackComponentStyles: CSSProperties = {
   display: 'flex',
