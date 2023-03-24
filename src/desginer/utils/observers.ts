@@ -27,5 +27,5 @@ export function onElementMutation(element: Element, callback: () => void) {
   // Start observing the target node for configured mutations
   observer.observe(element, config);
 
-  return { disconnect: observer.disconnect };
+  return observer;
 }
