@@ -13,17 +13,17 @@ import { ValueType } from 'rsuite/esm/Checkbox';
 import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentStyles';
 import { extractPixelUnit } from '@/desginer/utils/elements';
 
-interface PaddingMarginStyleProps {
+interface PaddingMarginStyleControlsProps {
   style?: CSSProperties;
   defaultExpanded: boolean;
 }
 
 type Position = 'Top' | 'Bottom' | 'Left' | 'Right';
 
-export function PaddingMarginStyleProps({
+export function PaddingMarginStyleControls({
   style,
   defaultExpanded,
-}: PaddingMarginStyleProps) {
+}: PaddingMarginStyleControlsProps) {
   const [styles, setStyles] = useState(style ?? {});
   const { commitStyles } = useCommitComponentStyles();
 

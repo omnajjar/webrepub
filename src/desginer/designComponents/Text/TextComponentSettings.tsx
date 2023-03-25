@@ -9,11 +9,9 @@ import {
   Stack,
 } from 'rsuite';
 
-import {
-  FlexboxStyleProps,
-  PaddingMarginStyleProps,
-} from '@/desginer/designComponents/Common';
-import { ColorStyleProps } from '@/desginer/designComponents/Common/ColorStyleProps';
+import { ColorStyleControls } from '@/desginer/designComponents/Common/ColorStyleControls';
+import { FlexboxStyleControls } from '@/desginer/designComponents/Common/FlexboxStyleControls';
+import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/PaddingMarginStyleControls';
 import { TextComponentProps } from '@/desginer/designComponents/Text/TextComponent';
 
 export const TextComponentSettings = () => {
@@ -47,7 +45,7 @@ export const TextComponentSettings = () => {
 
   return (
     <>
-      <FlexboxStyleProps style={style} defaultExpanded={true} asFlexItem />
+      <FlexboxStyleControls style={style} defaultExpanded={true} asFlexItem />
       <PanelGroup accordion>
         <Panel header='Font' defaultExpanded>
           <Stack
@@ -69,7 +67,7 @@ export const TextComponentSettings = () => {
             </Stack.Item>
           </Stack>
         </Panel>
-        <ColorStyleProps defaultExpanded={true} style={style} />
+        <ColorStyleControls defaultExpanded={true} style={style} />
         <Panel header='Alignment' defaultExpanded>
           <span>Text align</span>
           <RadioGroup
@@ -86,7 +84,7 @@ export const TextComponentSettings = () => {
           </RadioGroup>
         </Panel>
       </PanelGroup>
-      <PaddingMarginStyleProps style={style} defaultExpanded={true} />
+      <PaddingMarginStyleControls style={style} defaultExpanded={true} />
     </>
   );
 };

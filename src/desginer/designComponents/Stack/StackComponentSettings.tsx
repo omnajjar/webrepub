@@ -1,10 +1,8 @@
 import { useNode } from '@craftjs/core';
 
-import {
-  FlexboxStyleProps,
-  PaddingMarginStyleProps,
-} from '@/desginer/designComponents/Common';
-import { ColorStyleProps } from '@/desginer/designComponents/Common/ColorStyleProps';
+import { ColorStyleControls } from '@/desginer/designComponents/Common/ColorStyleControls';
+import { FlexboxStyleControls } from '@/desginer/designComponents/Common/FlexboxStyleControls';
+import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/PaddingMarginStyleControls';
 import { StackComponentProps } from '@/desginer/designComponents/Stack';
 
 export const StackComponentSettings = () => {
@@ -14,9 +12,9 @@ export const StackComponentSettings = () => {
 
   return (
     <>
-      <FlexboxStyleProps style={style} defaultExpanded={true} />
-      <ColorStyleProps style={style} defaultExpanded={true} />
-      <PaddingMarginStyleProps style={style} defaultExpanded={true} />
+      <FlexboxStyleControls style={style} defaultExpanded={true} />
+      <ColorStyleControls style={style} defaultExpanded={true} />
+      <PaddingMarginStyleControls style={style} defaultExpanded={true} />
     </>
   );
 };

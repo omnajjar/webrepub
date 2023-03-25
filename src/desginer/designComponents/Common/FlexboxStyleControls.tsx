@@ -13,7 +13,7 @@ import { ValueType } from 'rsuite/esm/Checkbox';
 
 import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentStyles';
 
-interface FlexboxStyleProps {
+interface FlexboxStyleControlsProps {
   style?: CSSProperties;
   defaultExpanded: boolean;
   asFlexItem?: boolean;
@@ -24,11 +24,11 @@ const flexGapUnits = [
   { label: 'percentage', value: '%' },
 ];
 
-export function FlexboxStyleProps({
+export function FlexboxStyleControls({
   style,
   defaultExpanded,
   asFlexItem,
-}: FlexboxStyleProps) {
+}: FlexboxStyleControlsProps) {
   const [styles, setStyles] = useState(style ?? {});
   const { commitStyles } = useCommitComponentStyles();
 

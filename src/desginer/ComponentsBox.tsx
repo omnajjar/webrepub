@@ -23,7 +23,7 @@ export function ComponentsBar() {
       <List.Item
         ref={(ref) => {
           if (ref) {
-            connectors.create(ref, <TextComponent />);
+            connectors.create(ref, <TextComponent text='Text' />);
           }
         }}
       >

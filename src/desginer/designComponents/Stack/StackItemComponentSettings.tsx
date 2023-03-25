@@ -1,10 +1,8 @@
 import { useNode } from '@craftjs/core';
 import { StackItemProps } from 'rsuite/esm/Stack/StackItem';
 
-import {
-  FlexboxStyleProps,
-  PaddingMarginStyleProps,
-} from '@/desginer/designComponents/Common';
+import { FlexboxStyleControls } from '@/desginer/designComponents/Common/FlexboxStyleControls';
+import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/PaddingMarginStyleControls';
 
 export const StackItemComponentSettings = () => {
   const { style } = useNode<Partial<StackItemProps>>((node) => ({
@@ -13,8 +11,8 @@ export const StackItemComponentSettings = () => {
 
   return (
     <>
-      <FlexboxStyleProps style={style} defaultExpanded={true} />
-      <PaddingMarginStyleProps style={style} defaultExpanded={true} />
+      <FlexboxStyleControls style={style} defaultExpanded={true} />
+      <PaddingMarginStyleControls style={style} defaultExpanded={true} />
     </>
   );
 };

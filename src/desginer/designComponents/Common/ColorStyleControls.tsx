@@ -6,7 +6,7 @@ import { Panel, PanelGroup, Stack } from 'rsuite';
 import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentStyles';
 import { colorToCSSrgba } from '@/desginer/utils/colors';
 
-interface ColorStyleProps {
+interface ColorStyleControlsProps {
   style?: CSSProperties;
   defaultExpanded: boolean;
 }
@@ -16,7 +16,10 @@ const colorIconStyle: CSSProperties = {
   marginTop: '5px',
 };
 
-export function ColorStyleProps({ style, defaultExpanded }: ColorStyleProps) {
+export function ColorStyleControls({
+  style,
+  defaultExpanded,
+}: ColorStyleControlsProps) {
   const [styles, setStyles] = useState(style ?? {});
   const { commitStyles } = useCommitComponentStyles();
 
