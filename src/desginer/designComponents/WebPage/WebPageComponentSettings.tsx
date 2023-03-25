@@ -14,7 +14,11 @@ export const WebPageComponentSettings = () => {
 
   return (
     <ComponentPropsControlsContainer componentName={name}>
-      <ColorStyleControls style={style} defaultExpanded={true} />
+      <ColorStyleControls
+        style={style}
+        defaultExpanded={true}
+        allowControls={['bg']}
+      />
     </ComponentPropsControlsContainer>
   );
 };

@@ -9,6 +9,7 @@ import { colorToCSSrgba } from '@/desginer/utils/colors';
 interface ColorStyleControlsProps {
   style?: CSSProperties;
   defaultExpanded: boolean;
+  allowControls?: ('bg' | 'color')[];
 }
 
 const colorIconStyle: CSSProperties = {
@@ -19,6 +20,7 @@ const colorIconStyle: CSSProperties = {
 export function ColorStyleControls({
   style,
   defaultExpanded,
+  allowControls = ['bg', 'color'],
 }: ColorStyleControlsProps) {
   const [styles, setStyles] = useState(style ?? {});
   const { commitStyles } = useCommitComponentStyles();
@@ -45,60 +47,68 @@ export function ColorStyleControls({
   return (
     <PanelGroup accordion>
       <Panel header='Colors' defaultExpanded={defaultExpanded}>
-        <Stack justifyContent='space-between' alignItems='center'>
-          <Stack.Item>
-            <span>Text color</span>
-          </Stack.Item>
-          <Stack.Item>
-            <BsCircleFill
-              className='pointer-cursor'
-              onClick={toggleTextColor}
-              style={{
-                ...colorIconStyle,
-                color: styles.color,
-              }}
-            />
-          </Stack.Item>
-        </Stack>
-        <Stack direction='column' alignItems='flex-end'>
-          {showTextColor ? (
-            <div className='flex justify-center'>
-              <ChromePicker
-                color={styles.color}
-                onChange={(colorValue) =>
-                  handleColorChange('color', colorValue)
-                }
-              />
-            </div>
-          ) : null}
-        </Stack>
-        <Stack justifyContent='space-between' alignItems='center'>
-          <Stack.Item>
-            <span>Background color</span>
-          </Stack.Item>
-          <Stack.Item>
-            <BsCircleFill
-              className='pointer-cursor'
-              onClick={toggleBgColor}
-              style={{
-                ...colorIconStyle,
-                color: styles.backgroundColor,
-              }}
-            />
-          </Stack.Item>
-        </Stack>
-        <Stack direction='column' alignItems='flex-end'>
-          {showBgColor ? (
-            <div className='flex justify-center'>
-              <ChromePicker
-                color={styles.backgroundColor}
-                onChange={(colorValue) =>
-                  handleColorChange('backgroundColor', colorValue)
-                }
-              />
-            </div>
-          ) : null}
-        </Stack>
+        {allowControls.includes('color') ? (
+          <>
+            <Stack justifyContent='space-between' alignItems='center'>
+              <Stack.Item>
+                <span>Text color</span>
+              </Stack.Item>
+              <Stack.Item>
+                <BsCircleFill
+                  className='pointer-cursor'
+                  onClick={toggleTextColor}
+                  style={{
+                    ...colorIconStyle,
+                    color: styles.color,
+                  }}
+                />
+              </Stack.Item>
+            </Stack>
+            <Stack direction='column' alignItems='flex-end'>
+              {showTextColor ? (
+                <div className='flex justify-center'>
+                  <ChromePicker
+                    color={styles.color}
+                    onChange={(colorValue) =>
+                      handleColorChange('color', colorValue)
+                    }
+                  />
+                </div>
+              ) : null}
+            </Stack>
+          </>
+        ) : null}
+        {allowControls.includes('bg') ? (
+          <>
+            <Stack justifyContent='space-between' alignItems='center'>
+              <Stack.Item>
+                <span>Background color</span>
+              </Stack.Item>
+              <Stack.Item>
+                <BsCircleFill
+                  className='pointer-cursor'
+                  onClick={toggleBgColor}
+                  style={{
+                    ...colorIconStyle,
+                    color: styles.backgroundColor,
+                  }}
+                />
+              </Stack.Item>
+            </Stack>
+            <Stack direction='column' alignItems='flex-end'>
+              {showBgColor ? (
+                <div className='flex justify-center'>
+                  <ChromePicker
+                    color={styles.backgroundColor}
+                    onChange={(colorValue) =>
+                      handleColorChange('backgroundColor', colorValue)
+                    }
+                  />
+                </div>
+              ) : null}
+            </Stack>
+          </>
+        ) : null}
       </Panel>
     </PanelGroup>
   );
