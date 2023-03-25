@@ -68,6 +68,21 @@ body {
   padding: 15px;
 }
 
+.px-15 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.py-5 {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.py-10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .px-30 {
   padding-left: 30px;
   padding-right: 30px;
@@ -223,6 +238,14 @@ body {
 .fancy-components-box-shadow {
   box-shadow: #00008b66 -5px 5px, #00008b4d -10px 10px, #00008b33 -15px 15px,
     #00008b1a -20px 20px, #00008b0d -25px 25px;
+}
+
+.bg-controls-title {
+  background: #5c6066;
+}
+
+.controls-title {
+  user-select: none;
 }
 
 .logo-shadow {

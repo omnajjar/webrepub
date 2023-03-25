@@ -10,6 +10,7 @@ import {
 } from 'rsuite';
 
 import { ColorStyleControls } from '@/desginer/designComponents/Common/ColorStyleControls';
+import { ComponentPropsControlsContainer } from '@/desginer/designComponents/Common/ComponentPropsControlsContainer';
 import { FlexboxStyleControls } from '@/desginer/designComponents/Common/FlexboxStyleControls';
 import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/PaddingMarginStyleControls';
 import { TextComponentProps } from '@/desginer/designComponents/Text/TextComponent';
@@ -18,8 +19,10 @@ export const TextComponentSettings = () => {
   const {
     actions: { setProp },
     style,
-  } = useNode<Partial<TextComponentProps>>((node) => ({
+    name,
+  } = useNode<Partial<TextComponentProps> & { name: string }>((node) => ({
     style: node.data.props.style,
+    name: node.data.displayName,
   }));
 
   const [textAlignValue, setTextAlignValue] = useState(style?.textAlign);
@@ -44,7 +47,7 @@ export const TextComponentSettings = () => {
   };
 
   return (
-    <>
+    <ComponentPropsControlsContainer componentName={name}>
       <FlexboxStyleControls style={style} defaultExpanded={true} asFlexItem />
       <PanelGroup accordion>
         <Panel header='Font' defaultExpanded>
@@ -85,6 +88,6 @@ export const TextComponentSettings = () => {
         </Panel>
       </PanelGroup>
       <PaddingMarginStyleControls style={style} defaultExpanded={true} />
-    </>
+    </ComponentPropsControlsContainer>
   );
 };

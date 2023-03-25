@@ -1,14 +1,20 @@
 import { useNode, UserComponent } from '@craftjs/core';
 import { CSSProperties, useEffect, useState } from 'react';
 
+import { WebPageComponentSettings } from '@/desginer/designComponents/WebPage/WebPageComponentSettings';
+
 type WebPageComponentProps = Omit<
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>,
   'is'
 >;
 
-const defaultWebPageComponentComponentStyles: CSSProperties = {
-  width: '100%',
+const userConfiguredStyles: CSSProperties = {
   background: '#fff',
+  color: '#222',
+};
+
+const requiredStyles: CSSProperties = {
+  width: '100%',
   overflow: 'auto',
 };
 
@@ -35,9 +41,10 @@ export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
   return (
     <main
       style={{
-        ...defaultWebPageComponentComponentStyles,
-        minHeight: initialHeigh,
+        ...userConfiguredStyles,
         ...style,
+        minHeight: initialHeigh,
+        ...requiredStyles,
       }}
       {...props}
       ref={(ref) => {
@@ -54,8 +61,16 @@ export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
 WebPageComponent.craft = {
   displayName: 'Web page',
   isCanvas: true,
+  props: {
+    style: {
+      ...userConfiguredStyles,
+    },
+  },
   rules: {
     canMoveIn: (_incomingNode) => true,
     canDrag: () => false,
+  },
+  related: {
+    settings: WebPageComponentSettings,
   },
 };
