@@ -1,5 +1,13 @@
 import { CSSProperties, useState } from 'react';
-import { Divider, InputNumber, Panel, PanelGroup, Stack } from 'rsuite';
+import {
+  Divider,
+  InputNumber,
+  Panel,
+  PanelGroup,
+  Stack,
+  Tooltip,
+  Whisper,
+} from 'rsuite';
 import { ValueType } from 'rsuite/esm/Checkbox';
 
 import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentStyles';
@@ -48,24 +56,32 @@ export function PaddingMarginStyleProps({
                 spacing={20}
               >
                 <Stack.Item grow={1} alignSelf='stretch' className='w-full'>
-                  <InputNumber
-                    prefix='left'
-                    size='sm'
-                    step={0.5}
-                    min={-1000}
-                    value={extractPixelUnit(styles.paddingLeft as string)}
-                    onChange={(v) => handlePaddingChange('Left', v)}
-                  ></InputNumber>
+                  <Whisper placement='top' speaker={<Tooltip>Left</Tooltip>}>
+                    <div>
+                      <InputNumber
+                        prefix='L'
+                        size='sm'
+                        step={0.5}
+                        min={-1000}
+                        value={extractPixelUnit(styles.paddingLeft as string)}
+                        onChange={(v) => handlePaddingChange('Left', v)}
+                      ></InputNumber>
+                    </div>
+                  </Whisper>
                 </Stack.Item>
                 <Stack.Item grow={1} alignSelf='stretch' className='w-full'>
-                  <InputNumber
-                    prefix='right'
-                    size='sm'
-                    step={0.5}
-                    min={-1000}
-                    value={extractPixelUnit(styles.paddingRight as string)}
-                    onChange={(v) => handlePaddingChange('Right', v)}
-                  ></InputNumber>
+                  <Whisper placement='top' speaker={<Tooltip>Right</Tooltip>}>
+                    <div>
+                      <InputNumber
+                        prefix='R'
+                        size='sm'
+                        step={0.5}
+                        min={-1000}
+                        value={extractPixelUnit(styles.paddingRight as string)}
+                        onChange={(v) => handlePaddingChange('Right', v)}
+                      ></InputNumber>
+                    </div>
+                  </Whisper>
                 </Stack.Item>
               </Stack>
             </Stack.Item>
@@ -76,24 +92,32 @@ export function PaddingMarginStyleProps({
                 spacing={20}
               >
                 <Stack.Item grow={1} alignSelf='stretch' className='w-full'>
-                  <InputNumber
-                    prefix='top'
-                    size='sm'
-                    step={0.5}
-                    min={-1000}
-                    value={extractPixelUnit(styles.paddingTop as string)}
-                    onChange={(v) => handlePaddingChange('Top', v)}
-                  ></InputNumber>
+                  <Whisper placement='top' speaker={<Tooltip>Top</Tooltip>}>
+                    <div>
+                      <InputNumber
+                        prefix='T'
+                        size='sm'
+                        step={0.5}
+                        min={-1000}
+                        value={extractPixelUnit(styles.paddingTop as string)}
+                        onChange={(v) => handlePaddingChange('Top', v)}
+                      ></InputNumber>
+                    </div>
+                  </Whisper>
                 </Stack.Item>
                 <Stack.Item grow={1} alignSelf='stretch' className='w-full'>
-                  <InputNumber
-                    prefix='bottom'
-                    size='sm'
-                    step={0.5}
-                    min={-1000}
-                    value={extractPixelUnit(styles.paddingBottom as string)}
-                    onChange={(v) => handlePaddingChange('Bottom', v)}
-                  ></InputNumber>
+                  <Whisper placement='top' speaker={<Tooltip>Bottom</Tooltip>}>
+                    <div>
+                      <InputNumber
+                        prefix='B'
+                        size='sm'
+                        step={0.5}
+                        min={-1000}
+                        value={extractPixelUnit(styles.paddingBottom as string)}
+                        onChange={(v) => handlePaddingChange('Bottom', v)}
+                      ></InputNumber>
+                    </div>
+                  </Whisper>
                 </Stack.Item>
               </Stack>
             </Stack.Item>
@@ -110,24 +134,33 @@ export function PaddingMarginStyleProps({
                 spacing={20}
               >
                 <Stack.Item grow={1} alignSelf='stretch' className='w-full'>
-                  <InputNumber
-                    prefix='left'
-                    size='sm'
-                    step={0.5}
-                    min={-1000}
-                    value={extractPixelUnit(styles.marginLeft as string)}
-                    onChange={(v) => handleMarginChange('Left', v)}
-                  ></InputNumber>
+                  <Whisper placement='top' speaker={<Tooltip>Left</Tooltip>}>
+                    <div>
+                      {' '}
+                      <InputNumber
+                        prefix='L'
+                        size='sm'
+                        step={0.5}
+                        min={-1000}
+                        value={extractPixelUnit(styles.marginLeft as string)}
+                        onChange={(v) => handleMarginChange('Left', v)}
+                      ></InputNumber>
+                    </div>
+                  </Whisper>
                 </Stack.Item>
                 <Stack.Item grow={1} alignSelf='stretch' className='w-full'>
-                  <InputNumber
-                    prefix='right'
-                    size='sm'
-                    step={0.5}
-                    min={-1000}
-                    value={extractPixelUnit(styles.marginRight as string)}
-                    onChange={(v) => handleMarginChange('Right', v)}
-                  ></InputNumber>
+                  <Whisper placement='top' speaker={<Tooltip>Right</Tooltip>}>
+                    <div>
+                      <InputNumber
+                        prefix='R'
+                        size='sm'
+                        step={0.5}
+                        min={-1000}
+                        value={extractPixelUnit(styles.marginRight as string)}
+                        onChange={(v) => handleMarginChange('Right', v)}
+                      ></InputNumber>
+                    </div>
+                  </Whisper>
                 </Stack.Item>
               </Stack>
             </Stack.Item>
@@ -138,24 +171,33 @@ export function PaddingMarginStyleProps({
                 spacing={20}
               >
                 <Stack.Item grow={1} alignSelf='stretch' className='w-full'>
-                  <InputNumber
-                    prefix='top'
-                    size='sm'
-                    step={0.5}
-                    min={-1000}
-                    value={extractPixelUnit(styles.marginTop as string)}
-                    onChange={(v) => handleMarginChange('Top', v)}
-                  ></InputNumber>
+                  <Whisper placement='top' speaker={<Tooltip>Top</Tooltip>}>
+                    <div>
+                      {' '}
+                      <InputNumber
+                        prefix='T'
+                        size='sm'
+                        step={0.5}
+                        min={-1000}
+                        value={extractPixelUnit(styles.marginTop as string)}
+                        onChange={(v) => handleMarginChange('Top', v)}
+                      ></InputNumber>
+                    </div>
+                  </Whisper>
                 </Stack.Item>
                 <Stack.Item grow={1} alignSelf='stretch' className='w-full'>
-                  <InputNumber
-                    prefix='bottom'
-                    size='sm'
-                    step={0.5}
-                    min={-1000}
-                    value={extractPixelUnit(styles.marginBottom as string)}
-                    onChange={(v) => handleMarginChange('Bottom', v)}
-                  ></InputNumber>
+                  <Whisper placement='top' speaker={<Tooltip>Bottom</Tooltip>}>
+                    <div>
+                      <InputNumber
+                        prefix='B'
+                        size='sm'
+                        step={0.5}
+                        min={-1000}
+                        value={extractPixelUnit(styles.marginBottom as string)}
+                        onChange={(v) => handleMarginChange('Bottom', v)}
+                      ></InputNumber>
+                    </div>
+                  </Whisper>
                 </Stack.Item>
               </Stack>
             </Stack.Item>

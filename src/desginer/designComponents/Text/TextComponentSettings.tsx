@@ -6,11 +6,13 @@ import {
   PanelGroup,
   Radio,
   RadioGroup,
-  Slider,
   Stack,
 } from 'rsuite';
 
-import { PaddingMarginStyleProps } from '@/desginer/designComponents/Common';
+import {
+  FlexboxStyleProps,
+  PaddingMarginStyleProps,
+} from '@/desginer/designComponents/Common';
 import { ColorStyleProps } from '@/desginer/designComponents/Common/ColorStyleProps';
 import { TextComponentProps } from '@/desginer/designComponents/Text/TextComponent';
 
@@ -45,9 +47,9 @@ export const TextComponentSettings = () => {
 
   return (
     <>
+      <FlexboxStyleProps style={style} defaultExpanded={true} asFlexItem />
       <PanelGroup accordion>
         <Panel header='Font' defaultExpanded>
-          <span>Size</span>
           <Stack
             direction='row'
             spacing={20}
@@ -55,20 +57,10 @@ export const TextComponentSettings = () => {
             justifyContent='center'
           >
             <Stack.Item grow={1}>
-              <Slider
-                progress
-                min={6}
-                max={100}
-                value={Number(style?.fontSize?.toString().replace('px', ''))}
-                onChange={(value) => {
-                  handleFontSizeChanged(Number(value));
-                }}
-              />
-            </Stack.Item>
-            <Stack.Item basis='70px'>
               <InputNumber
-                min={6}
-                max={100}
+                prefix='Size'
+                min={0}
+                max={1000}
                 value={Number(style?.fontSize?.toString().replace('px', ''))}
                 onChange={(value) => {
                   handleFontSizeChanged(Number(value));
@@ -94,7 +86,7 @@ export const TextComponentSettings = () => {
           </RadioGroup>
         </Panel>
       </PanelGroup>
-      <PaddingMarginStyleProps defaultExpanded={true} />
+      <PaddingMarginStyleProps style={style} defaultExpanded={true} />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { useNode, UserComponent } from '@craftjs/core';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import ContentEditable from 'react-contenteditable';
 
 import { TextComponentSettings } from '@/desginer/designComponents/Text/TextComponentSettings';
@@ -11,6 +11,25 @@ export interface TextComponentProps
   > {
   text: string;
 }
+
+const userConfiguredStyles: CSSProperties = {
+  paddingTop: '8px',
+  paddingBottom: '8px',
+  paddingLeft: '8px',
+  paddingRight: '8px',
+
+  marginTop: '0px',
+  marginBottom: '0px',
+  marginLeft: '0px',
+  marginRight: '0px',
+
+  textAlign: 'left',
+
+  fontSize: '14px',
+  color: '#000',
+
+  flexGrow: 0,
+};
 
 export const TextComponent: UserComponent<TextComponentProps> = ({
   text,
@@ -35,44 +54,42 @@ export const TextComponent: UserComponent<TextComponentProps> = ({
     setEditable(false);
   }, [hasSelectedNode]);
 
+  const ref = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (ref && ref.current) {
+      connect(drag(ref.current));
+    }
+  }, [connect, drag]);
+
   return (
-    <div
-      ref={(ref) => {
-        if (ref) {
-          connect(drag(ref));
-        }
+    <ContentEditable
+      innerRef={ref}
+      html={text}
+      disabled={!editable}
+      onChange={(e) =>
+        setProp(
+          (props: Pick<TextComponentProps, 'text'>) =>
+            (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, ''))
+        )
+      }
+      tagName='p'
+      style={{
+        ...userConfiguredStyles,
+        borderRadios: '0px',
+        outline: 'none',
+        ...props.style,
       }}
-    >
-      <ContentEditable
-        html={text}
-        disabled={!editable}
-        onChange={(e) =>
-          setProp(
-            (props: Pick<TextComponentProps, 'text'>) =>
-              (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, ''))
-          )
-        }
-        tagName='p'
-        style={{
-          padding: '8px',
-          borderRadios: '0px',
-          textAlign: 'left',
-          outline: 'none',
-          ...props.style,
-        }}
-      />
-    </div>
+    />
   );
 };
 
 TextComponent.craft = {
   displayName: 'Text',
   props: {
-    text: 'Hi',
+    text: 'Text',
     style: {
-      fontSize: '14px',
-      textAlign: 'left',
-      color: '#222',
+      ...userConfiguredStyles,
     },
   },
   rules: {

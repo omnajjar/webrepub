@@ -4,6 +4,7 @@ import {
   FlexboxStyleProps,
   PaddingMarginStyleProps,
 } from '@/desginer/designComponents/Common';
+import { ColorStyleProps } from '@/desginer/designComponents/Common/ColorStyleProps';
 import { ContainerComponentProps } from '@/desginer/designComponents/Container';
 
 export const ContainerComponentSettings = () => {
@@ -14,6 +15,7 @@ export const ContainerComponentSettings = () => {
   return (
     <>
       <FlexboxStyleProps style={style} defaultExpanded={true} />
+      <ColorStyleProps style={style} defaultExpanded={true} />
       <PaddingMarginStyleProps style={style} defaultExpanded={true} />
     </>
   );
