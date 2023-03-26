@@ -31,7 +31,8 @@
     "react-contenteditable": "^3.3.7",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
-    "rsuite": "^5.28.2"
+    "rsuite": "^5.28.2",
+    "styled-components": "^5.3.9"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -44,6 +45,7 @@
     "@types/node": "^18.14.0",
     "@types/react": "^18.0.27",
     "@types/react-color": "^3.0.6",
+    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
     "autoprefixer": "^10.4.13",

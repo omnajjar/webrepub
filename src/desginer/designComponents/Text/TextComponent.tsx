@@ -3,6 +3,7 @@ import { CSSProperties, useEffect, useRef, useState } from 'react';
 import ContentEditable from 'react-contenteditable';
 
 import { TextComponentSettings } from '@/desginer/designComponents/Text/TextComponentSettings';
+import { sanitizeValue } from '@/desginer/utils/strings';
 
 export interface TextComponentProps
   extends React.DetailedHTMLProps<
@@ -70,7 +71,7 @@ export const TextComponent: UserComponent<TextComponentProps> = ({
       onChange={(e) =>
         setProp(
           (props: Pick<TextComponentProps, 'text'>) =>
-            (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, ''))
+            (props.text = sanitizeValue(e.target.value))
         )
       }
       tagName='p'

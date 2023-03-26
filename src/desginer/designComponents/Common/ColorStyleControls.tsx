@@ -10,6 +10,7 @@ interface ColorStyleControlsProps {
   style?: CSSProperties;
   defaultExpanded: boolean;
   allowControls?: ('bg' | 'color')[];
+  useStyledComponents?: boolean;
 }
 
 const colorIconStyle: CSSProperties = {
@@ -21,9 +22,12 @@ export function ColorStyleControls({
   style,
   defaultExpanded,
   allowControls = ['bg', 'color'],
+  useStyledComponents,
 }: ColorStyleControlsProps) {
   const [styles, setStyles] = useState(style ?? {});
-  const { commitStyles } = useCommitComponentStyles();
+  const { commitStyles } = useCommitComponentStyles(
+    useStyledComponents ? 'cssProps' : 'style'
+  );
 
   const [showTextColor, setShowTextColor] = useState(false);
   const toggleTextColor = () => setShowTextColor(!showTextColor);
@@ -49,14 +53,17 @@ export function ColorStyleControls({
       <Panel header='Colors' defaultExpanded={defaultExpanded}>
         {allowControls.includes('color') ? (
           <>
-            <Stack justifyContent='space-between' alignItems='center'>
+            <Stack
+              justifyContent='space-between'
+              alignItems='center'
+              onClick={toggleTextColor}
+              className='pointer-cursor'
+            >
               <Stack.Item>
                 <span>Text color</span>
               </Stack.Item>
               <Stack.Item>
                 <BsCircleFill
-                  className='pointer-cursor'
-                  onClick={toggleTextColor}
                   style={{
                     ...colorIconStyle,
                     color: styles.color,
@@ -80,7 +87,12 @@ export function ColorStyleControls({
         ) : null}
         {allowControls.includes('bg') ? (
           <>
-            <Stack justifyContent='space-between' alignItems='center'>
+            <Stack
+              justifyContent='space-between'
+              alignItems='center'
+              onClick={toggleBgColor}
+              className='pointer-cursor'
+            >
               <Stack.Item>
                 <span>Background color</span>
               </Stack.Item>

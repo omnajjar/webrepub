@@ -17,6 +17,7 @@ interface FlexboxStyleControlsProps {
   style?: CSSProperties;
   defaultExpanded: boolean;
   asFlexItem?: boolean;
+  useStyledComponents?: boolean;
 }
 
 const flexGapUnits = [
@@ -28,9 +29,12 @@ export function FlexboxStyleControls({
   style,
   defaultExpanded,
   asFlexItem,
+  useStyledComponents,
 }: FlexboxStyleControlsProps) {
   const [styles, setStyles] = useState(style ?? {});
-  const { commitStyles } = useCommitComponentStyles();
+  const { commitStyles } = useCommitComponentStyles(
+    useStyledComponents ? 'cssProps' : 'style'
+  );
 
   const handleStyleChange = (styleKey: keyof CSSProperties, v: ValueType) => {
     const nextStyles = {

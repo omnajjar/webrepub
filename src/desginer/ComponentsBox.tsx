@@ -4,11 +4,12 @@ import React from 'react';
 import { IconType } from 'react-icons';
 import { BiPointer } from 'react-icons/bi';
 import { BsCardImage } from 'react-icons/bs';
-import { TbSquare } from 'react-icons/tb';
+import { TbLink, TbSquare } from 'react-icons/tb';
 import { TfiLayoutColumn3, TfiText } from 'react-icons/tfi';
 import { List, Tooltip, Whisper } from 'rsuite';
 
 import { ContainerComponent } from '@/desginer/designComponents/Container';
+import { LinkComponent } from '@/desginer/designComponents/Link';
 import { StackComponent } from '@/desginer/designComponents/Stack';
 import { TextComponent } from '@/desginer/designComponents/Text';
 
@@ -35,6 +36,19 @@ export function ComponentsBar() {
       </List.Item>
       <List.Item>
         <ComponentItem icon={BsCardImage} name='Image' draggable={true} />
+      </List.Item>
+      <List.Item
+        ref={(ref) => {
+          if (ref) {
+            connectors.create(ref, <LinkComponent />);
+          }
+        }}
+      >
+        <ComponentItem
+          icon={TbLink}
+          name={LinkComponent.displayName ?? 'Link'}
+          draggable={true}
+        />
       </List.Item>
       <List.Item
         ref={(ref) => {
