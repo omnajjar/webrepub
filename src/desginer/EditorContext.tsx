@@ -2,6 +2,7 @@ import { Editor } from '@craftjs/core';
 import { PropsWithChildren } from 'react';
 
 import { ContainerComponent } from '@/desginer/designComponents/Container';
+import { LinkComponent } from '@/desginer/designComponents/Link';
 import {
   StackComponent,
   StackItemComponent,
@@ -23,6 +24,7 @@ export function DesignerContext({ children }: PropsWithChildren) {
         TextComponent,
         StackComponent,
         StackItemComponent,
+        LinkComponent,
       }}
     >
       {children}

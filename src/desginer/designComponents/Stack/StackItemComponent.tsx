@@ -1,4 +1,4 @@
-import { useNode, UserComponent } from '@craftjs/core';
+import { useEditor, useNode, UserComponent } from '@craftjs/core';
 import { CSSProperties } from 'react';
 
 import { StackComponent } from '@/desginer/designComponents/Stack/StackComponent';
@@ -45,6 +45,10 @@ export const StackItemComponent: UserComponent<StackItemComponentProps> = ({
     connectors: { connect, drag },
   } = useNode();
 
+  const { enabled } = useEditor((state) => ({
+    enabled: state.options.enabled,
+  }));
+
   return (
     <div
       style={{
@@ -59,7 +63,11 @@ export const StackItemComponent: UserComponent<StackItemComponentProps> = ({
         }
       }}
     >
-      {children ? children : <EmptyStackItemContent></EmptyStackItemContent>}
+      {children ? (
+        children
+      ) : enabled ? (
+        <EmptyStackItemContent></EmptyStackItemContent>
+      ) : null}
     </div>
   );
 };
