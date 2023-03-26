@@ -7,18 +7,30 @@ import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/P
 import { ContainerComponentProps } from '@/desginer/designComponents/Container';
 
 export const ContainerComponentSettings = () => {
-  const { style, name } = useNode<
+  const { name, cssProps } = useNode<
     Partial<ContainerComponentProps> & { name: string }
   >((node) => ({
-    style: node.data.props.style,
     name: node.data.displayName,
+    cssProps: node.data.props.cssProps,
   }));
 
   return (
     <ComponentPropsControlsContainer componentName={name}>
-      <FlexboxStyleControls style={style} defaultExpanded={true} />
-      <ColorStyleControls style={style} defaultExpanded={true} />
-      <PaddingMarginStyleControls style={style} defaultExpanded={true} />
+      <FlexboxStyleControls
+        style={cssProps}
+        defaultExpanded={true}
+        useStyledComponents
+      />
+      <ColorStyleControls
+        style={cssProps}
+        defaultExpanded={true}
+        useStyledComponents
+      />
+      <PaddingMarginStyleControls
+        style={cssProps}
+        defaultExpanded={true}
+        useStyledComponents
+      />
     </ComponentPropsControlsContainer>
   );
 };
