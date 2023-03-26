@@ -25,6 +25,7 @@ export const ContainerComponentSettings = () => {
         style={cssProps}
         defaultExpanded={true}
         useStyledComponents
+        allowControls={['bg']}
       />
       <PaddingMarginStyleControls
         style={cssProps}
