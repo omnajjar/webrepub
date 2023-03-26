@@ -1,23 +1,24 @@
 import { useNode } from '@craftjs/core';
-import { StackItemProps } from 'rsuite/esm/Stack/StackItem';
 
 import { ColorStyleControls } from '@/desginer/designComponents/Common/ColorStyleControls';
 import { ComponentPropsControlsContainer } from '@/desginer/designComponents/Common/ComponentPropsControlsContainer';
+import { WebPageComponentProps } from '@/desginer/designComponents/WebPage/WebPageComponent';
 
 export const WebPageComponentSettings = () => {
-  const { style, name } = useNode<Partial<StackItemProps> & { name: string }>(
-    (node) => ({
-      style: node.data.props.style,
-      name: node.data.displayName,
-    })
-  );
+  const { cssProps, name } = useNode<
+    Partial<WebPageComponentProps> & { name: string }
+  >((node) => ({
+    cssProps: node.data.props.cssProps,
+    name: node.data.displayName,
+  }));
 
   return (
     <ComponentPropsControlsContainer componentName={name}>
       <ColorStyleControls
-        style={style}
+        style={cssProps}
         defaultExpanded={true}
         allowControls={['bg']}
+        useStyledComponents={true}
       />
     </ComponentPropsControlsContainer>
   );

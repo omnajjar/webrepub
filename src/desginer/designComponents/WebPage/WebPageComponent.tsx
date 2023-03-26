@@ -1,22 +1,29 @@
 import { useNode, UserComponent } from '@craftjs/core';
 import { CSSProperties, useEffect, useState } from 'react';
+import styled, { css, CSSObject } from 'styled-components';
 
 import { WebPageComponentSettings } from '@/desginer/designComponents/WebPage/WebPageComponentSettings';
 
-type WebPageComponentProps = Omit<
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>,
-  'is'
->;
-
-const userConfiguredStyles: CSSProperties = {
-  background: '#fff',
-  color: '#222',
+const defaultConfiguredStyles: CSSObject = {
+  backgroundColor: '#fff',
 };
 
-const requiredStyles: CSSProperties = {
-  width: '100%',
-  overflow: 'auto',
-};
+export interface WebPageComponentProps
+  extends React.HTMLAttributes<HTMLElement> {
+  cssProps?: CSSProperties;
+}
+
+const userConfiguredStyles = css<WebPageComponentProps>`
+  background-color: ${(props) => props.cssProps?.backgroundColor};
+`;
+
+const Main = styled.main`
+  ${userConfiguredStyles}
+
+  /* global styles */
+  width: 100%;
+  overflow: auto;
+`;
 
 export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
   children,
@@ -26,7 +33,6 @@ export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
   const {
     connectors: { connect },
   } = useNode();
-
   const [initialHeigh, setIntialHeight] = useState('100%');
 
   useEffect(() => {
@@ -39,14 +45,12 @@ export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
   }, []);
 
   return (
-    <main
+    <Main
+      {...props}
       style={{
-        ...userConfiguredStyles,
         ...style,
         minHeight: initialHeigh,
-        ...requiredStyles,
       }}
-      {...props}
       ref={(ref) => {
         if (ref) {
           connect(ref);
@@ -54,7 +58,7 @@ export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
       }}
     >
       {children}
-    </main>
+    </Main>
   );
 };
 
@@ -62,12 +66,12 @@ WebPageComponent.craft = {
   displayName: 'Web page',
   isCanvas: true,
   props: {
-    style: {
-      ...userConfiguredStyles,
+    cssProps: {
+      ...defaultConfiguredStyles,
     },
   },
   rules: {
-    canMoveIn: (_incomingNode) => true,
+    canMoveIn: () => true,
     canDrag: () => false,
   },
   related: {
