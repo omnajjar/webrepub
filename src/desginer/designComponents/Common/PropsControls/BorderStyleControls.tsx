@@ -1,4 +1,5 @@
 import { CSSProperties, useState } from 'react';
+import { ChromePicker, ColorResult } from 'react-color';
 import {
   InputNumber,
   InputPicker,
@@ -9,7 +10,9 @@ import {
   Whisper,
 } from 'rsuite';
 
+import { ColorIndicator } from '@/desginer/designComponents/Common/ColorIndicator';
 import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentStyles';
+import { colorToCSSrgba } from '@/desginer/utils/colors';
 import { getValueUnit } from '@/desginer/utils/units';
 
 interface BorderStyleControlsProps {
@@ -65,6 +68,18 @@ export function BorderStyleControls({
       ...cssProps,
       [borderWidthKey]: `${v}${bordersWidthUnit}`,
     };
+    commitStyles(nextStyles);
+  };
+
+  const [showBorderColor, setShowBorderColor] = useState(false);
+  const toggleBordersColor = () => setShowBorderColor(!showBorderColor);
+
+  const handleBorderColorChange = (v: ColorResult) => {
+    const nextStyles = {
+      ...cssProps,
+      borderColor: colorToCSSrgba(v),
+    };
+
     commitStyles(nextStyles);
   };
 
@@ -182,6 +197,33 @@ export function BorderStyleControls({
                 </Whisper>
               </Stack.Item>
             </Stack>
+          </Stack.Item>
+          <Stack.Item grow={1}>
+            <>
+              <Stack
+                justifyContent='space-between'
+                alignItems='center'
+                onClick={toggleBordersColor}
+                className='pointer-cursor'
+              >
+                <Stack.Item>
+                  <span>Borders color</span>
+                </Stack.Item>
+                <Stack.Item>
+                  <ColorIndicator color={cssProps?.borderColor as string} />
+                </Stack.Item>
+              </Stack>
+              <Stack direction='column' alignItems='flex-end'>
+                {showBorderColor ? (
+                  <div className='flex justify-center'>
+                    <ChromePicker
+                      color={cssProps?.borderColor}
+                      onChange={handleBorderColorChange}
+                    />
+                  </div>
+                ) : null}
+              </Stack>
+            </>
           </Stack.Item>
         </Stack>
       </Panel>

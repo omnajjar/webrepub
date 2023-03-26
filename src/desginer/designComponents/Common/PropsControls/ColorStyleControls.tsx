@@ -1,8 +1,8 @@
 import { CSSProperties, useState } from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
-import { BsCircleFill } from 'react-icons/bs';
 import { Panel, PanelGroup, Stack } from 'rsuite';
 
+import { ColorIndicator } from '@/desginer/designComponents/Common/ColorIndicator';
 import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentStyles';
 import { colorToCSSrgba } from '@/desginer/utils/colors';
 
@@ -11,13 +11,6 @@ interface ColorStyleControlsProps {
   defaultExpanded: boolean;
   allowControls?: ('bg' | 'color')[];
 }
-
-const colorIconStyle: CSSProperties = {
-  fontSize: '20px',
-  marginTop: '5px',
-  border: '1px solid black',
-  borderRadius: '100%',
-};
 
 export function ColorStyleControls({
   cssProps: style,
@@ -61,12 +54,7 @@ export function ColorStyleControls({
                 <span>Text color</span>
               </Stack.Item>
               <Stack.Item>
-                <BsCircleFill
-                  style={{
-                    ...colorIconStyle,
-                    color: styles.color,
-                  }}
-                />
+                <ColorIndicator color={styles.color as string} />
               </Stack.Item>
             </Stack>
             <Stack direction='column' alignItems='flex-end'>
@@ -95,14 +83,7 @@ export function ColorStyleControls({
                 <span>Background color</span>
               </Stack.Item>
               <Stack.Item>
-                <BsCircleFill
-                  className='pointer-cursor'
-                  onClick={toggleBgColor}
-                  style={{
-                    ...colorIconStyle,
-                    color: styles.backgroundColor,
-                  }}
-                />
+                <ColorIndicator color={styles.backgroundColor as string} />
               </Stack.Item>
             </Stack>
             <Stack direction='column' alignItems='flex-end'>

@@ -27,6 +27,8 @@ const defaultConfiguredStyles: CSSObject = {
 
   borderStyle: 'solid',
 
+  borderColor: '#000',
+
   borderLeftWidth: '0px',
   borderRightWidth: '0px',
   borderTopWidth: '0px',
@@ -56,7 +58,7 @@ const userConfiguredStyles = css<ContainerComponentProps>`
 
   border-style: ${(props) => props.cssProps?.borderStyle};
 
-  border-color: black;
+  border-color: ${(props) => props.cssProps?.borderColor};
 
   border-left-width: ${(props) => props.cssProps?.borderLeftWidth};
   border-right-width: ${(props) => props.cssProps?.borderRightWidth};
