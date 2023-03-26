@@ -58,6 +58,7 @@ export const LinkComponentSettings = () => {
                 <Input
                   value={linkProps.caption}
                   onChange={handleOnCaptionChange}
+                  placeholder='e.g. WebRepub Home Page'
                 />
               </InputGroup>
             </Stack.Item>
@@ -66,7 +67,11 @@ export const LinkComponentSettings = () => {
                 <InputGroup.Addon>
                   <TbLink />
                 </InputGroup.Addon>
-                <Input value={linkProps.href} onChange={handleLinkChange} />
+                <Input
+                  value={linkProps.href}
+                  onChange={handleLinkChange}
+                  placeholder='e.g. https://webrepub.com'
+                />
               </InputGroup>
             </Stack.Item>
           </Stack>

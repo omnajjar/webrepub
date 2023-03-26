@@ -39,15 +39,15 @@ const userConfiguredStyles = css<LinkComponentProps>`
 `;
 
 const Link = styled.a`
-  ${defaultConfiguredStyles}
   ${userConfiguredStyles}
-
 
   /* global styles */
   display: inline-block;
   text-decoration: none;
   &:hover {
+    cursor: ${(props) => (props.editorEnabled ? 'initial' : 'pointer')};
     text-decoration: none;
+    color: ${(props) => props.cssProps?.color};
   }
 `;
 
@@ -56,6 +56,7 @@ export interface LinkComponentProps
   href?: string;
   caption?: string;
   cssProps?: CSSProperties;
+  editorEnabled?: boolean;
 }
 
 export const LinkComponent: UserComponent<LinkComponentProps> = ({
@@ -73,6 +74,7 @@ export const LinkComponent: UserComponent<LinkComponentProps> = ({
 
   return (
     <Link
+      editorEnabled={enabled}
       onClick={(e) => {
         if (enabled) {
           e.preventDefault();
