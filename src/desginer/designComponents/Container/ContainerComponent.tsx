@@ -33,6 +33,11 @@ const defaultConfiguredStyles: CSSObject = {
   borderRightWidth: '0px',
   borderTopWidth: '0px',
   borderBottomWidth: '0px',
+
+  borderTopLeftRadius: '0px',
+  borderTopRightRadius: '0px',
+  borderBottomLeftRadius: '0px',
+  borderBottomRightRadius: '0px',
 };
 
 const userConfiguredStyles = css<ContainerComponentProps>`
@@ -64,6 +69,13 @@ const userConfiguredStyles = css<ContainerComponentProps>`
   border-right-width: ${(props) => props.cssProps?.borderRightWidth};
   border-top-width: ${(props) => props.cssProps?.borderTopWidth};
   border-bottom-width: ${(props) => props.cssProps?.borderBottomWidth};
+
+  border-top-left-radius: ${(props) => props.cssProps?.borderTopLeftRadius};
+  border-top-right-radius: ${(props) => props.cssProps?.borderTopRightRadius};
+  border-bottom-left-radius: ${(props) =>
+    props.cssProps?.borderBottomLeftRadius};
+  border-bottom-right-radius: ${(props) =>
+    props.cssProps?.borderBottomRightRadius};
 `;
 
 const Div = styled.div`

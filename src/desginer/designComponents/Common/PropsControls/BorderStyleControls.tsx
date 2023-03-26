@@ -46,9 +46,6 @@ export function BorderStyleControls({
   defaultExpanded,
 }: BorderStyleControlsProps) {
   const { commitStyles } = useCommitComponentStyles('cssProps');
-  const [bordersWidthUnit, setBorderWidthUnit] = useState(
-    getValueUnit((cssProps?.borderLeftWidth as string) ?? 'px').shorthand
-  );
 
   const handleBorderStyleChange = (v: string) => {
     const nextStyles = {
@@ -57,6 +54,10 @@ export function BorderStyleControls({
     };
     commitStyles(nextStyles);
   };
+
+  const [bordersWidthUnit, setBorderWidthUnit] = useState(
+    getValueUnit((cssProps?.borderLeftWidth as string) ?? 'px').shorthand
+  );
 
   const handleBorderWidthChange = (
     v: string | number,
@@ -67,6 +68,23 @@ export function BorderStyleControls({
     const nextStyles: CSSProperties = {
       ...cssProps,
       [borderWidthKey]: `${v}${bordersWidthUnit}`,
+    };
+    commitStyles(nextStyles);
+  };
+
+  const [bordersRadiusUnit, setBordersRadiusUnit] = useState(
+    getValueUnit((cssProps?.borderTopLeftRadius as string) ?? 'px').shorthand
+  );
+
+  const handleBorderRadiusChange = (
+    v: string | number,
+    position: 'TopLeft' | 'TopRight' | 'BottomLeft' | 'BottomRight'
+  ) => {
+    const borderRadiusKey = `border${position}Radius`;
+
+    const nextStyles: CSSProperties = {
+      ...cssProps,
+      [borderRadiusKey]: `${v}${bordersWidthUnit}`,
     };
     commitStyles(nextStyles);
   };
@@ -224,6 +242,113 @@ export function BorderStyleControls({
                 ) : null}
               </Stack>
             </>
+          </Stack.Item>
+          <Stack.Item grow={1}>
+            <div className='mb-10'>Borders Radius</div>
+            <Stack className='mb-10' alignItems='stretch'>
+              <Stack.Item grow={1}>
+                <InputPicker
+                  prefix='raduis unit'
+                  size='sm'
+                  className='w-full'
+                  data={borderWidthOption}
+                  value={bordersRadiusUnit}
+                  onChange={(v) => {
+                    setBordersRadiusUnit(v);
+                  }}
+                />
+              </Stack.Item>
+            </Stack>
+            <Stack
+              direction='row'
+              justifyContent='space-between'
+              alignItems='stretch'
+              spacing={20}
+              className='mb-10'
+            >
+              <Stack.Item>
+                <Whisper placement='top' speaker={<Tooltip>Top Left</Tooltip>}>
+                  <div>
+                    <InputNumber
+                      prefix='TL'
+                      size='sm'
+                      step={0.5}
+                      value={
+                        getValueUnit(cssProps?.borderTopLeftRadius as string)
+                          .value
+                      }
+                      onChange={(v) => handleBorderRadiusChange(v, 'TopLeft')}
+                    ></InputNumber>
+                  </div>
+                </Whisper>
+              </Stack.Item>
+              <Stack.Item>
+                <Whisper placement='top' speaker={<Tooltip>Top Right</Tooltip>}>
+                  <div>
+                    <InputNumber
+                      prefix='TR'
+                      size='sm'
+                      step={0.5}
+                      value={
+                        getValueUnit(cssProps?.borderTopRightRadius as string)
+                          .value
+                      }
+                      onChange={(v) => handleBorderRadiusChange(v, 'TopRight')}
+                    ></InputNumber>
+                  </div>
+                </Whisper>
+              </Stack.Item>
+            </Stack>
+            <Stack
+              direction='row'
+              justifyContent='space-between'
+              alignItems='stretch'
+              spacing={20}
+            >
+              <Stack.Item>
+                <Whisper
+                  placement='top'
+                  speaker={<Tooltip>Bottom Left</Tooltip>}
+                >
+                  <div>
+                    <InputNumber
+                      prefix='BL'
+                      size='sm'
+                      step={0.5}
+                      value={
+                        getValueUnit(cssProps?.borderBottomLeftRadius as string)
+                          .value
+                      }
+                      onChange={(v) =>
+                        handleBorderRadiusChange(v, 'BottomLeft')
+                      }
+                    ></InputNumber>
+                  </div>
+                </Whisper>
+              </Stack.Item>
+              <Stack.Item>
+                <Whisper
+                  placement='top'
+                  speaker={<Tooltip>Bottom Right</Tooltip>}
+                >
+                  <div>
+                    <InputNumber
+                      prefix='BR'
+                      size='sm'
+                      step={0.5}
+                      value={
+                        getValueUnit(
+                          cssProps?.borderBottomRightRadius as string
+                        ).value
+                      }
+                      onChange={(v) =>
+                        handleBorderRadiusChange(v, 'BottomRight')
+                      }
+                    ></InputNumber>
+                  </div>
+                </Whisper>
+              </Stack.Item>
+            </Stack>
           </Stack.Item>
         </Stack>
       </Panel>
