@@ -16,19 +16,14 @@ export const ContainerComponentSettings = () => {
 
   return (
     <ComponentPropsControlsContainer componentName={name}>
-      <FlexboxStyleControls
-        style={cssProps}
-        defaultExpanded={true}
-        useStyledComponents
-      />
+      <FlexboxStyleControls cssProps={cssProps} defaultExpanded={true} />
       <ColorStyleControls
-        style={cssProps}
+        cssProps={cssProps}
         defaultExpanded={true}
-        useStyledComponents
         allowControls={['bg']}
       />
       <PaddingMarginStyleControls
-        style={cssProps}
+        cssProps={cssProps}
         defaultExpanded={true}
         useStyledComponents
       />

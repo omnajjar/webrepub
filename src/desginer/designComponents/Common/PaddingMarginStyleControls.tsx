@@ -14,22 +14,18 @@ import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentSty
 import { extractPixelUnit } from '@/desginer/utils/elements';
 
 interface PaddingMarginStyleControlsProps {
-  style?: CSSProperties;
+  cssProps?: CSSProperties;
   defaultExpanded: boolean;
-  useStyledComponents?: boolean;
 }
 
 type Position = 'Top' | 'Bottom' | 'Left' | 'Right';
 
 export function PaddingMarginStyleControls({
-  style,
+  cssProps,
   defaultExpanded,
-  useStyledComponents,
 }: PaddingMarginStyleControlsProps) {
-  const [styles, setStyles] = useState(style ?? {});
-  const { commitStyles } = useCommitComponentStyles(
-    useStyledComponents ? 'cssProps' : 'style'
-  );
+  const [styles, setStyles] = useState(cssProps ?? {});
+  const { commitStyles } = useCommitComponentStyles('cssProps');
 
   const handleStyleChange = (styleKey: keyof CSSProperties, v: ValueType) => {
     const nextStyles = {

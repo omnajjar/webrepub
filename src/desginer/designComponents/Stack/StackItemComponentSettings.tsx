@@ -16,19 +16,14 @@ export const StackItemComponentSettings = () => {
 
   return (
     <ComponentPropsControlsContainer componentName={name}>
-      <FlexboxStyleControls
-        style={cssProps}
-        defaultExpanded={true}
-        useStyledComponents
-      />
+      <FlexboxStyleControls cssProps={cssProps} defaultExpanded={true} />
       <ColorStyleControls
-        style={cssProps}
+        cssProps={cssProps}
         defaultExpanded={true}
         allowControls={['bg']}
-        useStyledComponents
       />
       <PaddingMarginStyleControls
-        style={cssProps}
+        cssProps={cssProps}
         defaultExpanded={true}
         useStyledComponents
       />

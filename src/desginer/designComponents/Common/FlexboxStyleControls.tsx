@@ -14,10 +14,9 @@ import { ValueType } from 'rsuite/esm/Checkbox';
 import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentStyles';
 
 interface FlexboxStyleControlsProps {
-  style?: CSSProperties;
+  cssProps?: CSSProperties;
   defaultExpanded: boolean;
   asFlexItem?: boolean;
-  useStyledComponents?: boolean;
 }
 
 const flexGapUnits = [
@@ -26,15 +25,12 @@ const flexGapUnits = [
 ];
 
 export function FlexboxStyleControls({
-  style,
+  cssProps,
   defaultExpanded,
   asFlexItem,
-  useStyledComponents,
 }: FlexboxStyleControlsProps) {
-  const [styles, setStyles] = useState(style ?? {});
-  const { commitStyles } = useCommitComponentStyles(
-    useStyledComponents ? 'cssProps' : 'style'
-  );
+  const [styles, setStyles] = useState(cssProps ?? {});
+  const { commitStyles } = useCommitComponentStyles('cssProps');
 
   const handleStyleChange = (styleKey: keyof CSSProperties, v: ValueType) => {
     const nextStyles = {

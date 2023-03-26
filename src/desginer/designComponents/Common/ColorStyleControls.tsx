@@ -7,10 +7,9 @@ import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentSty
 import { colorToCSSrgba } from '@/desginer/utils/colors';
 
 interface ColorStyleControlsProps {
-  style?: CSSProperties;
+  cssProps?: CSSProperties;
   defaultExpanded: boolean;
   allowControls?: ('bg' | 'color')[];
-  useStyledComponents?: boolean;
 }
 
 const colorIconStyle: CSSProperties = {
@@ -21,15 +20,12 @@ const colorIconStyle: CSSProperties = {
 };
 
 export function ColorStyleControls({
-  style,
+  cssProps: style,
   defaultExpanded,
   allowControls = ['bg', 'color'],
-  useStyledComponents,
 }: ColorStyleControlsProps) {
   const [styles, setStyles] = useState(style ?? {});
-  const { commitStyles } = useCommitComponentStyles(
-    useStyledComponents ? 'cssProps' : 'style'
-  );
+  const { commitStyles } = useCommitComponentStyles('cssProps');
 
   const [showTextColor, setShowTextColor] = useState(false);
   const toggleTextColor = () => setShowTextColor(!showTextColor);

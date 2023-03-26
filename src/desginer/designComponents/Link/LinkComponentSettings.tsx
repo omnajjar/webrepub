@@ -78,18 +78,13 @@ export const LinkComponentSettings = () => {
         </Panel>
       </PanelGroup>
       <FlexboxStyleControls
-        style={cssProps}
+        cssProps={cssProps}
         defaultExpanded={true}
         asFlexItem
-        useStyledComponents
       />
-      <ColorStyleControls
-        style={cssProps}
-        defaultExpanded={true}
-        useStyledComponents
-      />
+      <ColorStyleControls cssProps={cssProps} defaultExpanded={true} />
       <PaddingMarginStyleControls
-        style={cssProps}
+        cssProps={cssProps}
         defaultExpanded={true}
         useStyledComponents
       />

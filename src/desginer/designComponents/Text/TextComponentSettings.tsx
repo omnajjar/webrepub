@@ -47,10 +47,9 @@ export const TextComponentSettings = () => {
   return (
     <ComponentPropsControlsContainer componentName={name}>
       <FlexboxStyleControls
-        style={cssProps}
+        cssProps={cssProps}
         defaultExpanded={true}
         asFlexItem
-        useStyledComponents
       />
       <PanelGroup accordion>
         <Panel header='Font' defaultExpanded>
@@ -73,11 +72,7 @@ export const TextComponentSettings = () => {
             </Stack.Item>
           </Stack>
         </Panel>
-        <ColorStyleControls
-          defaultExpanded={true}
-          style={cssProps}
-          useStyledComponents
-        />
+        <ColorStyleControls defaultExpanded={true} cssProps={cssProps} />
         <Panel header='Alignment' defaultExpanded>
           <span>Text align</span>
           <RadioGroup
@@ -94,11 +89,7 @@ export const TextComponentSettings = () => {
           </RadioGroup>
         </Panel>
       </PanelGroup>
-      <PaddingMarginStyleControls
-        style={cssProps}
-        defaultExpanded={true}
-        useStyledComponents
-      />
+      <PaddingMarginStyleControls cssProps={cssProps} defaultExpanded={true} />
     </ComponentPropsControlsContainer>
   );
 };

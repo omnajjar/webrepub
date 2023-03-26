@@ -15,10 +15,9 @@ export const WebPageComponentSettings = () => {
   return (
     <ComponentPropsControlsContainer componentName={name}>
       <ColorStyleControls
-        style={cssProps}
+        cssProps={cssProps}
         defaultExpanded={true}
         allowControls={['bg']}
-        useStyledComponents={true}
       />
     </ComponentPropsControlsContainer>
   );
