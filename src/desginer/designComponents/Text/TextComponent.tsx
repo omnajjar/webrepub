@@ -1,19 +1,12 @@
-import { useNode, UserComponent } from '@craftjs/core';
-import { CSSProperties, useEffect, useRef, useState } from 'react';
+import { useEditor, useNode, UserComponent } from '@craftjs/core';
+import { CSSProperties, useEffect, useRef } from 'react';
 import ContentEditable from 'react-contenteditable';
+import styled, { css, CSSObject } from 'styled-components';
 
 import { TextComponentSettings } from '@/desginer/designComponents/Text/TextComponentSettings';
 import { sanitizeValue } from '@/desginer/utils/strings';
 
-export interface TextComponentProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLParagraphElement>,
-    HTMLParagraphElement
-  > {
-  text: string;
-}
-
-const userConfiguredStyles: CSSProperties = {
+const defaultConfiguredStyles: CSSObject = {
   paddingTop: '8px',
   paddingBottom: '8px',
   paddingLeft: '8px',
@@ -27,13 +20,53 @@ const userConfiguredStyles: CSSProperties = {
   textAlign: 'left',
 
   fontSize: '14px',
+
   color: '#000',
+  backgroundColor: '#ffffff00',
 
   flexGrow: 0,
 };
 
+const resets: CSSObject = {
+  outline: 'none',
+  borderRadius: '0px',
+};
+
+const userConfiguredStyles = css<TextComponentProps>`
+  padding-left: ${(props) => props.cssProps?.paddingLeft};
+  padding-right: ${(props) => props.cssProps?.paddingRight};
+  padding-top: ${(props) => props.cssProps?.paddingTop};
+  padding-bottom: ${(props) => props.cssProps?.paddingBottom};
+
+  margin-left: ${(props) => props.cssProps?.marginLeft};
+  margin-right: ${(props) => props.cssProps?.marginRight};
+  margin-top: ${(props) => props.cssProps?.marginTop};
+  margin-bottom: ${(props) => props.cssProps?.marginBottom};
+
+  text-align: ${(props) => props.cssProps?.textAlign};
+
+  font-size: ${(props) => props.cssProps?.fontSize};
+
+  color: ${(props) => props.cssProps?.color};
+  background-color: ${(props) => props.cssProps?.backgroundColor};
+
+  flex-grow: ${(props) => props.cssProps?.flexGrow};
+`;
+
+const Text = styled.p`
+  ${userConfiguredStyles}
+  ${resets}
+`;
+
+export interface TextComponentProps
+  extends React.HTMLAttributes<HTMLParagraphElement> {
+  text?: string;
+  cssProps?: CSSProperties;
+}
+
 export const TextComponent: UserComponent<TextComponentProps> = ({
   text,
+  cssProps,
   ...props
 }: TextComponentProps) => {
   const {
@@ -44,18 +77,11 @@ export const TextComponent: UserComponent<TextComponentProps> = ({
     hasSelectedNode: state.events.selected,
   }));
 
-  const [editable, setEditable] = useState(false);
+  const { enabled } = useEditor((state) => ({
+    enabled: state.options.enabled,
+  }));
 
-  useEffect(() => {
-    if (hasSelectedNode) {
-      setEditable(true);
-      return;
-    }
-
-    setEditable(false);
-  }, [hasSelectedNode]);
-
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<HTMLParagraphElement | null>(null);
 
   useEffect(() => {
     if (ref && ref.current) {
@@ -63,11 +89,22 @@ export const TextComponent: UserComponent<TextComponentProps> = ({
     }
   }, [connect, drag]);
 
+  if (!enabled) {
+    return (
+      <Text
+        contentEditable={hasSelectedNode && enabled}
+        dangerouslySetInnerHTML={{ __html: text ?? '' }}
+        {...props}
+        cssProps={cssProps}
+      />
+    );
+  }
+
   return (
     <ContentEditable
       innerRef={ref}
-      html={text}
-      disabled={!editable}
+      html={text ?? ''}
+      disabled={!hasSelectedNode}
       onChange={(e) =>
         setProp(
           (props: Pick<TextComponentProps, 'text'>) =>
@@ -75,12 +112,7 @@ export const TextComponent: UserComponent<TextComponentProps> = ({
         )
       }
       tagName='p'
-      style={{
-        ...userConfiguredStyles,
-        borderRadios: '0px',
-        outline: 'none',
-        ...props.style,
-      }}
+      style={cssProps}
     />
   );
 };
@@ -89,8 +121,9 @@ TextComponent.craft = {
   displayName: 'Text',
   props: {
     text: 'Text',
-    style: {
-      ...userConfiguredStyles,
+    cssProps: {
+      ...defaultConfiguredStyles,
+      ...resets,
     },
   },
   rules: {

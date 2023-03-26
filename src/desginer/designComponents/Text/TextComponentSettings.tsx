@@ -18,37 +18,40 @@ import { TextComponentProps } from '@/desginer/designComponents/Text/TextCompone
 export const TextComponentSettings = () => {
   const {
     actions: { setProp },
-    style,
+    cssProps,
     name,
   } = useNode<Partial<TextComponentProps> & { name: string }>((node) => ({
-    style: node.data.props.style,
+    cssProps: node.data.props.cssProps,
     name: node.data.displayName,
   }));
 
-  const [textAlignValue, setTextAlignValue] = useState(style?.textAlign);
+  const [textAlignValue, setTextAlignValue] = useState(cssProps?.textAlign);
 
   const handleFontSizeChanged = (fontSize: number | number[]) => {
-    setProp((props: Pick<TextComponentProps, 'style'>) => {
-      if (!props.style) {
-        props.style = {};
+    setProp((props: Pick<TextComponentProps, 'cssProps'>) => {
+      if (props.cssProps) {
+        props.cssProps.fontSize = fontSize.toString() + 'px';
       }
-      props.style.fontSize = fontSize.toString() + 'px';
     });
   };
 
   const handleTextAlignChanged = (value: CSSProperties['textAlign']) => {
-    setProp((props: Pick<TextComponentProps, 'style'>) => {
-      if (!props.style) {
-        props.style = {};
+    setProp((props: Pick<TextComponentProps, 'cssProps'>) => {
+      if (props.cssProps) {
+        props.cssProps.textAlign = value;
       }
       setTextAlignValue(value);
-      props.style.textAlign = value;
     });
   };
 
   return (
     <ComponentPropsControlsContainer componentName={name}>
-      <FlexboxStyleControls style={style} defaultExpanded={true} asFlexItem />
+      <FlexboxStyleControls
+        style={cssProps}
+        defaultExpanded={true}
+        asFlexItem
+        useStyledComponents
+      />
       <PanelGroup accordion>
         <Panel header='Font' defaultExpanded>
           <Stack
@@ -62,7 +65,7 @@ export const TextComponentSettings = () => {
                 prefix='Size'
                 min={0}
                 max={1000}
-                value={Number(style?.fontSize?.toString().replace('px', ''))}
+                value={Number(cssProps?.fontSize?.toString().replace('px', ''))}
                 onChange={(value) => {
                   handleFontSizeChanged(Number(value));
                 }}
@@ -70,7 +73,11 @@ export const TextComponentSettings = () => {
             </Stack.Item>
           </Stack>
         </Panel>
-        <ColorStyleControls defaultExpanded={true} style={style} />
+        <ColorStyleControls
+          defaultExpanded={true}
+          style={cssProps}
+          useStyledComponents
+        />
         <Panel header='Alignment' defaultExpanded>
           <span>Text align</span>
           <RadioGroup
@@ -87,7 +94,11 @@ export const TextComponentSettings = () => {
           </RadioGroup>
         </Panel>
       </PanelGroup>
-      <PaddingMarginStyleControls style={style} defaultExpanded={true} />
+      <PaddingMarginStyleControls
+        style={cssProps}
+        defaultExpanded={true}
+        useStyledComponents
+      />
     </ComponentPropsControlsContainer>
   );
 };
