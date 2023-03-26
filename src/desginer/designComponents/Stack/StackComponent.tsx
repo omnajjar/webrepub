@@ -1,24 +1,24 @@
 import { useEditor, useNode, UserComponent } from '@craftjs/core';
 import { Children, CSSProperties } from 'react';
+import styled, { css, CSSObject } from 'styled-components';
 
 import { StackItemComponent } from '@/desginer/designComponents/Stack';
 import { StackComponentExtraActions } from '@/desginer/designComponents/Stack/StackComponentExtraActions';
 import { StackComponentSettings } from '@/desginer/designComponents/Stack/StackComponentSettings';
 
-const requiredStackComponentStyles: CSSProperties = {
-  display: 'flex',
-};
-
-const userConfiguredStyles: CSSProperties = {
-  paddingTop: '8px',
-  paddingBottom: '8px',
+const defaultConfiguredStyles: CSSObject = {
   paddingLeft: '8px',
   paddingRight: '8px',
+  paddingTop: '8px',
+  paddingBottom: '8px',
 
-  marginTop: '0px',
-  marginBottom: '0px',
   marginLeft: '0px',
   marginRight: '0px',
+  marginTop: '0px',
+  marginBottom: '0px',
+
+  color: '#fff',
+  backgroundColor: '#ffffff00',
 
   flexDirection: 'row',
   justifyContent: 'flex-start',
@@ -28,13 +28,41 @@ const userConfiguredStyles: CSSProperties = {
   columnGap: '5px',
 };
 
-export type StackComponentProps = Omit<
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-  'is'
->;
+const userConfiguredStyles = css<StackComponentProps>`
+  padding-left: ${(props) => props.cssProps?.paddingLeft};
+  padding-right: ${(props) => props.cssProps?.paddingRight};
+  padding-top: ${(props) => props.cssProps?.paddingTop};
+  padding-bottom: ${(props) => props.cssProps?.paddingBottom};
+
+  margin-left: ${(props) => props.cssProps?.marginLeft};
+  margin-right: ${(props) => props.cssProps?.marginRight};
+  margin-top: ${(props) => props.cssProps?.marginTop};
+  margin-bottom: ${(props) => props.cssProps?.marginBottom};
+
+  color: ${(props) => props.cssProps?.color};
+  background-color: ${(props) => props.cssProps?.backgroundColor};
+
+  flex-direction: ${(props) => props.cssProps?.flexDirection};
+  justify-content: ${(props) => props.cssProps?.justifyContent};
+  align-items: ${(props) => props.cssProps?.alignItems};
+  flex-grow: ${(props) => props.cssProps?.flexGrow};
+  row-gap: ${(props) => props.cssProps?.rowGap};
+  column-gap: ${(props) => props.cssProps?.columnGap};
+`;
+
+const Div = styled.div`
+  ${userConfiguredStyles}
+
+  /* global styles */
+  display: flex;
+`;
+
+export interface StackComponentProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  cssProps?: CSSProperties;
+}
 
 export const StackComponent: UserComponent<StackComponentProps> = ({
-  style,
   children,
   ...props
 }: StackComponentProps) => {
@@ -47,12 +75,7 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
   }));
 
   return (
-    <div
-      style={{
-        ...userConfiguredStyles,
-        ...requiredStackComponentStyles,
-        ...style,
-      }}
+    <Div
       {...props}
       ref={(ref) => {
         if (ref) {
@@ -69,7 +92,7 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
       ) : (
         children
       )}
-    </div>
+    </Div>
   );
 };
 
@@ -85,8 +108,8 @@ StackComponent.craft = {
   displayName: 'Stack',
   isCanvas: true,
   props: {
-    style: {
-      ...userConfiguredStyles,
+    cssProps: {
+      ...defaultConfiguredStyles,
     },
   },
   rules: {

@@ -7,18 +7,31 @@ import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/P
 import { StackComponentProps } from '@/desginer/designComponents/Stack';
 
 export const StackComponentSettings = () => {
-  const { style, name } = useNode<
+  const { cssProps, name } = useNode<
     Partial<StackComponentProps> & { name: string }
   >((node) => ({
-    style: node.data.props.style,
+    cssProps: node.data.props.cssProps,
     name: node.data.displayName,
   }));
 
   return (
     <ComponentPropsControlsContainer componentName={name}>
-      <FlexboxStyleControls style={style} defaultExpanded={true} />
-      <ColorStyleControls style={style} defaultExpanded={true} />
-      <PaddingMarginStyleControls style={style} defaultExpanded={true} />
+      <FlexboxStyleControls
+        style={cssProps}
+        defaultExpanded={true}
+        useStyledComponents
+      />
+      <ColorStyleControls
+        style={cssProps}
+        defaultExpanded={true}
+        useStyledComponents
+        allowControls={['bg']}
+      />
+      <PaddingMarginStyleControls
+        style={cssProps}
+        defaultExpanded={true}
+        useStyledComponents
+      />
     </ComponentPropsControlsContainer>
   );
 };
