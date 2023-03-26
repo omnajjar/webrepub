@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { TbLink } from 'react-icons/tb';
 import { Input, InputGroup, Panel, PanelGroup, Stack } from 'rsuite';
 
-import { ColorStyleControls } from '@/desginer/designComponents/Common/ColorStyleControls';
 import { ComponentPropsControlsContainer } from '@/desginer/designComponents/Common/ComponentPropsControlsContainer';
-import { FlexboxStyleControls } from '@/desginer/designComponents/Common/FlexboxStyleControls';
-import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/PaddingMarginStyleControls';
+import { ColorStyleControls } from '@/desginer/designComponents/Common/PropsControls/ColorStyleControls';
+import { FlexboxStyleControls } from '@/desginer/designComponents/Common/PropsControls/FlexboxStyleControls';
+import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/PropsControls/PaddingMarginStyleControls';
 import { LinkComponentProps } from '@/desginer/designComponents/Link/LinkComponent';
 import { sanitizeValue, toexternalLink } from '@/desginer/utils/strings';
 
@@ -83,11 +83,7 @@ export const LinkComponentSettings = () => {
         asFlexItem
       />
       <ColorStyleControls cssProps={cssProps} defaultExpanded={true} />
-      <PaddingMarginStyleControls
-        cssProps={cssProps}
-        defaultExpanded={true}
-        useStyledComponents
-      />
+      <PaddingMarginStyleControls cssProps={cssProps} defaultExpanded={true} />
     </ComponentPropsControlsContainer>
   );
 };

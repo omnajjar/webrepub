@@ -1,9 +1,9 @@
 import { useNode } from '@craftjs/core';
 
-import { ColorStyleControls } from '@/desginer/designComponents/Common/ColorStyleControls';
 import { ComponentPropsControlsContainer } from '@/desginer/designComponents/Common/ComponentPropsControlsContainer';
-import { FlexboxStyleControls } from '@/desginer/designComponents/Common/FlexboxStyleControls';
-import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/PaddingMarginStyleControls';
+import { ColorStyleControls } from '@/desginer/designComponents/Common/PropsControls/ColorStyleControls';
+import { FlexboxStyleControls } from '@/desginer/designComponents/Common/PropsControls/FlexboxStyleControls';
+import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/PropsControls/PaddingMarginStyleControls';
 import { StackItemComponentProps } from '@/desginer/designComponents/Stack/StackItemComponent';
 
 export const StackItemComponentSettings = () => {
@@ -22,11 +22,7 @@ export const StackItemComponentSettings = () => {
         defaultExpanded={true}
         allowControls={['bg']}
       />
-      <PaddingMarginStyleControls
-        cssProps={cssProps}
-        defaultExpanded={true}
-        useStyledComponents
-      />
+      <PaddingMarginStyleControls cssProps={cssProps} defaultExpanded={true} />
     </ComponentPropsControlsContainer>
   );
 };

@@ -9,10 +9,10 @@ import {
   Stack,
 } from 'rsuite';
 
-import { ColorStyleControls } from '@/desginer/designComponents/Common/ColorStyleControls';
 import { ComponentPropsControlsContainer } from '@/desginer/designComponents/Common/ComponentPropsControlsContainer';
-import { FlexboxStyleControls } from '@/desginer/designComponents/Common/FlexboxStyleControls';
-import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/PaddingMarginStyleControls';
+import { ColorStyleControls } from '@/desginer/designComponents/Common/PropsControls/ColorStyleControls';
+import { FlexboxStyleControls } from '@/desginer/designComponents/Common/PropsControls/FlexboxStyleControls';
+import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/PropsControls/PaddingMarginStyleControls';
 import { TextComponentProps } from '@/desginer/designComponents/Text/TextComponent';
 
 export const TextComponentSettings = () => {

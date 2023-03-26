@@ -1,7 +1,7 @@
 import { useNode } from '@craftjs/core';
 
-import { ColorStyleControls } from '@/desginer/designComponents/Common/ColorStyleControls';
 import { ComponentPropsControlsContainer } from '@/desginer/designComponents/Common/ComponentPropsControlsContainer';
+import { ColorStyleControls } from '@/desginer/designComponents/Common/PropsControls/ColorStyleControls';
 import { WebPageComponentProps } from '@/desginer/designComponents/WebPage/WebPageComponent';
 
 export const WebPageComponentSettings = () => {
