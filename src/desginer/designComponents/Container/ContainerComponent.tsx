@@ -24,6 +24,13 @@ const defaultConfiguredStyles: CSSObject = {
   flexGrow: 1,
   rowGap: '5px',
   columnGap: '5px',
+
+  borderStyle: 'solid',
+
+  borderLeftWidth: '0px',
+  borderRightWidth: '0px',
+  borderTopWidth: '0px',
+  borderBottomWidth: '0px',
 };
 
 const userConfiguredStyles = css<ContainerComponentProps>`
@@ -46,6 +53,15 @@ const userConfiguredStyles = css<ContainerComponentProps>`
   flex-grow: ${(props) => props.cssProps?.flexGrow};
   row-gap: ${(props) => props.cssProps?.rowGap};
   column-gap: ${(props) => props.cssProps?.columnGap};
+
+  border-style: ${(props) => props.cssProps?.borderStyle};
+
+  border-color: black;
+
+  border-left-width: ${(props) => props.cssProps?.borderLeftWidth};
+  border-right-width: ${(props) => props.cssProps?.borderRightWidth};
+  border-top-width: ${(props) => props.cssProps?.borderTopWidth};
+  border-bottom-width: ${(props) => props.cssProps?.borderBottomWidth};
 `;
 
 const Div = styled.div`
