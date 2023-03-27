@@ -1,13 +1,14 @@
 import { useNode } from '@craftjs/core';
-import { CSSProperties } from 'react';
+
+import { ExtendedCSSProps } from '@/desginer/types';
 
 export function useCommitComponentStyles(styleKeyName = 'style') {
   const {
     actions: { setProp },
   } = useNode();
 
-  const commitStyles = (stylesToCommit: CSSProperties) =>
-    setProp((props: { [styleKey: string]: CSSProperties }) => {
+  const commitStyles = (stylesToCommit: Partial<ExtendedCSSProps>) =>
+    setProp((props: { [styleKey: string]: Partial<ExtendedCSSProps> }) => {
       props[styleKeyName] = stylesToCommit;
     });
 
