@@ -21,7 +21,7 @@ const defaultConfiguredStyles: CSSObject = {
   flexDirection: 'row',
   justifyContent: 'flex-start',
   alignItems: 'stretch',
-  flexGrow: 1,
+  flexGrow: 0,
   rowGap: '5px',
   columnGap: '5px',
 

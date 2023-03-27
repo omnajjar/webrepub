@@ -26,6 +26,20 @@ const defaultConfiguredStyles: CSSObject = {
   flexGrow: 1,
   rowGap: '5px',
   columnGap: '5px',
+
+  borderStyle: 'solid',
+
+  borderColor: '#000',
+
+  borderLeftWidth: '0px',
+  borderRightWidth: '0px',
+  borderTopWidth: '0px',
+  borderBottomWidth: '0px',
+
+  borderTopLeftRadius: '0px',
+  borderTopRightRadius: '0px',
+  borderBottomLeftRadius: '0px',
+  borderBottomRightRadius: '0px',
 };
 
 const userConfiguredStyles = css<StackComponentProps>`
@@ -48,6 +62,22 @@ const userConfiguredStyles = css<StackComponentProps>`
   flex-grow: ${(props) => props.cssProps?.flexGrow};
   row-gap: ${(props) => props.cssProps?.rowGap};
   column-gap: ${(props) => props.cssProps?.columnGap};
+
+  border-style: ${(props) => props.cssProps?.borderStyle};
+
+  border-color: ${(props) => props.cssProps?.borderColor};
+
+  border-left-width: ${(props) => props.cssProps?.borderLeftWidth};
+  border-right-width: ${(props) => props.cssProps?.borderRightWidth};
+  border-top-width: ${(props) => props.cssProps?.borderTopWidth};
+  border-bottom-width: ${(props) => props.cssProps?.borderBottomWidth};
+
+  border-top-left-radius: ${(props) => props.cssProps?.borderTopLeftRadius};
+  border-top-right-radius: ${(props) => props.cssProps?.borderTopRightRadius};
+  border-bottom-left-radius: ${(props) =>
+    props.cssProps?.borderBottomLeftRadius};
+  border-bottom-right-radius: ${(props) =>
+    props.cssProps?.borderBottomRightRadius};
 `;
 
 const Div = styled.div`

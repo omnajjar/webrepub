@@ -19,6 +19,20 @@ const defaultConfiguredStyles: CSSObject = {
   backgroundColor: '#000',
 
   flexGrow: 0,
+
+  borderStyle: 'solid',
+
+  borderColor: '#000',
+
+  borderLeftWidth: '0px',
+  borderRightWidth: '0px',
+  borderTopWidth: '0px',
+  borderBottomWidth: '0px',
+
+  borderTopLeftRadius: '0px',
+  borderTopRightRadius: '0px',
+  borderBottomLeftRadius: '0px',
+  borderBottomRightRadius: '0px',
 };
 
 const userConfiguredStyles = css<LinkComponentProps>`
@@ -36,6 +50,22 @@ const userConfiguredStyles = css<LinkComponentProps>`
   background-color: ${(props) => props.cssProps?.backgroundColor};
 
   flex-grow: ${(props) => props.cssProps?.flexGrow};
+
+  border-style: ${(props) => props.cssProps?.borderStyle};
+
+  border-color: ${(props) => props.cssProps?.borderColor};
+
+  border-left-width: ${(props) => props.cssProps?.borderLeftWidth};
+  border-right-width: ${(props) => props.cssProps?.borderRightWidth};
+  border-top-width: ${(props) => props.cssProps?.borderTopWidth};
+  border-bottom-width: ${(props) => props.cssProps?.borderBottomWidth};
+
+  border-top-left-radius: ${(props) => props.cssProps?.borderTopLeftRadius};
+  border-top-right-radius: ${(props) => props.cssProps?.borderTopRightRadius};
+  border-bottom-left-radius: ${(props) =>
+    props.cssProps?.borderBottomLeftRadius};
+  border-bottom-right-radius: ${(props) =>
+    props.cssProps?.borderBottomRightRadius};
 `;
 
 const Link = styled.a`
