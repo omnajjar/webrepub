@@ -1,10 +1,10 @@
 import { useNode, UserComponent } from '@craftjs/core';
-import { CSSProperties } from 'react';
-import styled, { css, CSSObject } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { ContainerComponentSettings } from '@/desginer/designComponents/Container/ContainerSettings';
+import { ExtendedCSSProps } from '@/desginer/types';
 
-const defaultConfiguredStyles: CSSObject = {
+const defaultConfiguredStyles: ExtendedCSSProps = {
   paddingLeft: '8px',
   paddingRight: '8px',
   paddingTop: '8px',
@@ -40,6 +40,13 @@ const defaultConfiguredStyles: CSSObject = {
   borderBottomRightRadius: '0px',
 
   boxShadow: 'rgba(0,0,0,1) 0px 0px 0px 0px',
+
+  position: 'static',
+  positionUnit: 'auto',
+  left: 'auto',
+  top: 'auto',
+  right: 'auto',
+  bottom: 'auto',
 };
 
 const userConfiguredStyles = css<ContainerComponentProps>`
@@ -80,6 +87,12 @@ const userConfiguredStyles = css<ContainerComponentProps>`
     props.cssProps?.borderBottomRightRadius};
 
   box-shadow: ${(props) => props.cssProps?.boxShadow};
+
+  position: ${(props) => props.cssProps?.position};
+  left: ${(props) => props.cssProps?.left};
+  right: ${(props) => props.cssProps?.right};
+  top: ${(props) => props.cssProps?.top};
+  bottom: ${(props) => props.cssProps?.bottom};
 `;
 
 const Div = styled.div`
@@ -91,7 +104,7 @@ const Div = styled.div`
 
 export interface ContainerComponentProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  cssProps?: CSSProperties;
+  cssProps?: ExtendedCSSProps;
 }
 
 export const ContainerComponent: UserComponent<ContainerComponentProps> = ({

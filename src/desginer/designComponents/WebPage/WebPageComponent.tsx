@@ -23,6 +23,7 @@ const Main = styled.main`
   /* global styles */
   width: 100%;
   overflow: auto;
+  position: relative;
 `;
 
 export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
