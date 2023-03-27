@@ -2,27 +2,24 @@ import { CSSProperties, useState } from 'react';
 import {
   Divider,
   InputNumber,
-  InputPicker,
   Panel,
   PanelGroup,
   Radio,
   RadioGroup,
   Stack,
+  Tooltip,
+  Whisper,
 } from 'rsuite';
 import { ValueType } from 'rsuite/esm/Checkbox';
 
 import { useCommitComponentStyles } from '@/desginer/hooks/useCommitComponentStyles';
+import { getValueUnit } from '@/desginer/utils/units';
 
 interface FlexboxStyleControlsProps {
   cssProps?: CSSProperties;
   defaultExpanded: boolean;
   asFlexItem?: boolean;
 }
-
-const flexGapUnits = [
-  { label: 'pixel', value: 'px' },
-  { label: 'percentage', value: '%' },
-];
 
 export function FlexboxStyleControls({
   cssProps,
@@ -50,13 +47,11 @@ export function FlexboxStyleControls({
     handleStyleChange('alignItems', v);
   const handleGrowChnage = (v: ValueType) => handleStyleChange('flexGrow', v);
 
-  const [rowGapUnit, setRowGapUnit] = useState('px');
   const handleRowGapChange = (v: ValueType) =>
-    handleStyleChange('rowGap', `${v}${rowGapUnit}`);
+    handleStyleChange('rowGap', `${v}px`);
 
-  const [columnGapUnit, setColumnGapUnit] = useState('px');
   const handleColumnGapChange = (v: ValueType) =>
-    handleStyleChange('columnGap', `${v}${columnGapUnit}`);
+    handleStyleChange('columnGap', `${v}px`);
 
   const FlexItemControls = () => (
     <PanelGroup accordion>
@@ -84,7 +79,7 @@ export function FlexboxStyleControls({
         ) : (
           <>
             <div>
-              <span>Direction</span>
+              <div>Direction</div>
               <Stack
                 direction='row'
                 spacing={20}
@@ -114,7 +109,7 @@ export function FlexboxStyleControls({
             </div>
             <Divider />
             <div>
-              <span>Justify Content</span>
+              <div>Justify Content</div>
               <Stack
                 direction='row'
                 spacing={20}
@@ -149,7 +144,7 @@ export function FlexboxStyleControls({
             </div>
             <Divider />
             <div>
-              <span>Align Items</span>
+              <div>Align Items</div>
               <Stack
                 direction='row'
                 spacing={20}
@@ -192,6 +187,7 @@ export function FlexboxStyleControls({
             </div>
             <Divider />
             <div>
+              <div className='mb-10'>Flex Gap</div>
               <Stack
                 direction='column'
                 spacing={20}
@@ -200,46 +196,34 @@ export function FlexboxStyleControls({
               >
                 <Stack spacing={10}>
                   <Stack.Item grow={1} className='w-full'>
-                    <InputNumber
-                      prefix='Row gap'
-                      size='sm'
-                      onChange={handleRowGapChange}
-                      min={0}
-                      value={styles.rowGap
-                        ?.toString()
-                        .replace(rowGapUnit ?? '', '')}
-                    ></InputNumber>
-                  </Stack.Item>
-                  <Stack.Item grow={1}>
-                    <InputPicker
-                      placeholder='unit'
-                      size='sm'
-                      data={flexGapUnits}
-                      defaultValue={rowGapUnit ?? 'px'}
-                      onChange={(v) => setRowGapUnit(v)}
-                    />
+                    <Whisper
+                      placement='top'
+                      speaker={<Tooltip>Row Gap</Tooltip>}
+                    >
+                      <InputNumber
+                        prefix='R Gap'
+                        size='sm'
+                        onChange={handleRowGapChange}
+                        min={0}
+                        value={getValueUnit(styles.rowGap as string).value}
+                      ></InputNumber>
+                    </Whisper>
                   </Stack.Item>
                 </Stack>
                 <Stack spacing={10}>
                   <Stack.Item grow={1} className='w-full'>
-                    <InputNumber
-                      prefix='Column gap'
-                      size='sm'
-                      onChange={handleColumnGapChange}
-                      min={0}
-                      value={styles.columnGap
-                        ?.toString()
-                        .replace(columnGapUnit ?? '', '')}
-                    ></InputNumber>
-                  </Stack.Item>
-                  <Stack.Item grow={1}>
-                    <InputPicker
-                      placeholder='unit'
-                      size='sm'
-                      data={flexGapUnits}
-                      defaultValue={columnGapUnit ?? 'px'}
-                      onChange={(v) => setColumnGapUnit(v)}
-                    />
+                    <Whisper
+                      placement='top'
+                      speaker={<Tooltip>Column Gap</Tooltip>}
+                    >
+                      <InputNumber
+                        prefix='C Gap'
+                        size='sm'
+                        onChange={handleColumnGapChange}
+                        min={0}
+                        value={getValueUnit(styles.columnGap as string).value}
+                      ></InputNumber>
+                    </Whisper>
                   </Stack.Item>
                 </Stack>
               </Stack>
