@@ -10,6 +10,7 @@ import { onElementMutation, onElementResize } from '@/desginer/utils/observers';
 import { ensure } from '@/utils';
 
 import ArrowUp from '~/icons/arrow-up.svg';
+import Copy from '~/icons/copy.svg';
 import Delete from '~/icons/delete.svg';
 
 interface ComponentIndicatorProps {
@@ -132,6 +133,15 @@ export const ComponentIndicator = ({
     actions.delete(id);
   };
 
+  const duplicateComponent = () => {
+    const {
+      data: { type, props, parent },
+    } = query.node(id).get();
+
+    const comp = query.createNode(React.createElement(type, props));
+    actions.add(comp, parent);
+  };
+
   return (
     <>
       {NodeToRender}
@@ -174,6 +184,15 @@ export const ComponentIndicator = ({
                         />
                       </Whisper>
                     ) : null}
+                    <Whisper
+                      placement='bottom'
+                      speaker={<Tooltip>Duplicate</Tooltip>}
+                    >
+                      <IconButton
+                        icon={<Copy className='indicator-container-icon' />}
+                        onClick={duplicateComponent}
+                      />
+                    </Whisper>
                   </ButtonGroup>
                   {extraActions ? (
                     <>
