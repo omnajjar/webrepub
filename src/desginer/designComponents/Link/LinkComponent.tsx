@@ -33,6 +33,8 @@ const defaultConfiguredStyles: CSSObject = {
   borderTopRightRadius: '0px',
   borderBottomLeftRadius: '0px',
   borderBottomRightRadius: '0px',
+
+  boxShadow: 'rgba(0,0,0,1) 0px 0px 0px 0px',
 };
 
 const userConfiguredStyles = css<LinkComponentProps>`
@@ -66,6 +68,8 @@ const userConfiguredStyles = css<LinkComponentProps>`
     props.cssProps?.borderBottomLeftRadius};
   border-bottom-right-radius: ${(props) =>
     props.cssProps?.borderBottomRightRadius};
+
+  box-shadow: ${(props) => props.cssProps?.boxShadow};
 `;
 
 const Link = styled.a`
