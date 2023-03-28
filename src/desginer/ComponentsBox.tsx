@@ -9,6 +9,7 @@ import { TfiLayoutColumn3, TfiText } from 'react-icons/tfi';
 import { List, Tooltip, Whisper } from 'rsuite';
 
 import { ContainerComponent } from '@/desginer/designComponents/Container';
+import { ImageComponent } from '@/desginer/designComponents/Image';
 import { LinkComponent } from '@/desginer/designComponents/Link';
 import { StackComponent } from '@/desginer/designComponents/Stack';
 import { TextComponent } from '@/desginer/designComponents/Text';
@@ -34,7 +35,13 @@ export function ComponentsBar() {
           draggable={true}
         />
       </List.Item>
-      <List.Item>
+      <List.Item
+        ref={(ref) => {
+          if (ref) {
+            connectors.create(ref, <ImageComponent />);
+          }
+        }}
+      >
         <ComponentItem icon={BsCardImage} name='Image' draggable={true} />
       </List.Item>
       <List.Item
