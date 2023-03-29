@@ -1,4 +1,5 @@
 import { Layers } from '@craftjs/layers';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { FiExternalLink } from 'react-icons/fi';
@@ -15,7 +16,7 @@ import { Container } from 'rsuite';
 
 import { ComponentsBar } from '@/desginer/ComponentsBox';
 import { DesignViewport } from '@/desginer/DesignViewport';
-import { DesignerContext } from '@/desginer/EditorContext';
+import { EditorContext } from '@/desginer/EditorContext';
 import { PropertiesBox } from '@/desginer/PropertiesBox';
 import {
   ActionsComponent,
@@ -26,6 +27,11 @@ import Logo from '~/svg/logo.svg';
 
 export function WebRepubEditor() {
   const [propsBoxHeight, setPropsBoxHeight] = useState('100%');
+  const router = useRouter();
+
+  const openPreviewPage = () => {
+    router.push('/preview');
+  };
 
   useEffect(() => {
     setPropsBoxHeight(`${window.innerHeight - 56 - 300}px`); // 56 topbar, 300 layers.
@@ -33,7 +39,7 @@ export function WebRepubEditor() {
 
   return (
     <CustomProvider theme='dark'>
-      <DesignerContext>
+      <EditorContext enabled={true}>
         <div className='sidebar-page h-screen'>
           <Container className='h-screen'>
             <Container className='page-container'>
@@ -53,9 +59,22 @@ export function WebRepubEditor() {
                 </Stack.Item>
 
                 <Stack.Item flex-grow={6} flex={6}>
-                  <Stack justifyContent='space-between' className='px-30'>
+                  <Stack justifyContent='space-around' className='px-30'>
                     <Stack.Item grow={1}>
                       <HistoryComponent />
+                    </Stack.Item>
+                    <Stack.Item grow={1} alignSelf='center'>
+                      <Stack justifyContent='center'>
+                        <Stack.Item>
+                          <Button
+                            size='sm'
+                            className='fancy-grad'
+                            onClick={openPreviewPage}
+                          >
+                            Preview
+                          </Button>
+                        </Stack.Item>
+                      </Stack>
                     </Stack.Item>
                     <Stack.Item grow={1}>
                       <Stack direction='row-reverse'>
@@ -144,7 +163,7 @@ export function WebRepubEditor() {
             </Container>
           </Container>
         </div>
-      </DesignerContext>
+      </EditorContext>
     </CustomProvider>
   );
 }

@@ -251,3 +251,48 @@ body {
 .logo-shadow {
   filter: drop-shadow(0px 0px 4px #fff);
 }
+
+.fancy-grad {
+  background-image: linear-gradient(
+    to right,
+    #34e89e 0%,
+    #0f3443 51%,
+    #34e89e 100%
+  );
+  padding: 4px 15px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+}
+
+.fancy-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #34e89e 0%,
+    #0f3443 51%,
+    #34e89e 100%
+  );
+  margin: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
