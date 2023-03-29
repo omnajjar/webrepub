@@ -1,4 +1,4 @@
-import { useNode, UserComponent } from '@craftjs/core';
+import { useEditor, useNode, UserComponent } from '@craftjs/core';
 import { CSSProperties, useEffect, useState } from 'react';
 import styled, { css, CSSObject } from 'styled-components';
 
@@ -11,10 +11,12 @@ const defaultConfiguredStyles: CSSObject = {
 export interface WebPageComponentProps
   extends React.HTMLAttributes<HTMLElement> {
   cssProps?: CSSProperties;
+  previwe: boolean;
 }
 
 const userConfiguredStyles = css<WebPageComponentProps>`
   background-color: ${(props) => props.cssProps?.backgroundColor};
+  min-height: ${(props) => (props.previwe ? '100vh' : 0)};
 `;
 
 const Main = styled.main`
@@ -35,22 +37,32 @@ export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
     connectors: { connect },
   } = useNode();
   const [initialHeigh, setIntialHeight] = useState('100%');
+  const { enabled } = useEditor((state) => ({
+    enabled: state.options.enabled,
+  }));
 
   useEffect(() => {
     if (!window) {
       return;
     }
 
-    // we need to set a fixed height to the design view port so that it can be scrollable.
-    setIntialHeight(`${window.innerHeight - 56 - 30 * 2}px`); // 56px is the header height, 30px is the padding of the container
-  }, []);
+    if (enabled) {
+      // we need to set a fixed height to the design view port so that it can be scrollable.
+      setIntialHeight(`${window.innerHeight - 56 - 30 * 2}px`); // 56px is the header height, 30px is the padding of the container
+    }
+  }, [enabled]);
+
+  const designTimeStyleProps: Partial<CSSProperties> = enabled
+    ? { minHeight: initialHeigh }
+    : {};
 
   return (
     <Main
       {...props}
+      previwe={!enabled}
       style={{
         ...style,
-        minHeight: initialHeigh,
+        ...designTimeStyleProps,
       }}
       ref={(ref) => {
         if (ref) {
