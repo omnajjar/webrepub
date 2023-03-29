@@ -1,5 +1,5 @@
 import { useEditor, useNode, UserComponent } from '@craftjs/core';
-import { CSSProperties, useEffect, useRef } from 'react';
+import { CSSProperties } from 'react';
 import ContentEditable from 'react-contenteditable';
 import styled, { css, CSSObject } from 'styled-components';
 
@@ -45,7 +45,6 @@ const defaultConfiguredStyles: CSSObject = {
 
 const resets: CSSObject = {
   outline: 'none',
-  borderRadius: '0px',
 };
 
 const userConfiguredStyles = css<TextComponentProps>`
@@ -89,7 +88,8 @@ const userConfiguredStyles = css<TextComponentProps>`
 
 const Text = styled.p`
   ${userConfiguredStyles}
-  ${resets}
+  /* global */
+  outline: none;
 `;
 
 export interface TextComponentProps
@@ -115,18 +115,9 @@ export const TextComponent: UserComponent<TextComponentProps> = ({
     enabled: state.options.enabled,
   }));
 
-  const ref = useRef<HTMLParagraphElement | null>(null);
-
-  useEffect(() => {
-    if (ref && ref.current) {
-      connect(drag(ref.current));
-    }
-  }, [connect, drag]);
-
   if (!enabled) {
     return (
       <Text
-        contentEditable={hasSelectedNode && enabled}
         dangerouslySetInnerHTML={{ __html: text ?? '' }}
         {...props}
         cssProps={cssProps}
@@ -136,7 +127,11 @@ export const TextComponent: UserComponent<TextComponentProps> = ({
 
   return (
     <ContentEditable
-      innerRef={ref}
+      innerRef={(ref: HTMLElement) => {
+        if (ref) {
+          connect(drag(ref));
+        }
+      }}
       html={text ?? ''}
       disabled={!hasSelectedNode}
       onChange={(e) =>
