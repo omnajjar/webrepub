@@ -10,7 +10,7 @@ import { ColorStyleControls } from '@/desginer/designComponents/Common/PropsCont
 import { FlexboxStyleControls } from '@/desginer/designComponents/Common/PropsControls/FlexboxStyleControls';
 import { PaddingMarginStyleControls } from '@/desginer/designComponents/Common/PropsControls/PaddingMarginStyleControls';
 import { LinkComponentProps } from '@/desginer/designComponents/Link/LinkComponent';
-import { sanitizeValue, toexternalLink } from '@/desginer/utils/strings';
+import { sanitizeValue, toExternalLink } from '@/desginer/utils/strings';
 
 export const LinkComponentSettings = () => {
   const {
@@ -43,7 +43,7 @@ export const LinkComponentSettings = () => {
   const handleLinkChange = (v: string) => {
     const hrefValue = sanitizeValue(v);
     setProp((props: Pick<LinkComponentProps, 'href'>) => {
-      props.href = toexternalLink(sanitizeValue(v));
+      props.href = toExternalLink(sanitizeValue(v));
     });
 
     setLinkprops({ ...linkProps, href: hrefValue });
