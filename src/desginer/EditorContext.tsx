@@ -12,13 +12,24 @@ import { TextComponent } from '@/desginer/designComponents/Text/TextComponent';
 import { WebPageComponent } from '@/desginer/designComponents/WebPage';
 import { createRenderComponentIndicator } from '@/desginer/Indicator/createRenderComponentIndicator';
 
-export function DesignerContext({ children }: PropsWithChildren) {
+interface EditorContext extends PropsWithChildren {
+  enabled: boolean;
+}
+
+export function EditorContext({ children, enabled }: EditorContext) {
+  const props = enabled
+    ? {
+        onRender: createRenderComponentIndicator,
+        indicator: {
+          success: 'blue',
+        },
+      }
+    : {};
+
   return (
     <Editor
-      indicator={{
-        success: 'blue',
-      }}
-      onRender={createRenderComponentIndicator}
+      enabled={enabled}
+      {...props}
       resolver={{
         WebPageComponent,
         ContainerComponent,
