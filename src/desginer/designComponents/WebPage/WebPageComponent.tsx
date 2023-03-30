@@ -3,6 +3,7 @@ import { CSSProperties, useEffect, useState } from 'react';
 import styled, { css, CSSObject } from 'styled-components';
 
 import { WebPageComponentSettings } from '@/desginer/designComponents/WebPage/WebPageComponentSettings';
+import { useGlobalSettings } from '@/desginer/Providers/GlobalSettings';
 
 const defaultConfiguredStyles: CSSObject = {
   backgroundColor: '#fff',
@@ -41,25 +42,28 @@ export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
     enabled: state.options.enabled,
   }));
 
+  const {
+    settings: { isInDesignMode },
+  } = useGlobalSettings();
+
   useEffect(() => {
     if (!window) {
       return;
     }
 
-    if (enabled) {
+    if (enabled && isInDesignMode) {
       // we need to set a fixed height to the design view port so that it can be scrollable.
       setIntialHeight(`${window.innerHeight - 56 - 30 * 2}px`); // 56px is the header height, 30px is the padding of the container
     }
-  }, [enabled]);
+  }, [enabled, isInDesignMode]);
 
-  const designTimeStyleProps: Partial<CSSProperties> = enabled
-    ? { minHeight: initialHeigh }
-    : {};
+  const designTimeStyleProps: Partial<CSSProperties> =
+    enabled || isInDesignMode ? { minHeight: initialHeigh } : {};
 
   return (
     <Main
       {...props}
-      previwe={!enabled}
+      previwe={!isInDesignMode}
       style={{
         ...style,
         ...designTimeStyleProps,

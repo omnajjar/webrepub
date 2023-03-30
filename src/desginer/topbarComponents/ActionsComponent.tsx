@@ -26,7 +26,9 @@ export function ActionsComponent() {
   };
 
   const toggleEditor = () => {
-    actions.setOptions((options) => (options.enabled = !options.enabled));
+    actions.setOptions((options) => {
+      options.enabled = !options.enabled;
+    });
     actions.clearEvents();
   };
 
