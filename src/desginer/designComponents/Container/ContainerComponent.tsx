@@ -20,7 +20,7 @@ const defaultConfiguredStyles: ExtendedCSSProps = {
 
   flexDirection: 'row',
   justifyContent: 'flex-start',
-  alignItems: 'stretch',
+  alignItems: 'start',
   flexGrow: 0,
   rowGap: '5px',
   columnGap: '5px',

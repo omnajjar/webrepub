@@ -1,4 +1,4 @@
-import { useEditor, useNode, UserComponent } from '@craftjs/core';
+import { useNode, UserComponent } from '@craftjs/core';
 import { CSSProperties } from 'react';
 import styled, { css, CSSObject } from 'styled-components';
 
@@ -21,7 +21,7 @@ const defaultConfiguredStyles: CSSObject = {
 
   flexDirection: 'row',
   justifyContent: 'flex-start',
-  alignItems: 'stretch',
+  alignItems: 'start',
   flexGrow: 1,
   rowGap: '5px',
   columnGap: '5px',
@@ -103,10 +103,6 @@ export const StackItemComponent: UserComponent<StackItemComponentProps> = ({
     connectors: { connect, drag },
   } = useNode();
 
-  const { enabled } = useEditor((state) => ({
-    enabled: state.options.enabled,
-  }));
-
   return (
     <Div
       {...props}
@@ -116,11 +112,7 @@ export const StackItemComponent: UserComponent<StackItemComponentProps> = ({
         }
       }}
     >
-      {children ? (
-        children
-      ) : enabled ? (
-        <EmptyStackItemContent></EmptyStackItemContent>
-      ) : null}
+      {children ? children : <EmptyStackItemContent></EmptyStackItemContent>}
     </Div>
   );
 };
