@@ -1,10 +1,13 @@
 import { EditorContext } from '@/desginer/EditorContext';
 import { PreviewFrame } from '@/desginer/frames/PreviewFrame';
+import { GlobalSettingsProvider } from '@/desginer/Providers/GlobalSettings';
 
 export function PreviewViewport() {
   return (
-    <EditorContext enabled={false}>
-      <PreviewFrame></PreviewFrame>
-    </EditorContext>
+    <GlobalSettingsProvider settings={{ isInDesignMode: false }}>
+      <EditorContext enabled={false}>
+        <PreviewFrame></PreviewFrame>
+      </EditorContext>
+    </GlobalSettingsProvider>
   );
 }
