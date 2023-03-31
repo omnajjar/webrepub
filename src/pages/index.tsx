@@ -1,5 +1,5 @@
-import { WebRepubEditor } from '@/desginer';
+import { WebRepubApp } from '@/desginer';
 
 export default function HomePage() {
-  return <WebRepubEditor />;
+  return <WebRepubApp />;
 }
