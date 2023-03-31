@@ -18,7 +18,7 @@ export function ComponentsBar() {
   const { connectors, actions } = useEditor();
 
   return (
-    <List hover className='fancy-components-box-shadow'>
+    <List hover className='blue-overlap-shadow '>
       <List.Item onClick={actions.clearEvents}>
         <ComponentItem icon={BiPointer} name='Unselect' draggable={false} />
       </List.Item>

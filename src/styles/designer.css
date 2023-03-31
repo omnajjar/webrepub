@@ -235,7 +235,7 @@ body {
   color: #808080;
 }
 
-.fancy-components-box-shadow {
+.blue-overlap-shadow {
   box-shadow: #00008b66 -5px 5px, #00008b4d -10px 10px, #00008b33 -15px 15px,
     #00008b1a -20px 20px, #00008b0d -25px 25px;
 }
@@ -295,4 +295,18 @@ body {
   background-position: right center; /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
+}
+
+.menu-button {
+  font-size: 30px;
+  background: #0f131a;
+  width: 50px;
+  height: 50px;
+  rotate: 45deg;
+  border-radius: 0px;
+  color: #fff;
+}
+
+.menu-button:hover {
+  background-color: #3c3f43;
 }
