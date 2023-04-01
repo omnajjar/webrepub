@@ -45,6 +45,7 @@ const defaultConfiguredStyles: CSSObject = {
 
 const resets: CSSObject = {
   outline: 'none',
+  whiteSpace: 'pre-wrap',
 };
 
 const userConfiguredStyles = css<TextComponentProps>`
@@ -90,10 +91,11 @@ const Text = styled.p`
   ${userConfiguredStyles}
   /* global */
   outline: none;
+  white-space: pre-wrap;
 `;
 
 export interface TextComponentProps
-  extends React.HTMLAttributes<HTMLParagraphElement> {
+  extends React.HTMLAttributes<HTMLDivElement> {
   text?: string;
   cssProps?: CSSProperties;
 }

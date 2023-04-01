@@ -62,8 +62,8 @@ function ImageSettings({ defaultExpanded }: { defaultExpanded: boolean }) {
   const { commitStyles } = useCommitComponentStyles('cssProps');
 
   const setImageSrc = (src: string) => {
-    setProp((props: Pick<ImageComponentProps, 'src'>) => {
-      props.src = src;
+    setProp((props: Pick<ImageComponentProps, 'imageSrc'>) => {
+      props.imageSrc = src;
     });
   };
 
@@ -99,7 +99,7 @@ function ImageSettings({ defaultExpanded }: { defaultExpanded: boolean }) {
             <Uploader
               style={{ maxWidth: '320px' }}
               draggable
-              accept='.png, .jpg, .jpeg'
+              accept='.png, .jpg, .jpeg, .svg'
               shouldUpload={() => false}
               action=''
               name='image'
@@ -111,8 +111,13 @@ function ImageSettings({ defaultExpanded }: { defaultExpanded: boolean }) {
                     ? `${file.name.substring(0, 10)}...`
                     : 'image';
                   file.name = fileName;
-                  const fileUrl = URL.createObjectURL(file.blobFile);
-                  setImageSrc(fileUrl);
+
+                  const reader = new FileReader();
+                  reader.addEventListener('load', () =>
+                    setImageSrc(reader.result as string)
+                  );
+
+                  reader.readAsDataURL(file.blobFile);
                 } else {
                   setImageSrc(PlaceHolderImage.src);
                 }

@@ -1,4 +1,4 @@
-import { useNode, UserComponent } from '@craftjs/core';
+import { useEditor, useNode, UserComponent } from '@craftjs/core';
 import { Children, CSSProperties } from 'react';
 import styled, { css, CSSObject } from 'styled-components';
 
@@ -104,6 +104,10 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
     connectors: { connect, drag },
   } = useNode();
 
+  const { enabled } = useEditor((state) => ({
+    enabled: state.options.enabled,
+  }));
+
   return (
     <Div
       {...props}
@@ -113,17 +117,24 @@ export const StackComponent: UserComponent<StackComponentProps> = ({
         }
       }}
     >
-      {Children.count(children) === 0 ? <EmptyStackComponent /> : children}
+      {Children.count(children) === 0 ? (
+        <EmptyStackComponent enabled={enabled} />
+      ) : (
+        children
+      )}
     </Div>
   );
 };
 
-function EmptyStackComponent() {
-  return (
-    <div className='empty-container-bg empty-container-size flex items-center justify-center '>
-      <span>Stack</span>
-    </div>
-  );
+function EmptyStackComponent({ enabled }: { enabled: boolean }) {
+  const enabledProps = enabled
+    ? {
+        className:
+          'empty-container-bg empty-container-size flex items-center justify-center',
+      }
+    : { style: { width: '100%' } };
+
+  return <div {...enabledProps}>{enabled ? <span>Stack</span> : null}</div>;
 }
 
 StackComponent.craft = {

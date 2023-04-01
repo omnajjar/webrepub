@@ -1,4 +1,4 @@
-import { useNode, UserComponent } from '@craftjs/core';
+import { useEditor, useNode, UserComponent } from '@craftjs/core';
 import styled, { css } from 'styled-components';
 
 import { ContainerComponentSettings } from '@/desginer/designComponents/Container/ContainerSettings';
@@ -115,6 +115,10 @@ export const ContainerComponent: UserComponent<ContainerComponentProps> = ({
     connectors: { connect, drag },
   } = useNode();
 
+  const { enabled } = useEditor((state) => ({
+    enabled: state.options.enabled,
+  }));
+
   return (
     <Div
       {...props}
@@ -124,17 +128,24 @@ export const ContainerComponent: UserComponent<ContainerComponentProps> = ({
         }
       }}
     >
-      {children ? children : <EmptyContainerContent></EmptyContainerContent>}
+      {children ? (
+        children
+      ) : (
+        <EmptyContainerContent enabled={enabled}></EmptyContainerContent>
+      )}
     </Div>
   );
 };
 
-function EmptyContainerContent() {
-  return (
-    <div className='empty-container-bg empty-container-size flex items-center justify-center '>
-      <span>Container</span>
-    </div>
-  );
+function EmptyContainerContent({ enabled }: { enabled: boolean }) {
+  const enabledProps = enabled
+    ? {
+        className:
+          'empty-container-bg empty-container-size flex items-center justify-center',
+      }
+    : { style: { width: '100%' } };
+
+  return <div {...enabledProps}>{enabled ? <span>Container</span> : null}</div>;
 }
 
 ContainerComponent.craft = {

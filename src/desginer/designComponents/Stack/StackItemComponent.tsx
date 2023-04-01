@@ -1,4 +1,4 @@
-import { useNode, UserComponent } from '@craftjs/core';
+import { useEditor, useNode, UserComponent } from '@craftjs/core';
 import { CSSProperties } from 'react';
 import styled, { css, CSSObject } from 'styled-components';
 
@@ -103,6 +103,10 @@ export const StackItemComponent: UserComponent<StackItemComponentProps> = ({
     connectors: { connect, drag },
   } = useNode();
 
+  const { enabled } = useEditor((state) => ({
+    enabled: state.options.enabled,
+  }));
+
   return (
     <Div
       {...props}
@@ -112,15 +116,26 @@ export const StackItemComponent: UserComponent<StackItemComponentProps> = ({
         }
       }}
     >
-      {children ? children : <EmptyStackItemContent></EmptyStackItemContent>}
+      {children ? (
+        children
+      ) : (
+        <EmptyStackItemContent enabled={enabled}></EmptyStackItemContent>
+      )}
     </Div>
   );
 };
 
-const EmptyStackItemContent = () => {
+const EmptyStackItemContent = ({ enabled }: { enabled: boolean }) => {
+  const enabledProps = enabled
+    ? {
+        className:
+          'empty-container-bg empty-container-size flex items-center justify-center',
+      }
+    : { style: { width: '100%' } };
+
   return (
-    <div className='empty-container-bg empty-container-size flex items-center justify-center'>
-      <span>Stack Item content</span>
+    <div {...enabledProps}>
+      {enabled ? <span>Stack Item content</span> : null}
     </div>
   );
 };

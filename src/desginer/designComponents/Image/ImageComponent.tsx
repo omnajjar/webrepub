@@ -86,12 +86,12 @@ const Image = styled.img`
 
 export interface ImageComponentProps
   extends React.HTMLAttributes<HTMLImageElement> {
-  src?: string;
+  imageSrc?: string;
   cssProps?: CSSProperties;
 }
 
 export const ImageComponent: UserComponent<ImageComponentProps> = ({
-  src,
+  imageSrc,
   ...props
 }) => {
   const {
@@ -106,8 +106,8 @@ export const ImageComponent: UserComponent<ImageComponentProps> = ({
           connect(drag(ref));
         }
       }}
-      src={src ?? PlaceHolderImage.src}
       {...props}
+      src={imageSrc ?? PlaceHolderImage.src}
     ></Image>
   );
 };
