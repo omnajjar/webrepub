@@ -34,7 +34,7 @@ export function BoxShadowStyleControls({
   const composeBoxShdowStyle = () =>
     `${shadowColorValue} ${xOffsetValue}px ${yOffsetValue}px ${blurValue}px ${spreadvalue}px`;
 
-  const handleBorderColorChange = (v: ColorResult) => {
+  const handleShadowColorChange = (v: ColorResult) => {
     setShadowColorValue(colorToCSSrgba(v));
 
     const nextStyles: CSSProperties = {
@@ -101,7 +101,7 @@ export function BoxShadowStyleControls({
                   <div className='flex justify-center'>
                     <ChromePicker
                       color={shadowColor}
-                      onChange={handleBorderColorChange}
+                      onChange={handleShadowColorChange}
                     />
                   </div>
                 ) : null}
