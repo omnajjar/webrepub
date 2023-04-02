@@ -17,7 +17,7 @@ export interface WebPageComponentProps
 
 const userConfiguredStyles = css<WebPageComponentProps>`
   background-color: ${(props) => props.cssProps?.backgroundColor};
-  min-height: ${(props) => (props.previwe ? '100vh' : 0)};
+  height: ${(props) => (props.previwe ? '100vh' : 0)};
 `;
 
 const Main = styled.main`

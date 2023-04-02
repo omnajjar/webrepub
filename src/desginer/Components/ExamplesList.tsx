@@ -6,6 +6,7 @@ import { EXAMPLES } from '@/desginer/contsants';
 
 import BlankImage from '~/images/examples/blank.png';
 import LayoutImage from '~/images/examples/layout.png';
+import MinimalBlogImage from '~/images/examples/minimal-blog.png';
 
 interface Example {
   title: string;
@@ -15,6 +16,13 @@ interface Example {
 }
 
 const examples: Example[] = [
+  {
+    title: 'Minimal Blog',
+    subtitle:
+      "A basic blog website uses 'Images', 'Link', and 'Stack' componets",
+    jsonContent: EXAMPLES.BLOG,
+    imageSrc: MinimalBlogImage.src,
+  },
   {
     title: 'Layout',
     subtitle: "Example page layout powered by 'Stack' & 'StackItem' components",
