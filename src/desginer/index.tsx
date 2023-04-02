@@ -7,7 +7,6 @@ import { FiExternalLink } from 'react-icons/fi';
 import {
   Button,
   Content,
-  CustomProvider,
   Divider,
   Panel,
   PanelGroup,
@@ -17,7 +16,7 @@ import {
 } from 'rsuite';
 import { Container } from 'rsuite';
 
-import { Drawer, ExamplesList, MenuButton } from '@/desginer/Components';
+import { Drawer, ExamplesList, Logo, MenuButton } from '@/desginer/Components';
 import { ComponentsBar } from '@/desginer/ComponentsBox';
 import { DesignViewport } from '@/desginer/DesignViewport';
 import { EditorContext } from '@/desginer/EditorContext';
@@ -27,8 +26,6 @@ import {
   ActionsComponent,
   HistoryComponent,
 } from '@/desginer/topbarComponents';
-
-import Logo from '~/svg/logo.svg';
 
 function Designer() {
   const { actions } = useEditor();
@@ -65,8 +62,8 @@ function Designer() {
               <Stack.Item basis='200px'>
                 <Stack justifyContent='center' alignItems='center'>
                   <Logo
-                    style={{ height: '32px', width: '64px' }}
-                    className='logo-shadow'
+                    scale={1}
+                    onClick={() => router.push('https://webrepub.com')}
                   ></Logo>
                 </Stack>
               </Stack.Item>
@@ -103,7 +100,6 @@ function Designer() {
                   <Stack.Item>
                     <Button
                       appearance='subtle'
-                      className='animate__animated animate__pulse'
                       startIcon={<FaGithub />}
                       endIcon={<FiExternalLink />}
                       size='sm'
@@ -111,7 +107,7 @@ function Designer() {
                       target='_blank'
                       style={{ color: '#fff', fontSize: '16px' }}
                     >
-                      Github
+                      Check it out on Github
                     </Button>
                   </Stack.Item>
                 </Stack>
@@ -204,16 +200,14 @@ function Designer() {
 
 export function WebRepubApp() {
   return (
-    <CustomProvider theme='dark'>
-      <GlobalSettingsProvider
-        settings={{
-          isInDesignMode: true,
-        }}
-      >
-        <EditorContext enabled={true}>
-          <Designer />
-        </EditorContext>
-      </GlobalSettingsProvider>
-    </CustomProvider>
+    <GlobalSettingsProvider
+      settings={{
+        isInDesignMode: true,
+      }}
+    >
+      <EditorContext enabled={true}>
+        <Designer />
+      </EditorContext>
+    </GlobalSettingsProvider>
   );
 }
