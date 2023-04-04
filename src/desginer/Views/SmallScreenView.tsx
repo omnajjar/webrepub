@@ -17,11 +17,11 @@ export function SmallScreenView() {
           <Logo scale={8}></Logo>
         </Stack.Item>
         <Stack.Item>
-          <div>
+          <div className='text-center'>
             <b>WebRepub</b> Page Editor is optimized to work on large screens!
           </div>
           <div className='text-center'>
-            Give it a try with once a large screen is available!
+            Give it a try once a large screen is available!
           </div>
           <div></div>
         </Stack.Item>
