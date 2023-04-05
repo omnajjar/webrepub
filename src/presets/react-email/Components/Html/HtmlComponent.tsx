@@ -1,8 +1,10 @@
-import { useEditor, useNode, UserComponent } from '@craftjs/core';
+import { useNode } from '@craftjs/core';
 import { Html, HtmlProps } from '@react-email/html';
 import { CSSProperties } from 'react';
+import { BsFiletypeHtml } from 'react-icons/bs';
 
 import { useGlobalSettings } from '@/desginer/Providers/GlobalSettings';
+import { WebrepubComponent } from '@/desginer/typings/webrepub';
 import { HtmlComponentSettings } from '@/presets/react-email/Components/Html/HtmlComponentSettings';
 
 const defaultConfiguredStyles: CSSProperties = {
@@ -13,7 +15,7 @@ export interface HtmlComponentProps extends HtmlProps {
   previwe: boolean;
 }
 
-export const HTMLComponent: UserComponent<HtmlComponentProps> = ({
+export const HTMLComponent: WebrepubComponent<HtmlComponentProps> = ({
   children,
   style,
   ...props
@@ -21,9 +23,6 @@ export const HTMLComponent: UserComponent<HtmlComponentProps> = ({
   const {
     connectors: { connect },
   } = useNode();
-  const { enabled: _enabled } = useEditor((state) => ({
-    enabled: state.options.enabled,
-  }));
 
   const {
     settings: { isInDesignMode: _isInDesignMode },
@@ -62,3 +61,5 @@ HTMLComponent.craft = {
     settings: HtmlComponentSettings,
   },
 };
+
+HTMLComponent.icon = <BsFiletypeHtml />;
