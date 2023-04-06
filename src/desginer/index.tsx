@@ -21,7 +21,6 @@ import { ComponentsBar } from '@/desginer/ComponentsBox';
 import { DesignViewport } from '@/desginer/DesignViewport';
 import { EditorContext } from '@/desginer/EditorContext';
 import { PropertiesBox } from '@/desginer/PropertiesBox';
-import { GlobalSettingsProvider } from '@/desginer/Providers/GlobalSettings';
 import {
   ActionsComponent,
   HistoryComponent,
@@ -200,14 +199,8 @@ function Designer() {
 
 export function WebRepubApp() {
   return (
-    <GlobalSettingsProvider
-      settings={{
-        isInDesignMode: true,
-      }}
-    >
-      <EditorContext enabled={true}>
-        <Designer />
-      </EditorContext>
-    </GlobalSettingsProvider>
+    <EditorContext enabled={true}>
+      <Designer />
+    </EditorContext>
   );
 }

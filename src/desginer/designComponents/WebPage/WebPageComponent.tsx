@@ -3,7 +3,7 @@ import { CSSProperties, useEffect, useState } from 'react';
 import styled, { css, CSSObject } from 'styled-components';
 
 import { WebPageComponentSettings } from '@/desginer/designComponents/WebPage/WebPageComponentSettings';
-import { useGlobalSettings } from '@/desginer/Providers/GlobalSettings';
+import { useWebrepub } from '@/desginer/Providers/webrepub';
 
 const defaultConfiguredStyles: CSSObject = {
   backgroundColor: '#fff',
@@ -44,7 +44,7 @@ export const WebPageComponent: UserComponent<WebPageComponentProps> = ({
 
   const {
     settings: { isInDesignMode },
-  } = useGlobalSettings();
+  } = useWebrepub();
 
   useEffect(() => {
     if (!window) {

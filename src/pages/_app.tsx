@@ -6,12 +6,26 @@ import '@/styles/globals.css';
 import 'rsuite/dist/rsuite.min.css';
 import '@/styles/designer.css';
 
+import { WebrepubProvider } from '@/desginer/Providers/webrepub';
+import { getPresets } from '@/presets';
+import ReactEmailPreset from '@/presets/react-email';
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <CustomProvider theme='dark'>
-      <Component {...pageProps} />
-      <Analytics />
-    </CustomProvider>
+    <WebrepubProvider
+      settings={{
+        isInDesignMode: true,
+      }}
+      presets={{
+        collection: getPresets(),
+        currentPreset: ReactEmailPreset,
+      }}
+    >
+      <CustomProvider theme='dark'>
+        <Component {...pageProps} />
+        <Analytics />
+      </CustomProvider>
+    </WebrepubProvider>
   );
 }
 

@@ -3,7 +3,7 @@ import { Html, HtmlProps } from '@react-email/html';
 import { CSSProperties } from 'react';
 import { BsFiletypeHtml } from 'react-icons/bs';
 
-import { useGlobalSettings } from '@/desginer/Providers/GlobalSettings';
+import { useWebrepub } from '@/desginer/Providers/webrepub';
 import { WebrepubComponent } from '@/desginer/typings/webrepub';
 import { HtmlComponentSettings } from '@/presets/react-email/Components/Html/HtmlComponentSettings';
 
@@ -26,7 +26,7 @@ export const HTMLComponent: WebrepubComponent<HtmlComponentProps> = ({
 
   const {
     settings: { isInDesignMode: _isInDesignMode },
-  } = useGlobalSettings();
+  } = useWebrepub();
 
   return (
     <Html

@@ -1,34 +1,24 @@
-import { useEffect, useState } from 'react';
+import { Divider, Stack } from 'rsuite';
 
-import { WebRepubApp } from '@/desginer';
-import { isMobileDevice, isSmallScreen } from '@/desginer/utils/screen';
-import { LoadingView, SmallScreenView } from '@/desginer/Views';
+import { Logo } from '@/desginer/Components';
+import { PresetList } from '@/desginer/Components/PresetList';
 
 export default function HomePage() {
-  const [loading, setLoading] = useState(true);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    setLoading(false);
-
-    const checkIsDesktop = () =>
-      setIsDesktop(!isMobileDevice() && !isSmallScreen());
-
-    checkIsDesktop();
-    window.addEventListener('resize', checkIsDesktop);
-
-    return () => {
-      window.removeEventListener('resize', checkIsDesktop);
-    };
-  }, []);
-
-  if (loading) {
-    return <LoadingView></LoadingView>;
-  }
-
-  if (isDesktop) {
-    return <WebRepubApp />;
-  }
-
-  return <SmallScreenView />;
+  return (
+    <div className='w-screen'>
+      <Stack direction='column' alignItems='center' justifyContent='center'>
+        <Stack.Item>
+          <Logo scale={4}></Logo>
+        </Stack.Item>
+        <Stack.Item>
+          <h4 className='text-center'>Presets</h4>
+          <p className='text-center'>select a preset</p>
+        </Stack.Item>
+        <Stack.Item alignSelf='stretch'>
+          <Divider></Divider>
+          <PresetList />
+        </Stack.Item>
+      </Stack>
+    </div>
+  );
 }
