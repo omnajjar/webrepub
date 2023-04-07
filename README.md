@@ -1,5 +1,3 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/omnajjar/webrepub/pull/73 -->
-
 <a name="readme-top"></a>
 
 <!--
@@ -48,6 +46,8 @@
     <a href="https://github.com/omnajjar/webrepub/issues">Request Feature</a>
   </p>
 </div>
+
+[![Product Name Screen Shot][product-screenshot]](https://webrepub.com)
 
 <!-- TABLE OF CONTENTS -->
 <details>
