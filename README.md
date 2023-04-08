@@ -166,7 +166,7 @@ Use this space to list resources you find helpful and would like to give credit 
 - [React Suite](https://rsuitejs.com)
 - [Img Shields](https://shields.io)
 - [Craft JS](https://craft.js.org)
-- [Styled Components] (https://styled-components.com/)
+- [Styled Components](https://styled-components.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
