@@ -76,11 +76,12 @@
 </details>
 
 ### Built With
-
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-- [![Next][Next.js]][Next-url]
 - [![React][React.js]][React-url]
+- [![Next][Next.js]][Next-url]
+- [![Typescript][Typescript]][Typescript]
+- [![Node][Node]][Node]
+- [![StyledComponents][StyledComponents]][StyledComponents]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -88,16 +89,11 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
 In order to run webrepub app locally you need to have [Nodejs](https://nodejs.org/) & `npm` on your machine.
 
 ### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
 1. Clone the repo
    ```sh
@@ -166,9 +162,11 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/om
 
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
-- [Img Shields](https://shields.io)
-- [Font Awesome](https://fontawesome.com)
 - [React Icons](https://react-icons.github.io/react-icons/search)
+- [React Suite](https://rsuitejs.com)
+- [Img Shields](https://shields.io)
+- [Craft JS](https://craft.js.org)
+- [Styled Components] (
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -191,6 +189,9 @@ Use this space to list resources you find helpful and would like to give credit 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[Typescript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
+[Node]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
+[StyledComponents]: https://img.shields.io/badge/styledcomponents-20232A?style=for-the-badge&logo=styledcomponents&logoColor=pink
 [React-url]: https://reactjs.org/
 [Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
 [Vue-url]: https://vuejs.org/
