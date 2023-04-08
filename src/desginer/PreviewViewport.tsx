@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { FaHome } from 'react-icons/fa';
+import { TiArrowBack } from 'react-icons/ti';
 import styled from 'styled-components';
 
 import { EditorContext } from '@/desginer/EditorContext';
 import { PreviewFrame } from '@/desginer/frames/PreviewFrame';
-import { GlobalSettingsProvider } from '@/desginer/Providers/GlobalSettings';
 
 const FloatingButton = styled.button`
   position: fixed;
@@ -33,11 +32,11 @@ const FloatingButton = styled.button`
 function GoHomeButton() {
   const router = useRouter();
 
-  const goHome = () => router.push('/');
+  const goHome = () => router.push('/editor');
 
   return (
     <FloatingButton onClick={goHome}>
-      <FaHome style={{ marginTop: '5px' }} />
+      <TiArrowBack style={{ marginTop: '5px' }} />
     </FloatingButton>
   );
 }
@@ -49,11 +48,9 @@ export function PreviewViewport() {
   }, []);
   return (
     <>
-      <GlobalSettingsProvider settings={{ isInDesignMode: false }}>
-        <EditorContext enabled={false}>
-          <PreviewFrame></PreviewFrame>
-        </EditorContext>
-      </GlobalSettingsProvider>
+      <EditorContext enabled={false}>
+        <PreviewFrame></PreviewFrame>
+      </EditorContext>
       {documentReady
         ? ReactDOM.createPortal(<GoHomeButton />, document.body)
         : null}
