@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
-import { WebrepubPreset } from '@/desginer/typings/webrepub';
+import { WebrepubPreset } from '@/desginer/types/webrepub';
 import { ensure } from '@/utils';
 
 interface WebrepubConfigurations {

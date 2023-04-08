@@ -1,4 +1,4 @@
-import { WebrepubPreset } from '@/desginer/typings/webrepub';
+import { WebrepubPreset } from '@/desginer/types/webrepub';
 import ReactEmailPreset from '@/presets/react-email';
 
 export function getPresets(): WebrepubPreset[] {

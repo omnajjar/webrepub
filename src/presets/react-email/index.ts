@@ -1,4 +1,4 @@
-import { WebrepubPreset } from '@/desginer/typings/webrepub';
+import { WebrepubPreset } from '@/desginer/types/webrepub';
 import { HTMLComponent } from '@/presets/react-email/Components';
 
 const preset: WebrepubPreset = {

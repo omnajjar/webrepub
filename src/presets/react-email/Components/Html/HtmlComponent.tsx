@@ -4,7 +4,7 @@ import { CSSProperties } from 'react';
 import { BsFiletypeHtml } from 'react-icons/bs';
 
 import { useWebrepub } from '@/desginer/Providers/webrepub';
-import { WebrepubComponent } from '@/desginer/typings/webrepub';
+import { WebrepubComponent } from '@/desginer/types/webrepub';
 import { HtmlComponentSettings } from '@/presets/react-email/Components/Html/HtmlComponentSettings';
 
 const defaultConfiguredStyles: CSSProperties = {
@@ -62,4 +62,4 @@ HTMLComponent.craft = {
   },
 };
 
-HTMLComponent.icon = <BsFiletypeHtml />;
+HTMLComponent.icon = BsFiletypeHtml;

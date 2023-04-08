@@ -1,6 +1,6 @@
 import { Panel, Placeholder } from 'rsuite';
 
-import { WebrepubPreset } from '@/desginer/typings/webrepub';
+import { WebrepubPreset } from '@/desginer/types/webrepub';
 
 interface PresetCardProps extends Pick<WebrepubPreset, 'name'> {
   onClick: () => void;
