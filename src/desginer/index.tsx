@@ -1,13 +1,14 @@
 import { useEditor } from '@craftjs/core';
 import { Layers } from '@craftjs/layers';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { FiExternalLink } from 'react-icons/fi';
 import {
   Button,
   Content,
   Divider,
+  Modal,
   Panel,
   PanelGroup,
   Stack,
@@ -15,6 +16,7 @@ import {
   Whisper,
 } from 'rsuite';
 import { Container } from 'rsuite';
+import styled from 'styled-components';
 
 import { Drawer, ExamplesList, Logo, MenuButton } from '@/desginer/Components';
 import { ComponentsBar } from '@/desginer/ComponentsBox';
@@ -27,16 +29,108 @@ import {
   HistoryComponent,
 } from '@/desginer/topbarComponents';
 
+export function WebRepubApp() {
+  return (
+    <GlobalSettingsProvider
+      settings={{
+        isInDesignMode: true,
+      }}
+    >
+      <EditorContext enabled={true}>
+        <Designer />
+      </EditorContext>
+    </GlobalSettingsProvider>
+  );
+}
+
+const DevelopmentBadge = styled.span`
+  position: absolute;
+  left: 20px;
+  bottom: -20px;
+  z-index: 100;
+  width: 160px;
+  padding: 4px;
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 20px;
+  background-image: linear-gradient(
+    to right,
+    #ff8008 0%,
+    #ffc837 51%,
+    #ff8008 100%
+  );
+  background-size: 200% auto;
+  transition: 0.5s;
+  cursor: pointer;
+  &:hover {
+    background-position: right center;
+  }
+`;
+
+function DisclaimerModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  return (
+    <Modal size='md' open={open} onClose={onClose}>
+      <Modal.Header>
+        <Modal.Title>
+          <h4> 🛠️ Disclaimer - Work In Progress 🏗️</h4>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>
+          Welcome to Webrepub! <br />
+          <br /> As we're still in the process of developing this app, we can't
+          guarantee that everything will be perfect, but we promise to do our
+          best to make it awesome.
+          <br />
+          <br />
+          Please bear with us as we work to improve Webrepub and bring you new
+          and exciting features. We're confident that you'll love what we have
+          in store for the future.
+          <br />
+          <br />
+          Thank you for your support and for being a part of the Webrepub
+          community! ❤️
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={onClose} appearance='primary'>
+          Ok
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
 function Designer() {
-  const { actions } = useEditor();
+  const {
+    actions: { clearEvents },
+  } = useEditor();
   const [propsBoxHeight, setPropsBoxHeight] = useState('100%');
   const [isExamplesDrawerOpen, setIsExamplesDrawerOpen] = useState(false);
 
-  const openExamplesDrawer = () => {
-    actions.clearEvents();
+  const [isDisclaimerOpen, setDisclaimerOpen] = useState(false);
+
+  const openDisclaimer = useCallback(() => {
+    clearEvents();
+    setDisclaimerOpen(true);
+  }, [setDisclaimerOpen, clearEvents]);
+
+  const openExamplesDrawer = useCallback(() => {
+    clearEvents();
     setIsExamplesDrawerOpen(true);
-  };
-  const closeExamplesDrawer = () => setIsExamplesDrawerOpen(false);
+  }, [setIsExamplesDrawerOpen, clearEvents]);
+
+  const closeExamplesDrawer = useCallback(() => {
+    setIsExamplesDrawerOpen(false);
+  }, [setIsExamplesDrawerOpen]);
 
   const router = useRouter();
 
@@ -46,6 +140,7 @@ function Designer() {
 
   useEffect(() => {
     setPropsBoxHeight(`${window.innerHeight - 56 - 300}px`); // 56 topbar, 300 layers.
+    setDisclaimerOpen(true);
   }, []);
 
   return (
@@ -60,11 +155,18 @@ function Designer() {
               alignItems='center'
             >
               <Stack.Item basis='200px'>
-                <Stack justifyContent='center' alignItems='center'>
+                <Stack
+                  justifyContent='center'
+                  alignItems='center'
+                  style={{ position: 'relative' }}
+                >
                   <Logo
                     scale={1}
                     onClick={() => router.push('https://webrepub.com')}
                   ></Logo>
+                  <DevelopmentBadge onClick={openDisclaimer}>
+                    Under Development 🛠️
+                  </DevelopmentBadge>
                 </Stack>
               </Stack.Item>
 
@@ -194,20 +296,10 @@ function Designer() {
       >
         <ExamplesList onItemClick={closeExamplesDrawer} />
       </Drawer>
+      <DisclaimerModal
+        open={isDisclaimerOpen}
+        onClose={() => setDisclaimerOpen(false)}
+      />
     </>
-  );
-}
-
-export function WebRepubApp() {
-  return (
-    <GlobalSettingsProvider
-      settings={{
-        isInDesignMode: true,
-      }}
-    >
-      <EditorContext enabled={true}>
-        <Designer />
-      </EditorContext>
-    </GlobalSettingsProvider>
   );
 }
