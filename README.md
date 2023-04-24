@@ -152,15 +152,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Osama Najjar - osama.najjar@webrepub.com | osama.najjar.m@gmail.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/omnajjar/webrepub)
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
 
 ## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
 - [React Icons](https://react-icons.github.io/react-icons/search)
 - [React Suite](https://rsuitejs.com)
