@@ -81,7 +81,7 @@ function DisclaimerModal({
     <Modal size='md' open={open} onClose={onClose}>
       <Modal.Header>
         <Modal.Title>
-          <h4> 🛠️ Disclaimer - Work In Progress 🏗️</h4>
+          <h4>⚠️ Disclaimer - Work In Progress 🏗️</h4>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
