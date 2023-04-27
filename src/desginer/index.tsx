@@ -2,6 +2,7 @@ import { useEditor } from '@craftjs/core';
 import { Layers } from '@craftjs/layers';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
+import { BsArrowsFullscreen } from 'react-icons/bs';
 import { FaGithub } from 'react-icons/fa';
 import { FiExternalLink } from 'react-icons/fi';
 import {
@@ -182,8 +183,13 @@ function Designer() {
                           size='sm'
                           className='fancy-grad'
                           onClick={openPreviewPage}
+                          endIcon={
+                            <BsArrowsFullscreen
+                              style={{ position: 'relative', top: '2px' }}
+                            />
+                          }
                         >
-                          Preview
+                          Full screen view
                         </Button>
                       </Stack.Item>
                     </Stack>
